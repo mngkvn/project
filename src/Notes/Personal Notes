@@ -1,0 +1,2 @@
+When constructing Fixtures, after declaring the appbundle entity path, you can pass a "unique string" as a name
+of the table. e.g. Table name is "Production", you can use "Production_ / Production__" as a holder.
