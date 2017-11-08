@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+        {% for data in photoRequest %}
+            <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

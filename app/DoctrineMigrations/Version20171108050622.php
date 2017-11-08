@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20171107165201 extends AbstractMigration
+class Version20171108050622 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,7 +18,7 @@ class Version20171107165201 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE photorequest CHANGE number_of_products quantity INT NOT NULL');
+        $this->addSql('ALTER TABLE PhotoRequest ADD is_active TINYINT(1) NOT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20171107165201 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE PhotoRequest CHANGE quantity number_of_products INT NOT NULL');
+        $this->addSql('ALTER TABLE PhotoRequest DROP is_active');
     }
 }

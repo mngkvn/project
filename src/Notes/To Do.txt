@@ -1,0 +1,1 @@
+Check admin before rendering admin routes else render notFound Routes.

@@ -1,0 +1,14 @@
+Appbundle\Entity\RequestEntity\PhotoRequestEntity:
+  PhotoRequest_{1..20}:
+    name: <name()>
+    email: <email()>
+    company: <domainName()>
+    contactNumber: <e164PhoneNumber()>
+    message: <sentence()>
+    type: <randomElement(['photo','video','design'])>
+    quantity: <numberBetween(1,999)>
+    platform: <randomElement(['ebay','amazon','craigslist'])>
+    postedAt: <dateTimeAD()>
+    isActive: <boolean(70)>
+
+

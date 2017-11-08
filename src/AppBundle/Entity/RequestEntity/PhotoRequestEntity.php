@@ -6,7 +6,7 @@
  * Time: 9:05 AM
  */
 
-namespace AppBundle\Entity\RequestFormEntity;
+namespace AppBundle\Entity\RequestEntity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -62,4 +62,13 @@ class PhotoRequestEntity extends DefaultRequestEntity
     {
         $this->platform = $platform;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 }

@@ -6,7 +6,7 @@
  * Time: 8:44 AM
  */
 
-namespace AppBundle\Entity\RequestFormEntity;
+namespace AppBundle\Entity\RequestEntity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +14,7 @@ use \DateTime;
 
 /**
  * Class DefaultRequestEntity
- * @package AppBundle\Entity\RequestFormEntity
+ * @package AppBundle\Entity\RequestEntity
  * @ORM\MappedSuperclass()
  */
 class DefaultRequestEntity
@@ -43,6 +43,15 @@ class DefaultRequestEntity
      * @ORM\Column(type="datetime")
      */
     private $postedAt;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
 
     /**
      * @return mixed
@@ -111,13 +120,6 @@ class DefaultRequestEntity
     /**
      * @return mixed
      */
-    public function getPostedAt()
-    {
-        return $this->postedAt;
-    }
-    /**
-     * @return mixed
-     */
     public function getType()
     {
         return $this->type;
@@ -129,13 +131,33 @@ class DefaultRequestEntity
     {
         $this->type = $type;
     }
-
     /**
      * @param mixed $postedAt
      */
-    public function setPostedAt()
+    public function setPostedAt($postedAt)
     {
-        $this->postedAt = new DateTime();
+        $this->postedAt = $postedAt;
+    }
+    /**
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }/**
+     * @param mixed $company
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+    }
+
+    /**
+     * @param mixed $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
     }
 
 }

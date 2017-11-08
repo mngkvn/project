@@ -1,2 +1,31 @@
 When constructing Fixtures, after declaring the appbundle entity path, you can pass a "unique string" as a name
 of the table. e.g. Table name is "Production", you can use "Production_ / Production__" as a holder.
+
+Alice 3.x no longer ships with a persistence layer, so this library provides one!
+composer require --dev theofidry/alice-data-fixtures:^1.0@beta doctrine/orm:^2.5 doctrine/data-fixtures
+To be used for pushing faker data to database after generating one using Alice/Faker
+
+TWIG
+Twig doesn't care if you have no specific field in the database, all it cares about is the getter specified propery
+of the class even the data is not in the database.
+
+{% %} - Do some actions / extend / block ; {{}} - just print.
+
+DOCTRINE MIGRATIONS BUNDLE
+Will let you see the query before applying it and the versions of altered , new , dropped database created.
+You can revert or apply changes and it will only save the structure of the database not the whole data that lives in it.
+More safer for migrating to production but definitely need to learn more on how it works.
+
+404 EXCEPTIONS
+If query does not return a match, just render an html 404 page.
+
+DOCTRINE FIXTURES BUNDLE / FIXTURES / DUMMY DATA
+Helps populate dummy data on the database for developers and easy testing.
+Put this on the test environment on AppKernel.
+Default Directory Path : src/AppBundle/DataFixtures/ORM/
+
+NELMIO / ALICE
+$bundles[] = new Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle() for configuration
+
+REQUEST IDS
+Adding a method called getId to generate requests link for Production View.
