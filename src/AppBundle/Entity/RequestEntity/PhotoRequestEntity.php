@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="PhotoRequest")
  */
-class PhotoRequestEntity extends DefaultRequestEntity
+class PhotoRequestEntity extends RequestEntity
 {
     /**
      * @ORM\Id

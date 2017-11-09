@@ -13,11 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 use \DateTime;
 
 /**
- * Class DefaultRequestEntity
+ * Class RequestEntity
  * @package AppBundle\Entity\RequestEntity
  * @ORM\MappedSuperclass()
  */
-class DefaultRequestEntity
+class RequestEntity
 {
     /**
      * @ORM\Column(type="string")

@@ -15,15 +15,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class PhotoController extends Controller
 {
     /**
-     * @Route("photoRequestList", name = "photoRequestList")
+     * @Route("photoRequest/list", name = "photoRequestList")
      */
-    public function renderList(){
+    public function renderPhotoRequestList()
+    {
         $getManager = $this->getDoctrine()->getManager();
         $getEntity = $getManager->getRepository("AppBundle:RequestEntity\PhotoRequestEntity");
         $getData = $getEntity->findAll();
 
         return $this->render(":RequestView/PhotoView:photoRequestList.html.twig",[
             "photoRequest" => $getData
+        ]);
+    }
+
+    /**
+     * @Route("photoRequest/{id}", name = "photoRequestView")
+     */
+    public function renderPhotoRequestView($id)
+    {
+        $getManager = $this->getDoctrine()->getManager();
+        $getEntity = $getManager->getRepository("AppBundle:RequestEntity\PhotoRequestEntity");
+        $getData = $getEntity->findOneBy(['id' => $id]);
+
+        return $this->render("RequestView/PhotoView/photoRequestView.html.twig",[
+            'data' => $getData,
         ]);
     }
 }
