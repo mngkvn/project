@@ -20,7 +20,7 @@ class PhotoRequestEntity extends RequestEntity
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer")`
      */
     private $id;
     /**

@@ -16,7 +16,7 @@ class RequestFixture extends Controller implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $dummyFilePath =[__DIR__ . '/PhotoFixture.yml'];
+        $dummyFilePath =[__DIR__ . '/Fixtures.yml'];
         $loader = $this->get('fidry_alice_data_fixtures.doctrine.loader');
         $loader->load($dummyFilePath);
     }

@@ -9,13 +9,14 @@
 namespace AppBundle\Controller\RequestController;
 
 
+use AppBundle\Form\PhotoRequestForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PhotoController extends Controller
 {
     /**
-     * @Route("photoRequest/list", name = "photoRequestList")
+     * @Route("photo/request/list", name = "photoRequestList")
      */
     public function renderPhotoRequestList()
     {
@@ -29,7 +30,17 @@ class PhotoController extends Controller
     }
 
     /**
-     * @Route("photoRequest/{id}", name = "photoRequestView")
+     * @Route("photo/request/form", name = "photoRequestForm")
+     */
+    public function renderPhotoRequestForm(){
+        $form = $this->createForm(PhotoRequestForm::class);
+        return $this->render("FormView/PhotoForm.html.twig",[
+            'photoRequestForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("photo/request/{id}", name = "photoRequestView")
      */
     public function renderPhotoRequestView($id)
     {
@@ -41,4 +52,5 @@ class PhotoController extends Controller
             'data' => $getData,
         ]);
     }
+
 }
