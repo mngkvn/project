@@ -53,6 +53,12 @@ class RequestEntity
      */
     private $isActive;
 
+    public function __construct()
+    {
+        $this->postedAt = new DateTime();
+        $this->isActive = 1;
+    }
+
     /**
      * @return mixed
      */
@@ -136,7 +142,7 @@ class RequestEntity
      */
     public function setPostedAt($postedAt)
     {
-        $this->postedAt = $postedAt;
+        isset($postedAt) ? $this->postedAt = $postedAt : $this->postedAt = new DateTime();
     }
     /**
      * @return mixed
@@ -155,9 +161,8 @@ class RequestEntity
     /**
      * @param mixed $isActive
      */
-    public function setIsActive($isActive)
+    public function setIsActive($isActive = 1)
     {
         $this->isActive = $isActive;
     }
-
 }
