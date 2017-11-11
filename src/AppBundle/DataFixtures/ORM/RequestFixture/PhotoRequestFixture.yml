@@ -10,16 +10,3 @@ Appbundle\Entity\RequestEntity\PhotoRequestEntity:
     platform: <randomElement(['ebay','amazon','craigslist'])>
     postedAt: <dateTimeBetween('12 months', 'now')>
     isActive: <boolean(70)>
-
-Appbundle\Entity\RequestEntity\PhotoRequestEntity:
-  VideoRequest_{1..20}:
-    name: <name()>
-    email: <email()>
-    company: <domainName()>
-    contactNumber: <e164PhoneNumber()>
-    message: <sentence()>
-    type: <randomElement(['photo','video','design'])>
-    quantity: <numberBetween(1,999)>
-    platform: <randomElement(['ebay','amazon','craigslist'])>
-    postedAt: <dateTime('9 months', 'now'>
-    isActive: <boolean(70)>

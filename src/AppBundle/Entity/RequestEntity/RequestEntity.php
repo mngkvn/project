@@ -20,6 +20,16 @@ use \DateTime;
 class RequestEntity
 {
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantity;
+    /**
      * @ORM\Column(type="string")
      */
     private $name;
@@ -165,4 +175,30 @@ class RequestEntity
     {
         $this->isActive = $isActive;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
 }
