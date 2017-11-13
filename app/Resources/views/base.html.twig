@@ -7,6 +7,14 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <ul>
+            <li><a href="{{ path("photo-request-form") }}">Photo Form</a></li>
+            <li><a href="{{ path("video-request-form") }}">Video Form</a></li>
+            <li><a href="{{ path("package-design-request-form") }}">Package Design Form</a></li>
+            <li><a href="{{ path("product-design-request-form") }}">Product Design Form</a></li>
+            <li><a href="{{ path("b2b-marketing-request-form") }}">B2B Marketing Form</a></li>
+            <li><a href="{{ path("marketing-sales-request-form") }}"> Marketing Sales Form</a></li>
+        </ul>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

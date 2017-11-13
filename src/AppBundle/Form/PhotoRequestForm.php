@@ -9,26 +9,30 @@
 namespace AppBundle\Form;
 
 
-use Symfony\Component\Form\AbstractType;
+use AppBundle\Entity\RequestEntity\PhotoRequestEntity;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PhotoRequestForm extends AbstractType
+class PhotoRequestForm extends RequestForm
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('requestForm',RequestForm::class,[
-                'data_class' => PhotoRequestForm::class,
-            ])
-            ->add('platform',TextType::class);
+            ->add('requestForm',RequestForm::class)
+            ->add('platform',TextType::class)
+            ->add('submit',SubmitType::class,[
+                "attr" => [
+                    "formnovalidate" => "formnovalidate"
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\RequestEntity\PhotoRequestEntity',
+            'data_class' => PhotoRequestEntity::class,
         ]);
     }
 }

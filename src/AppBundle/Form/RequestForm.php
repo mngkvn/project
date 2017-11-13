@@ -33,7 +33,8 @@ class RequestForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'inherit_data' => true
+            'inherit_data' => true,
+            'label' => false,
         ]);
     }
 }

@@ -7,5 +7,5 @@ Appbundle\Entity\RequestEntity\PackageDesignRequestEntity:
     message: <sentence()>
     type: <randomElement(['photo','video','design'])>
     quantity: <numberBetween(1,999)>
-    postedAt: <dateTimeBetween('9 months', 'now')>
+    postedAt: <dateTimeBetween('-9 months', 'now')>
     isActive: <boolean(70)>

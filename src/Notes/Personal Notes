@@ -32,3 +32,4 @@ Adding a method called getId to generate requests link for Production View.
 
 FORMS
 $form->handleRequest($request) ONLY HANDLES DATA for POST. If it's a GET it's just render the form but not submit it.
+Added formnovalidate on every request form

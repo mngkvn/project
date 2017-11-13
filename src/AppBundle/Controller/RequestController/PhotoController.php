@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class PhotoController extends Controller
 {
     /**
-     * @Route("photo/request/list", name = "photoRequestList")
+     * @Route("photo/list", name = "photo-request-list")
      */
     public function renderPhotoRequestList()
     {
@@ -29,7 +29,7 @@ class PhotoController extends Controller
     }
 
     /**
-     * @Route("photo/request/{id}", name = "photoRequestView")
+     * @Route("photo/{id}", name = "photo-request-view")
      */
     public function renderPhotoRequestView($id)
     {

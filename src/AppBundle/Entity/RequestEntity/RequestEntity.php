@@ -11,6 +11,7 @@ namespace AppBundle\Entity\RequestEntity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class RequestEntity
@@ -26,14 +27,21 @@ class RequestEntity
      */
     private $id;
     /**
+     * @Assert\NotBlank(message="Product quantity is required.")
+     * @Assert\Type("integer")
+     * @Assert\Range(min="0", max="10000",minMessage="At least 1 quantity needed.", maxMessage="Quantity cannot exceed 10,000.")
      * @ORM\Column(type="integer")
      */
     private $quantity;
     /**
+     * @Assert\NotBlank(message="Your name is required.")
+     * @Assert\Type("string", message="Your name cannot contain numbers or symbols.")
+     * @Assert\Length(min="1", max="100", maxMessage="Your name cannot exceed 100 characters.")
      * @ORM\Column(type="string")
      */
     private $name;
     /**
+     * @Assert\Email()
      * @ORM\Column(type="string")
      */
     private $email;

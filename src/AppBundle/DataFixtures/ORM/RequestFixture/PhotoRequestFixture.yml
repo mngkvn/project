@@ -8,5 +8,5 @@ Appbundle\Entity\RequestEntity\PhotoRequestEntity:
     type: <randomElement(['photo','video','design'])>
     quantity: <numberBetween(1,999)>
     platform: <randomElement(['ebay','amazon','craigslist'])>
-    postedAt: <dateTimeBetween('12 months', 'now')>
+    postedAt: <dateTimeBetween('-12 months', 'now')>
     isActive: <boolean(70)>
