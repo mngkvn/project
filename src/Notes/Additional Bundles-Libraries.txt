@@ -7,3 +7,4 @@ nelmio/alice
 theofidry/alice-data-fixtures:^1.0@beta
 doctrine/orm:^2.5
 doctrine/data-fixtures
+misd/phone-number-bundle

@@ -4,3 +4,6 @@
  via __constructor(). Put the Setter for Alice Data Fixtures.
 **Remove the type field from entities and database?
 **Routes must be lowercased and use ( - ) to seperate two words
+**Fix phone number form field
+*Add js client side validation for faster error checking ??
+**Tie the type on to ManyToOne form relationship.

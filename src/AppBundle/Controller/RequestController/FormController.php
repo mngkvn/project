@@ -29,7 +29,12 @@ class FormController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            dump($form->getData());die;
+            $formData = $form->getData();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($formData);
+            $manager->flush();
+            $this->addFlash('success','Photo request inserted!');
+            return $this->redirectToRoute("photo-request-form");
         }
         return $this->render("FormView/PhotoForm.html.twig",[
             'photoRequestForm' => $form->createView()

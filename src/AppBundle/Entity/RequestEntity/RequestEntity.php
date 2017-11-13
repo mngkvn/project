@@ -12,6 +12,7 @@ namespace AppBundle\Entity\RequestEntity;
 use Doctrine\ORM\Mapping as ORM;
 use \DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 
 /**
  * Class RequestEntity
@@ -29,27 +30,48 @@ class RequestEntity
     /**
      * @Assert\NotBlank(message="Product quantity is required.")
      * @Assert\Type("integer")
-     * @Assert\Range(min="0", max="10000",minMessage="At least 1 quantity needed.", maxMessage="Quantity cannot exceed 10,000.")
+     * @Assert\Range(
+     *     min="0",
+     *     max="10000",
+     *     minMessage="At least 1 quantity needed.",
+     *     maxMessage="Quantity cannot exceed 10,000.",
+     *     invalidMessage="Please put a realistic quantity."
+     * )
      * @ORM\Column(type="integer")
      */
     private $quantity;
     /**
      * @Assert\NotBlank(message="Your name is required.")
-     * @Assert\Type("string", message="Your name cannot contain numbers or symbols.")
-     * @Assert\Length(min="1", max="100", maxMessage="Your name cannot exceed 100 characters.")
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *     min="1",
+     *     max="100",
+     *     maxMessage="Your name is too long."
+     * )
      * @ORM\Column(type="string")
      */
     private $name;
     /**
-     * @Assert\Email()
+     * @Assert\NotBlank(message="Your email is required.")
+     * @Assert\Email(message="Please provide a valid email address.")
      * @ORM\Column(type="string")
      */
     private $email;
     /**
-     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Your contact number is required.")
+     * @AssertPhoneNumber
+     *
+     * @ORM\Column(type="phone_number")
      */
     private $contactNumber;
     /**
+     * @Assert\NotBlank(message="Please describe or summarize your request.")
+     * @Assert\Length(
+     *     min = 15,
+     *     max = 5000,
+     *     minMessage="Describe your request more clearly.",
+     *     maxMessage="Summarize your request"
+     * )
      * @ORM\Column(type="text")
      */
     private $message;
@@ -62,7 +84,10 @@ class RequestEntity
      */
     private $postedAt;
     /**
-     * @ORM\Column(type="string")
+     * @Assert\Length(
+     *     max = "100"
+     * )
+     * @ORM\Column(type="string",nullable=true)
      */
     private $company;
 
@@ -168,7 +193,8 @@ class RequestEntity
     public function getCompany()
     {
         return $this->company;
-    }/**
+    }
+    /**
      * @param mixed $company
      */
     public function setCompany($company)

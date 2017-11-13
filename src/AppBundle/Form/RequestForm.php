@@ -8,6 +8,8 @@
 
 namespace AppBundle\Form;
 
+
+use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -15,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class RequestForm extends AbstractType
 {
@@ -24,7 +27,7 @@ class RequestForm extends AbstractType
             ->add('name',TextType::class)
             ->add('company',TextType::class)
             ->add('email',EmailType::class)
-            ->add('contactNumber',TextType::class)
+            ->add('contactNumber',PhoneNumberType::class)
             ->add('message',TextareaType::class)
             ->add('type',TextType::class)
             ->add('quantity',IntegerType::class);

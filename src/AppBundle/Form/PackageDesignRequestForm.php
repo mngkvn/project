@@ -3,12 +3,11 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\RequestEntity\PackageDesignRequestEntity;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PackageDesignRequestForm extends AbstractType
+class PackageDesignRequestForm extends RequestForm
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
