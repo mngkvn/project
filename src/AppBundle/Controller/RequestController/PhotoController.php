@@ -9,6 +9,8 @@
 namespace AppBundle\Controller\RequestController;
 
 
+use AppBundle\Entity\RequestEntity\PhotoRequestEntity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -30,15 +32,17 @@ class PhotoController extends Controller
 
     /**
      * @Route("photo/{id}", name = "photo-request-view")
+     * @Method("GET")
      */
-    public function renderPhotoRequestView($id)
+    public function renderPhotoRequestView(PhotoRequestEntity $id)
     {
-        $getManager = $this->getDoctrine()->getManager();
-        $getEntity = $getManager->getRepository("AppBundle:RequestEntity\PhotoRequestEntity");
-        $getData = $getEntity->findOneBy(['id' => $id]);
+//        dump(count($id));
+//        $getManager = $this->getDoctrine()->getManager();
+//        $getEntity = $getManager->getRepository("AppBundle:RequestEntity\PhotoRequestEntity");
+//        $getData = $getEntity->findOneBy(['id' => $id]);
 
         return $this->render("RequestView/PhotoView/photoRequestView.html.twig",[
-            'data' => $getData,
+            'data' => $id,
         ]);
     }
 

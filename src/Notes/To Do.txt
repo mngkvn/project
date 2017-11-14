@@ -7,3 +7,4 @@
 **Fix phone number form field
 *Add js client side validation for faster error checking ??
 **Tie the type on to ManyToOne form relationship.
+**Make an entity for category of services listed and make request Entity extend that so I can use it on the "type" field?

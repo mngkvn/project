@@ -33,3 +33,7 @@ Adding a method called getId to generate requests link for Production View.
 FORMS
 $form->handleRequest($request) ONLY HANDLES DATA for POST. If it's a GET it's just render the form but not submit it.
 Added formnovalidate on every request form
+
+ROUTING
+You can pass a field on an entity that exists on the database on a route and add the whole entity on the function
+parameter so that it will query it right away?

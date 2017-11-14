@@ -33,7 +33,7 @@ class FormController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($formData);
             $manager->flush();
-            $this->addFlash('success','Photo request inserted!');
+//            $this->addFlash('success','Photo request inserted!');
             return $this->redirectToRoute("photo-request-form");
         }
         return $this->render("FormView/PhotoForm.html.twig",[

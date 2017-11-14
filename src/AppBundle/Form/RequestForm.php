@@ -9,6 +9,8 @@
 namespace AppBundle\Form;
 
 
+use AppBundle\Entity\FixedEntity\CategoryEntity;
+use AppBundle\Entity\RequestEntity\RequestEntity;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -29,7 +31,7 @@ class RequestForm extends AbstractType
             ->add('email',EmailType::class)
             ->add('contactNumber',PhoneNumberType::class)
             ->add('message',TextareaType::class)
-            ->add('type',TextType::class)
+            ->add('category')
             ->add('quantity',IntegerType::class);
     }
 

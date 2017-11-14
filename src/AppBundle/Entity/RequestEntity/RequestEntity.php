@@ -77,8 +77,9 @@ class RequestEntity
     private $message;
     /**
      * @ORM\Column(type="string")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    private $category;
     /**
      * @ORM\Column(type="datetime")
      */
@@ -169,16 +170,16 @@ class RequestEntity
     /**
      * @return mixed
      */
-    public function getType()
+    public function getCategory()
     {
-        return $this->type;
+        return $this->category;
     }
     /**
-     * @param mixed $type
+     * @param mixed $category
      */
-    public function setType($type)
+    public function setCategory($category)
     {
-        $this->type = $type;
+        $this->category = $category;
     }
     /**
      * @param mixed $postedAt
