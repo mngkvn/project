@@ -8,13 +8,12 @@
 
 namespace AppBundle\Form;
 
-
-use AppBundle\Entity\FixedEntity\CategoryEntity;
-use AppBundle\Entity\RequestEntity\RequestEntity;
+use AppBundle\Entity\RequestEntity;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,15 +30,21 @@ class RequestForm extends AbstractType
             ->add('email',EmailType::class)
             ->add('contactNumber',PhoneNumberType::class)
             ->add('message',TextareaType::class)
-            ->add('category')
-            ->add('quantity',IntegerType::class);
+            ->add('category',TextType::class)
+            ->add('quantity',IntegerType::class)
+            ->add("platform",TextType::class)
+            ->add("submit",SubmitType::class,[
+                "attr" => [
+                    "formnovalidate" => "formnovalidate"
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'inherit_data' => true,
             'label' => false,
+            'data_class' => RequestEntity::class
         ]);
     }
 }

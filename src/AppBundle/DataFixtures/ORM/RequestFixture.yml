@@ -1,11 +1,11 @@
-Appbundle\Entity\RequestEntity\PackageDesignRequestEntity:
-  PackageDesignRequest_{1..20}:
+Appbundle\Entity\RequestEntity:
+  Request_{1..20}:
     name: <name()>
     email: <email()>
     company: <domainName()>
     contactNumber: <e164PhoneNumber()>
     message: <sentence()>
-    type: <randomElement(['photo','video','design'])>
     quantity: <numberBetween(1,999)>
+    platform: 50%? <randomElement(['ebay','amazon','craigslist'])>
     postedAt: <dateTimeBetween('-9 months', 'now')>
     isActive: <boolean(70)>

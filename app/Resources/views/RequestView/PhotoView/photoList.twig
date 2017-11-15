@@ -4,7 +4,7 @@
     <table>
         {% for data in photoRequest %}
             <tr>
-                <td><a href="{{ path("photoRequestView", {id: data.id}) }}">{{ data.id }}</a></td>
+                <td><a href="{{ path("photo-view", {id: data.id}) }}">{{ data.id }}</a></td>
                 <td>{{ data.name }}</td>
             </tr>
         {% endfor %}

@@ -8,12 +8,7 @@
 
 namespace AppBundle\Controller\RequestController;
 
-use AppBundle\Form\B2BMarketingRequestForm;
-use AppBundle\Form\MarketingSalesRequestForm;
-use AppBundle\Form\PackageDesignRequestForm;
-use AppBundle\Form\PhotoRequestForm;
-use AppBundle\Form\ProductDesignRequestForm;
-use AppBundle\Form\VideoRequestForm;
+use AppBundle\Form\RequestForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,10 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 class FormController extends Controller
 {
     /**
-     * @Route("photo/form", name = "photo-request-form")
+     * @Route("photo/form", name = "photo-form")
      */
     public function renderPhotoRequestForm(Request $request){
-        $form = $this->createForm(PhotoRequestForm::class);
+        $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -34,85 +29,85 @@ class FormController extends Controller
             $manager->persist($formData);
             $manager->flush();
 //            $this->addFlash('success','Photo request inserted!');
-            return $this->redirectToRoute("photo-request-form");
+            return $this->redirectToRoute("photo-form");
         }
-        return $this->render("FormView/PhotoForm.html.twig",[
-            'photoRequestForm' => $form->createView()
+        return $this->render("FormView/RequestFormView.html.twig",[
+            'requestForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("video/form", name = "video-request-form")
+     * @Route("video/form", name = "video-form")
      */
     public function renderVideoRequestForm(Request $request){
-        $form = $this->createForm(VideoRequestForm::class);
+        $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             dump($form->getData());die;
         }
-        return $this->render("FormView/VideoForm.html.twig",[
-            'videoRequestForm' => $form->createView()
+        return $this->render("FormView/RequestFormView.html.twig",[
+            'requestForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("b2b-marketing/form", name = "b2b-marketing-request-form")
+     * @Route("b2b-marketing/form", name = "b2b-marketing-form")
      */
     public function renderB2BMarketingRequestForm(Request $request){
-        $form = $this->createForm(B2BMarketingRequestForm::class);
+        $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             dump($form->getData());die;
         }
-        return $this->render("FormView/B2BMarketingForm.html.twig",[
-            'b2bMarketingRequestForm' => $form->createView()
+        return $this->render("FormView/RequestFormView.html.twig",[
+            'requestForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("marketing-sales/form", name = "marketing-sales-request-form")
+     * @Route("marketing-sales/form", name = "marketing-sales-form")
      */
     public function renderMarketingSalesRequestForm(Request $request){
-        $form = $this->createForm(MarketingSalesRequestForm::class);
+        $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             dump($form->getData());die;
         }
-        return $this->render("FormView/MarketingSalesForm.html.twig",[
-            'marketingSalesRequestForm' => $form->createView()
+        return $this->render("FormView/RequestFormView.html.twig",[
+            'requestForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("package-design/form", name = "package-design-request-form")
+     * @Route("package-design/form", name = "package-design-form")
      */
     public function renderPackageDesignRequestForm(Request $request){
-        $form = $this->createForm(PackageDesignRequestForm::class);
+        $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             dump($form->getData());die;
         }
-        return $this->render("FormView/PackageDesignForm.html.twig",[
-            'packageDesignRequestForm' => $form->createView()
+        return $this->render("FormView/RequestFormView.html.twig",[
+            'requestForm' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("product-design/form", name = "product-design-request-form")
+     * @Route("product-design/form", name = "product-design-form")
      */
     public function renderProductDesignRequestForm(Request $request){
-        $form = $this->createForm(ProductDesignRequestForm::class);
+        $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             dump($form->getData());die;
         }
-        return $this->render("FormView/ProductDesignForm.html.twig",[
-            'productDesignRequestForm' => $form->createView()
+        return $this->render("FormView/RequestFormView.html.twig",[
+            'requestForm' => $form->createView()
         ]);
     }
 }

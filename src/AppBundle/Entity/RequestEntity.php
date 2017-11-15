@@ -6,18 +6,19 @@
  * Time: 8:44 AM
  */
 
-namespace AppBundle\Entity\RequestEntity;
+namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
 use \DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
-use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
+
 
 /**
  * Class RequestEntity
  * @package AppBundle\Entity\RequestEntity
- * @ORM\MappedSuperclass()
+ * @ORM\Entity
+ * @ORM\Table(name="request")
  */
 class RequestEntity
 {
@@ -59,9 +60,8 @@ class RequestEntity
     private $email;
     /**
      * @Assert\NotBlank(message="Your contact number is required.")
-     * @AssertPhoneNumber
      *
-     * @ORM\Column(type="phone_number")
+     * @ORM\Column(type="string")
      */
     private $contactNumber;
     /**
@@ -76,8 +76,7 @@ class RequestEntity
      */
     private $message;
     /**
-     * @ORM\Column(type="string")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="CategoryEntity")
      */
     private $category;
     /**
@@ -96,6 +95,30 @@ class RequestEntity
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @Assert\Length(
+     *     max = "100"
+     * )
+     * @ORM\Column(type="string",nullable=true)
+     */
+    private $platform;
+
+    /**
+     * @return mixed
+     */
+    public function getPlatform()
+    {
+        return $this->platform;
+    }
+
+    /**
+     * @param mixed $platform
+     */
+    public function setPlatform($platform)
+    {
+        $this->platform = $platform;
+    }
 
     public function __construct()
     {
@@ -177,7 +200,7 @@ class RequestEntity
     /**
      * @param mixed $category
      */
-    public function setCategory($category)
+    public function setCategory(CategoryEntity $category)
     {
         $this->category = $category;
     }

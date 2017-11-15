@@ -1,6 +1,7 @@
 When constructing Fixtures, after declaring the appbundle entity path, you can pass a "unique string" as a name
 of the table. e.g. Table name is "Production", you can use "Production_ / Production__" as a holder.
 
+
 Alice 3.x no longer ships with a persistence layer, so this library provides one!
 composer require --dev theofidry/alice-data-fixtures:^1.0@beta doctrine/orm:^2.5 doctrine/data-fixtures
 To be used for pushing faker data to database after generating one using Alice/Faker

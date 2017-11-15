@@ -6,7 +6,7 @@
  * Time: 9:02 AM
  */
 
-namespace AppBundle\Entity\FixedEntity;
+namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
