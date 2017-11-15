@@ -77,6 +77,7 @@ class RequestEntity
     private $message;
     /**
      * @ORM\ManyToOne(targetEntity="CategoryEntity")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $category;
     /**

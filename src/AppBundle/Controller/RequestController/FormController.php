@@ -11,6 +11,7 @@ namespace AppBundle\Controller\RequestController;
 use AppBundle\Form\RequestForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -28,9 +29,10 @@ class FormController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($formData);
             $manager->flush();
-//            $this->addFlash('success','Photo request inserted!');
-            return $this->redirectToRoute("photo-form");
+            $this->addFlash('success','Photo request inserted!');
+            return $this->redirectToRoute("video-form");
         }
+
         return $this->render("FormView/RequestFormView.html.twig",[
             'requestForm' => $form->createView()
         ]);

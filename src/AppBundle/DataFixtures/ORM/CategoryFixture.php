@@ -13,15 +13,11 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class Fixture extends Controller implements FixtureInterface
+
+class CategoryFixture extends Controller implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        /* REQUEST FAKER */
-        $dummyFilePath =[__DIR__.'/RequestFixture.yml'];
-        $loader = $this->get('fidry_alice_data_fixtures.doctrine.loader');
-        $loader->load($dummyFilePath);
-
         /* MANUAL DB DEFAULT CATEGORIES */
         $categories = ['photo','video','b2b-marketing','package-design','marketing-sales','product-design'];
         for($counter = 0 ; $counter < count($categories) ; $counter++){
@@ -29,7 +25,7 @@ class Fixture extends Controller implements FixtureInterface
             $categoryObject->setCategory($categories[$counter]);
             $manager->persist($categoryObject);
         }
-        $manager->flush();
 
+        $manager->flush();
     }
 }

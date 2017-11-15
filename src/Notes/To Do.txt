@@ -2,10 +2,9 @@
 
 *Not Found Pages
 
-***Remove the Setter functions of Active and PostedAt field on Entities ON PRODUCTION; DateTime and ActiveID are initialized
+***Remove the Setter functions of isActive and PostedAt field on Entities ON PRODUCTION; DateTime and ActiveID are initialized
  via __constructor(). Put the Setter for Alice Data Fixtures.
 
-**Remove the type field from entities and database?
 
 **Routes must be lowercased and use ( - ) to seperate two words
 

@@ -25,7 +25,7 @@ class PhotoController extends Controller
         $getEntity = $getManager->getRepository("AppBundle:RequestEntity");
         $getData = $getEntity->findAll();
 
-        return $this->render("photoList.twig",[
+        return $this->render("RequestView/PhotoView/photoList.twig",[
             "photoRequest" => $getData
         ]);
     }
@@ -34,15 +34,15 @@ class PhotoController extends Controller
      * @Route("photo/{id}", name = "photo-view")
      * @Method("GET")
      */
-    public function renderPhotoRequestView(RequestEntity $id)
+    public function renderPhotoRequestView(RequestEntity $requestEntity)
     {
 //        dump(count($id));
 //        $getManager = $this->getDoctrine()->getManager();
 //        $getEntity = $getManager->getRepository("AppBundle:RequestEntity\PhotoRequestEntity");
 //        $getData = $getEntity->findOneBy(['id' => $id]);
 
-        return $this->render("photoView.twig",[
-            'data' => $id,
+        return $this->render("RequestView/PhotoView/photoView.twig",[
+            'data' => $requestEntity,
         ]);
     }
 
