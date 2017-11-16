@@ -22,15 +22,17 @@ class FormController extends Controller
      */
     public function renderPhotoRequestForm(Request $request){
         $form = $this->createForm(RequestForm::class);
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $formData = $form->getData();
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($formData);
-            $manager->flush();
-            $this->addFlash('success','Photo request inserted!');
-            return $this->redirectToRoute("video-form");
+//            $manager = $this->getDoctrine()->getManager();
+//            $manager->persist($formData);
+//            $manager->flush();
+//            $this->addFlash('success','Photo request inserted!');
+//            return $this->redirectToRoute("photo-form");
+            dump($formData);
         }
 
         return $this->render("FormView/RequestFormView.html.twig",[

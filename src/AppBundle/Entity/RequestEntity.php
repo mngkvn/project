@@ -258,6 +258,4 @@ class RequestEntity
     {
         return $this->id;
     }
-
-
 }

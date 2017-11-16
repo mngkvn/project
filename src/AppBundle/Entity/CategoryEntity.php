@@ -49,4 +49,9 @@ class CategoryEntity
     {
         $this->category = $category;
     }
+
+    public function __toString()
+    {
+        return $this->getCategory();
+    }
 }

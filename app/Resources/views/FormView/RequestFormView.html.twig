@@ -2,6 +2,12 @@
 
 {% block body %}
     {{ form_start(requestForm) }}
-        {{ form_widget(requestForm) }}
-    {{ form_end(requestForm) }}
+        {#<select name="requestForm.category">#}
+        {#{% for category in requestForm.category.vars.choices %}#}
+            {#<option {% if category.label in app.request.attributes.get('_route') %} selected="selected" {% endif %}>#}
+                {#{{ category.label }}#}
+            {#</option>#}
+        {#{% endfor %}#}
+        {#</select>#}
+    {#{{ form_row(requestForm.name) }}#}
 {% endblock %}
