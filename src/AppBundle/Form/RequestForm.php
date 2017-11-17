@@ -29,19 +29,35 @@ class RequestForm extends AbstractType
     {
 
         $builder
-            ->add('name',TextType::class)
-            ->add('company',TextType::class)
-            ->add('email',EmailType::class)
-            ->add('contactNumber',PhoneNumberType::class)
-            ->add('message',TextareaType::class)
-            ->add('category',EntityType::class,[
-                "class" => CategoryEntity::class
+            ->add('name',TextType::class,[
+                'label' => '*Name'
             ])
-            ->add('quantity',IntegerType::class)
-            ->add("platform",TextType::class)
-            ->add("submit",SubmitType::class,[
-                "attr" => [
-                    "formnovalidate" => "formnovalidate"
+            ->add('email',EmailType::class,[
+                'label' => '*Email'
+            ])
+            ->add('contactNumber',TextType::class,[
+                'label' => '*Contact Number'
+            ])
+            ->add('message',TextareaType::class,[
+                'label' => '*Message'
+            ])
+            ->add('category',EntityType::class,[
+                'class' => CategoryEntity::class,
+                'placeholder' => 'Choose category',
+                'label' => '*Category'
+            ])
+            ->add('quantity',IntegerType::class,[
+                'label' => '*Quantity'
+            ])
+            ->add('company',TextType::class,[
+                'label' => 'Company Name'
+            ])
+            ->add('platform',TextType::class,[
+                'label' => 'Business Platform'
+            ])
+            ->add('submit',SubmitType::class,[
+                'attr' => [
+                    'formnovalidate' => 'formnovalidate'
                 ]
             ]);
     }

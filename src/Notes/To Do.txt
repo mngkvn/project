@@ -20,3 +20,6 @@
 so that nelmio alice faker will work. Will re-enable this on prod.
 
 **Category cannot be loaded because request entity overrides it?
+
+**Add autoselect in the future.
+**Fix platform

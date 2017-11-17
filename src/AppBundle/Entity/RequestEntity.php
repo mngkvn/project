@@ -76,6 +76,7 @@ class RequestEntity
      */
     private $message;
     /**
+     * @Assert\NotBlank(message="Please select a category.")
      * @ORM\ManyToOne(targetEntity="CategoryEntity")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -125,6 +126,7 @@ class RequestEntity
     {
         $this->postedAt = new DateTime();
         $this->isActive = 1;
+        $this->platform = null;
     }
 
     /**
