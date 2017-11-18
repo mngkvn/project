@@ -23,3 +23,4 @@ so that nelmio alice faker will work. Will re-enable this on prod.
 
 **Add autoselect in the future.
 **Fix platform
+!! Submit button is not included on $builder but labels are specified on it.

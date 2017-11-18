@@ -29,37 +29,18 @@ class RequestForm extends AbstractType
     {
 
         $builder
-            ->add('name',TextType::class,[
-                'label' => '*Name'
-            ])
-            ->add('email',EmailType::class,[
-                'label' => '*Email'
-            ])
-            ->add('contactNumber',TextType::class,[
-                'label' => '*Contact Number'
-            ])
-            ->add('message',TextareaType::class,[
-                'label' => '*Message'
-            ])
+            ->add('name',TextType::class,['label'=>'*Name'])
+            ->add('email',EmailType::class,['label'=>'*Email'])
+            ->add('contact_number',TextType::class,['label'=>'*Contact Number'])
+            ->add('message',TextareaType::class,['label'=>'*Message'])
             ->add('category',EntityType::class,[
                 'class' => CategoryEntity::class,
                 'placeholder' => 'Choose category',
-                'label' => '*Category'
+                'label'=>'*Category'
             ])
-            ->add('quantity',IntegerType::class,[
-                'label' => '*Quantity'
-            ])
-            ->add('company',TextType::class,[
-                'label' => 'Company Name'
-            ])
-            ->add('platform',TextType::class,[
-                'label' => 'Business Platform'
-            ])
-            ->add('submit',SubmitType::class,[
-                'attr' => [
-                    'formnovalidate' => 'formnovalidate'
-                ]
-            ]);
+            ->add('quantity',IntegerType::class,['label'=>'*Quantity'])
+            ->add('company',TextType::class,['label'=>'Company'])
+            ->add('platform',TextType::class,['label'=>'Platform']);
     }
 
     public function configureOptions(OptionsResolver $resolver)
