@@ -25,7 +25,7 @@ class PhotoController extends Controller
         $getEntity = $getManager->getRepository("AppBundle:RequestEntity");
         $getData = $getEntity->findAll();
 
-        return $this->render("RequestView/PhotoView/photoList.twig",[
+        return $this->render("PhotoList.twig",[
             "photoRequest" => $getData
         ]);
     }
@@ -41,7 +41,7 @@ class PhotoController extends Controller
 //        $getEntity = $getManager->getRepository("AppBundle:RequestEntity\PhotoRequestEntity");
 //        $getData = $getEntity->findOneBy(['id' => $id]);
 
-        return $this->render("RequestView/PhotoView/photoView.twig",[
+        return $this->render("PhotoView.twig",[
             'data' => $requestEntity,
         ]);
     }

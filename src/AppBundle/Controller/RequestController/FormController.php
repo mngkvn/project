@@ -8,10 +8,10 @@
 
 namespace AppBundle\Controller\RequestController;
 
+use AppBundle\Entity\RequestEntity;
 use AppBundle\Form\RequestForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -31,7 +31,14 @@ class FormController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
             $formData = $form->getData();
-            dump($formData);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($formData);
+            $manager->flush();
+//
+//            $getCategory = $form->get('category')->getData();
+//            dump($getCategory->get);
+//            $reroute = str_replace("form","request-success",$request->getPathInfo());
+//            $this->redirectToRoute($reroute,[],200);
         }
 
         return $this->render("FormView/RequestFormView.html.twig",[

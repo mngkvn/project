@@ -60,7 +60,6 @@ class RequestEntity
     private $email;
     /**
      * @Assert\NotBlank(message="Your contact number is required.")
-     *
      * @ORM\Column(type="string")
      */
     private $contactNumber;

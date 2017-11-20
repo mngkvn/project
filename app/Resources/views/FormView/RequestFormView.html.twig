@@ -5,14 +5,14 @@
     {{ form_start(form) }}
         {% for field in form %}
             {% if(field.vars.name != '_token') %}
-            <div class="form-group row {{ field.vars.valid ? '' : 'has-danger' }}">
-                {{ form_label(field,null,{'attr':{'class':'col-form-label col-2'}}) }}
-                {{ form_widget(field,{'attr':{'class':'form-control'}}) }}
-                <div class="form-control-feedback">
-                    {{ field.vars.valid ? '' : field.vars.errors.0.message }}
+                <div class="form-group row {{ field.vars.valid ? '' : 'has-danger' }}">
+                    {{ form_label(field,null,{'attr':{'class':'col-form-label col-2'}}) }}
+                    {{ form_widget(field,{'attr':{'class':'form-control'}}) }}
+                    <div class="form-control-feedback">
+                        {{ field.vars.valid ? '' : field.vars.errors.0.message }}
+                    </div>
                 </div>
-            </div>
-                {% endif %}
+            {% endif %}
         {% endfor %}
         <input type="submit" class="btn btn-primary" formnovalidate="formnovalidate" value="Submit" />
     {{ form_end(form) }}

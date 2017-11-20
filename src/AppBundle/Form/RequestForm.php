@@ -31,7 +31,7 @@ class RequestForm extends AbstractType
         $builder
             ->add('name',TextType::class,['label'=>'*Name'])
             ->add('email',EmailType::class,['label'=>'*Email'])
-            ->add('contact_number',TextType::class,['label'=>'*Contact Number'])
+            ->add('contactNumber',TextType::class,['label'=>'*Contact Number'])
             ->add('message',TextareaType::class,['label'=>'*Message'])
             ->add('category',EntityType::class,[
                 'class' => CategoryEntity::class,
