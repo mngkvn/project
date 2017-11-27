@@ -34,4 +34,9 @@ class PathService extends Controller
          $category = $this->pathGetCategory($path);
          return $category.'-view';
     }
+    //this will return the route name for editing ex: /photo/1 -> photo-edit
+    public function pathSetEditLink($path){
+        $category = $this->pathGetCategory($path);
+        return $category.'-edit';
+    }
 }

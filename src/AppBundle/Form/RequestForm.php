@@ -35,15 +35,18 @@ class RequestForm extends AbstractType
             ->add('message',TextareaType::class,['label'=>'*Message'])
             ->add('category',EntityType::class,[
                 'class' => CategoryEntity::class,
-                'placeholder' => 'Choose category',
+                //Check admin
+                'placeholder' => true ? "Choose an option" : false,
                 'label'=>'*Category',
                 'choice_label' => function($value){
-                //getCategory from the entity and match if b2b marketing for proper Capitalizaiton.
+                //getCategory from the entity and match if b2b marketing for proper Capitalization.
                     if($value->getCategory() === "b2b-marketing"){
                         return "B2B Marketing";
                     }
                     return ucwords(str_replace('-',' ',$value));
-                }
+                },
+                //if editing and no entity chosen for category, will trigger error
+                'empty_data' => " "
             ])
             ->add('quantity',IntegerType::class,['label'=>'*Quantity'])
             ->add('company',TextType::class,['label'=>'Company'])

@@ -48,11 +48,13 @@ class RequestListController extends Controller
             $getRequestList = $getRequestEntity->findBy(["category"=>$categoryId]);
 
             $setRequestLink = $getPath->pathSetRequestLink($getURLCategory);
+            $setEditLink = $getPath->pathSetEditLink($getURLCategory);
 
             return $this->render("RequestView/RequestListView.html.twig",[
                 "requestList" => $getRequestList,
-                "routeName" => $setRequestLink,
-                "category" => $getURLCategory
+                "requestLink" => $setRequestLink,
+                "editLink" => $setEditLink,
+                "category" => $getURLCategory,
             ]);
         }else{
             $this->redirectToRoute();

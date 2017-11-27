@@ -63,19 +63,19 @@ class FormController extends Controller
         $newRoute = new PathService();
         $form = $this->createForm(RequestForm::class,$id);
         $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            try {
-                $formData = $form->getData();
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($formData);
-                $manager->flush();
-                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
-            } catch (ORMException $exception) {
-//                create exception or reroute
-                dump($exception);
-            }
-        }
+//
+//        if($form->isSubmitted() && $form->isValid()){
+//            try {
+//                $formData = $form->getData();
+//                $manager = $this->getDoctrine()->getManager();
+//                $manager->persist($formData);
+//                $manager->flush();
+//                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
+//            } catch (ORMException $exception) {
+////                create exception or reroute
+//                dump($exception);
+//            }
+//        }
 
         return $this->render("FormView/RequestFormView.html.twig",[
             'form' => $form->createView()

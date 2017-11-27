@@ -23,7 +23,9 @@ so that nelmio alice faker will work. Will re-enable this on prod.
 *** Do not change the category names on database ex : b2b-business to B2B Business as some of the queries rely on it.
 ***Add find by company , name and email and sort by company email name
 ***Check if admin before adding the isActive field.
-***Fix choose an option on edit when selected. crashes atm
+***Fix choose an option on edit when selected.( Added empty data and ternary operator to fix issue, need admin check)
+***Fix PathService and use dependency injection (make path constructor to avoid repeating codes and calling getCategory);
+***DO THE ADMIN OR USERS FORM
 
 
 List of files needed to be fixed for Reroutes or Not found redirections :

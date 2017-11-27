@@ -8,15 +8,17 @@
                 <th> Name </th>
                 <th> Company </th>
                 <th> Platform </th>
+                <th> Edit </th>
             </tr>
         </thead>
         <tbody>
         {% for request in requestList %}
             <tr>
-                <th scope="row"><a href="{{ path(routeName,{'id':request.id}) }}">{{ request.id }}</a></th>
+                <th scope="row"><a href="{{ path(requestLink,{'id':request.id}) }}">{{ request.id }}</a></th>
                 <td>{{ request.name }}</td>
                 <td>{{ request.company ?: '-' }}</td>
                 <td>{{ request.platform ?: '-' }}</td>
+                <td><a class="btn btn-primary" href="{{ path(editLink,{'id':request.id}) }}">Edit</a></td>
             </tr>
         {% endfor %}
         </tbody>
