@@ -19,7 +19,7 @@ class CategoryFixture extends Controller implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         /* MANUAL DB DEFAULT CATEGORIES */
-        $categories = ['Photo','Video','B2B Marketing','Package Design','Marketing Sales','Product Design'];
+        $categories = ['photo','video','b2b-marketing','package-design','marketing-sales','product-design'];
         for($counter = 0 ; $counter < count($categories) ; $counter++){
             $categoryObject = new CategoryEntity();
             $categoryObject->setCategory($categories[$counter]);

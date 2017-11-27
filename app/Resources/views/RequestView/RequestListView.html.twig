@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <table class="table table-bordered table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>{{ category | upper | replace({"-":" "})}} #</th>
+                <th> Name </th>
+                <th> Company </th>
+                <th> Platform </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for request in requestList %}
+            <tr>
+                <th scope="row"><a href="{{ path(routeName,{'id':request.id}) }}">{{ request.id }}</a></th>
+                <td>{{ request.name }}</td>
+                <td>{{ request.company ?: '-' }}</td>
+                <td>{{ request.platform ?: '-' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

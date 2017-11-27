@@ -6,7 +6,6 @@
  via __constructor(). Put the Setter for Alice Data Fixtures.
 
 
-**Routes must be lowercased and use ( - ) to seperate two words
 
 **Fix phone number form field
 
@@ -14,14 +13,20 @@
 
 **Tie the type on to ManyToOne form relationship.
 
-**Make an entity for category of services listed and make request Entity extend that so I can use it on the "type" field?
-
 **Deleted out AssertPhoneNumber ,@AssertPhoneNumber and change the column type from "phone_number" to string
 so that nelmio alice faker will work. Will re-enable this on prod.
 
-**Category cannot be loaded because request entity overrides it?
-
 **Add autoselect in the future.
-**Fix platform
-!! Submit button is not included on $builder but labels are specified on it.
+
 !!! Entity field name and form field name must have the same name to be able to validate.
+***Create redirection for unsuccessful database inserts/updates
+*** Do not change the category names on database ex : b2b-business to B2B Business as some of the queries rely on it.
+***Add find by company , name and email and sort by company email name
+***Check if admin before adding the isActive field.
+***Fix choose an option on edit when selected. crashes atm
+
+
+List of files needed to be fixed for Reroutes or Not found redirections :
+    RequestListController - If category is not found. -not found
+    FormController - If an insert / update is unsuccessful and EDIT FORM TOO
+    RequestViewController - for unfound id - not found

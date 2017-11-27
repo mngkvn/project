@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-bordered table">
+            <tbody>
+                <tr>
+                    <th>Request Number</th>
+                    <td>{{ request.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ request.name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ request.email }}</td>
+                </tr>
+                <tr>
+                    <th>Contact Number</th>
+                    <td>{{ request.contactNumber }}</td>
+                </tr>
+                <tr>
+                    <th>Message</th>
+                    <td>{{ request.message }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ request.isActive ? "Active" : "Closed" }}</td>
+                </tr>
+                <tr>
+                    <th>Company</th>
+                    <td>{{ request.company ?: '-' }}</td>
+                </tr>
+                <tr>
+                    <th>Platform</th>
+                    <td>{{ request.platform ?: '-'}}</td>
+                </tr>
+                <tr>
+                    <th>Date Posted</th>
+                    <td>{{ request.postedAt|date('m/d/Y') }}</td>
+                </tr>
+            </tbody>
+      </table>
+    </div>
+{% endblock %}

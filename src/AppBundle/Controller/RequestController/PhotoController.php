@@ -31,7 +31,7 @@ class PhotoController extends Controller
     }
 
     /**
-     * @Route("photo/{id}", name = "photo-view")
+     * @Route("photo/view/{id}", name = "photo-view")
      * @Method("GET")
      */
     public function renderPhotoRequestView(RequestEntity $requestEntity)

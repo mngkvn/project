@@ -21,14 +21,14 @@ class RequestFixture extends Controller implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $fake = Faker\Factory::create();
-        for($counter = 0; $counter < 5; $counter++){
+        for($counter = 0; $counter < 100; $counter++){
             $requestObject = new RequestEntity();
 
             $name = $fake->name;
             $isActive = $fake->numberBetween($min=0,$max=1);
             $email = $fake->companyEmail;
             $company = $fake->company;
-            $message = $fake->sentence();
+            $message = $fake->realText($maxNbChars=400);
             $phoneNumber = $fake->e164PhoneNumber;
             $platform = $fake->randomElement([null,'ebay','amazon','craigslist','google']);
             $quantity = $fake->numberBetween($min=1,$max=20);

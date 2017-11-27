@@ -32,7 +32,7 @@ class RequestEntity
      * @Assert\NotBlank(message="Product quantity is required.")
      * @Assert\Type("integer")
      * @Assert\Range(
-     *     min="0",
+     *     min="1",
      *     max="10000",
      *     minMessage="At least 1 quantity needed.",
      *     maxMessage="Quantity cannot exceed 10,000.",
@@ -259,4 +259,22 @@ class RequestEntity
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPostedAt()
+    {
+        return $this->postedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisActive()
+    {
+        return $this->isActive;
+    }
+
+
 }
