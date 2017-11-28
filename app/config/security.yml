@@ -6,6 +6,8 @@ security:
     providers:
         in_memory:
             memory: ~
+        admin:
+          entity: { class: AppBundle\Entity\AdminEntity, property: username }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,7 +17,9 @@ security:
 
         main:
             anonymous: ~
-            form_login:
+            guard:
+              authenticators:
+                - app.admin.login_authenticator
 
             # activate different ways to authenticate
 

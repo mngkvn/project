@@ -20,7 +20,9 @@ class AdminFormController extends Controller
     /**
      * @Route("/login",name="admin-login")
      */
-    public function adminLogin(Request $request,AuthenticationUtils $authUtils){
+    public function adminLogin(){
+
+        $authUtils = $this->get('security.authentication_utils');
 
         $error = $authUtils->getLastAuthenticationError();
         $lastUsername = $authUtils->getLastUsername();

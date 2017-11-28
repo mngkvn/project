@@ -11,7 +11,6 @@
 
 *Add js client side validation for faster error checking ??
 
-**Tie the type on to ManyToOne form relationship.
 
 **Deleted out AssertPhoneNumber ,@AssertPhoneNumber and change the column type from "phone_number" to string
 so that nelmio alice faker will work. Will re-enable this on prod.
@@ -29,6 +28,19 @@ so that nelmio alice faker will work. Will re-enable this on prod.
 ***ADDED SETTERS ON ADMIN USERS FOR DEVELOPMENT PURPOSES ONLY
 !!!Using guard authenticator for login instead of the firewall
 !!!Using a pathservice is easier to maintain than using $request->attributes->get('route');
+
+ADMIN ONLY LOGIN BY USERNAME. EMAIL IS JUST FOR PASSWORD RESET.
+
+SYMFONY USES A METHOD CALLED GETLASTUSERNAME IN WHICH IT COULD BE ANYTHING LIKE EMAIL ADDRESS ETC. IT DEPENDS ON THE LOGIN
+MECHANISM IMPLEMENTED ON THE LOGIN FORM.
+
+READ AND FOLLOW CREATING A SIMPLE REGISTRATION FORM ON SYMFONY LATER.
+
+DOWNLOAD GUARD TUTORIAL KNP LABS
+
+COMMENTED OUT SERVICES YML TO FOLLOW THE TUTORIAL, NEED TO FIX THAT AND WATCH SYMFONY3.3 AUTOWIRING ETC.
+
+Adding a formfactoryinterface dependency and recreating a form in authenticator and tie it up on the client form for validation?????
 
 
 List of files needed to be fixed for Reroutes or Not found redirections :
