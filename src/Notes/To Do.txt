@@ -26,6 +26,9 @@ so that nelmio alice faker will work. Will re-enable this on prod.
 ***Fix choose an option on edit when selected.( Added empty data and ternary operator to fix issue, need admin check)
 ***Fix PathService and use dependency injection (make path constructor to avoid repeating codes and calling getCategory);
 ***DO THE ADMIN OR USERS FORM
+***ADDED SETTERS ON ADMIN USERS FOR DEVELOPMENT PURPOSES ONLY
+!!!Using guard authenticator for login instead of the firewall
+!!!Using a pathservice is easier to maintain than using $request->attributes->get('route');
 
 
 List of files needed to be fixed for Reroutes or Not found redirections :

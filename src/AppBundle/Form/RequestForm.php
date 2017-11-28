@@ -57,6 +57,7 @@ class RequestForm extends AbstractType
             'label'=>'Status',
             'choices' => ["Active" => true, "Closed" => false]
         ]);
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)
