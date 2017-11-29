@@ -34,6 +34,14 @@ class AdminEntity implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+    //do not add this on our db. will be encrypted later for the $password use.
+    private $plainPassword;
+
     public function getUsername()
     {
         return $this->username;
@@ -46,17 +54,25 @@ class AdminEntity implements UserInterface
 
     public function getPassword()
     {
-
+        return $this->password;
     }
 
     public function getSalt()
     {
+        //blank because we are using the bcrypt ( has default mechanism to salt passwords ).
+    }
 
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     public function eraseCredentials()
     {
-
+        $this->plainPassword = null;
     }
 
     /**
@@ -91,8 +107,23 @@ class AdminEntity implements UserInterface
         $this->email = $email;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
 
-
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        //needed to set password to null for the doctrine listeners to update the password before inserting
+        $this->password = null;
+    }
 
 
 }

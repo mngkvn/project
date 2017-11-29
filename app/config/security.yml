@@ -7,7 +7,9 @@ security:
         in_memory:
             memory: ~
         admin:
-          entity: { class: AppBundle\Entity\AdminEntity, property: username }
+          entity:
+            class: AppBundle\Entity\AdminEntity
+            property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -19,7 +21,9 @@ security:
             anonymous: ~
             guard:
               authenticators:
-                - app.admin.login_authenticator
+                - app.admin.admin_authenticator
+            logout:
+              path: /bv-security/admin/logout
 
             # activate different ways to authenticate
 

@@ -4,9 +4,14 @@ parameters:
     #parameter_name: value
 
 services:
-  app.admin.login_authenticator:
-    class: AppBundle\Security\LoginFormSecurity
+  app.admin.admin_authenticator:
+    class: AppBundle\Security\AdminFormSecurity
     autowire: true
+  app.doctrine.hash_password:
+    class: AppBundle\DoctrineListeners\HashPasswordListener
+    autowire: true
+    tags:
+      name: doctrine.event_subscriber
 #    # default configuration for services in *this* file
 #    _defaults:
 #        # automatically injects dependencies in your services

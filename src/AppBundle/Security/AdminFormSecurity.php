@@ -17,26 +17,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 
-class LoginFormSecurity extends AbstractFormLoginAuthenticator
+class AdminFormSecurity extends AbstractFormLoginAuthenticator
 {
 
 
     /*
+     * This authenticator will run on every request and everything starts on getCredentials method.
+     *
      * This form needs to be added to services.yml and autowire configured to true.
      * After that it needs to be added to security.yml
-     * Reason is as soon as we added it to services and security yml, every request will made to the server,
-     * it will run through this and check if it was a login form.
      *
-     * Dependencies: FormFactoryInterface,EntityManager,RouterIntefrace.
+     * Constructor Dependency Injection: FormFactoryInterface,EntityManager,RouterIntefrace.
      *
-     * __construct will implement the form, get entity manager for admin search, route after failed or successful match.
+     * __construct will get the form, entity manager for admin search, route after failed or successful match.
      * getCredentials will check, implement the AdminForm and will return null or anything.
      * If getCredentials returned null, I suppose it would be throwing invalidation but if
      * it returned anything, It will jump to the next authentication method which is getUser
+     *
+     * The class provider part in the security.yml will give us the user interface which will
+     * refresh the user session and give us the username and etc.
      */
 
     /**
@@ -61,7 +66,7 @@ class LoginFormSecurity extends AbstractFormLoginAuthenticator
 
     public function getCredentials(Request $request)
     {
-        //checks if the current route is admin-login and the method is POST. If not, then it's just a normal entity insert.
+        //checks if the current route is admin-login and the method is POST. If not, then this authentication is skipped.
         $adminLoggingIn = $request->attributes->get("_route") == "admin-login" && $request->isMethod("POST");
 
         if(!$adminLoggingIn){
@@ -72,6 +77,7 @@ class LoginFormSecurity extends AbstractFormLoginAuthenticator
         $adminForm->handleRequest($request);
         $adminInfo = $adminForm->getData();
 
+        $request->getSession()->set(Security::LAST_USERNAME,$adminInfo['_username']);
         //if a non-null value is returned, authentication goes to the next step which is getUser.
         return $adminInfo;
     }
@@ -110,7 +116,7 @@ class LoginFormSecurity extends AbstractFormLoginAuthenticator
          *If password doesn't match, it will redirect the admin back to the default login URL which will be processed
          * by the getLoginUrl method
          */
-        return false;
+        throw new CustomUserMessageAuthenticationException("Invalid Password.");
     }
     //cannot use onAuthenticationFailure as getLoginUrl method is a requirement.
 

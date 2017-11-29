@@ -12,13 +12,14 @@ namespace AppBundle\Controller\AdminController;
 use AppBundle\Form\AdminForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminFormController extends Controller
 {
     /**
-     * @Route("/login",name="admin-login")
+     * @Route("/bv-security/admin/login", name="admin-login")
      */
     public function adminLogin(){
 
@@ -35,5 +36,13 @@ class AdminFormController extends Controller
             'error' => $error,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/bv-security/admin/logout", name="admin-logout")
+     */
+    public function adminLogout(){
+        //adminLogout will not do anything. The logout method is handled by security.yml.
+        throw new Exception("There was an error logging you out.");
     }
 }
