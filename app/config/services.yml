@@ -12,6 +12,8 @@ services:
     autowire: true
     tags:
       name: doctrine.event_subscriber
+  app.path_service:
+    class: AppBundle\Service\PathService
 #    # default configuration for services in *this* file
 #    _defaults:
 #        # automatically injects dependencies in your services

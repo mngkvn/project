@@ -8,8 +8,6 @@
 
 namespace AppBundle\Controller\RequestController;
 
-
-use AppBundle\Service\PathService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +24,7 @@ class RequestListController extends Controller
      */
     public function renderRequestList(Request $request)
     {
-        $getPath = new PathService();
+        $getPath = $this->get('app.path_service');
         //will return "photo,video, ..."
         $getURLCategory = $getPath->pathGetCategory($request->getPathInfo());
 

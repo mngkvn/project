@@ -10,7 +10,6 @@ namespace AppBundle\Controller\RequestController;
 
 use AppBundle\Entity\RequestEntity;
 use AppBundle\Form\RequestForm;
-use AppBundle\Service\PathService;
 use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RequestFormController extends Controller
 {
+
     /**
      * @Route("photo/form", name = "photo-form")
      * @Route("video/form", name = "video-form")
@@ -27,7 +27,7 @@ class RequestFormController extends Controller
      * @Route("product-design/form", name = "product-design-form")
      */
     public function renderForm(Request $request){
-        $newRoute = new PathService();
+        $newRoute = $this->get("app.path_service");
         $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
@@ -60,7 +60,7 @@ class RequestFormController extends Controller
      * @Route("product-design/{id}/edit", name = "product-design-edit")
      */
     public function renderEditForm(Request $request, RequestEntity $id){
-        $newRoute = new PathService();
+        $newRoute = $this->get("app.path_service");
         $form = $this->createForm(RequestForm::class,$id);
         $form->handleRequest($request);
 //
