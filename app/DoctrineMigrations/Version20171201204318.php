@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20171129153904 extends AbstractMigration
+class Version20171201204318 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -18,7 +18,7 @@ class Version20171129153904 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE admin ADD password VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE admin ADD role VARCHAR(255) NOT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20171129153904 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE admin DROP password');
+        $this->addSql('ALTER TABLE admin DROP role');
     }
 }

@@ -18,11 +18,7 @@
                 </tr>
                 <tr>
                     <th>Contact Number</th>
-                    <td>{{ request.contactNumber }}</td>
-                </tr>
-                <tr>
-                    <th>Message</th>
-                    <td>{{ request.message }}</td>
+                    <td>{{ request.contactNumber ?: '-' }}</td>
                 </tr>
                 <tr>
                     <th>Status</th>
@@ -33,12 +29,20 @@
                     <td>{{ request.company ?: '-' }}</td>
                 </tr>
                 <tr>
+                    <th>Quantity</th>
+                    <td>{{ request.quantity ?: '-'}}</td>
+                </tr>
+                <tr>
                     <th>Platform</th>
                     <td>{{ request.platform ?: '-'}}</td>
                 </tr>
                 <tr>
                     <th>Date Posted</th>
                     <td>{{ request.postedAt|date('m/d/Y') }}</td>
+                </tr>
+                <tr>
+                    <th>Message</th>
+                    <td>{{ request.message }}</td>
                 </tr>
             </tbody>
       </table>

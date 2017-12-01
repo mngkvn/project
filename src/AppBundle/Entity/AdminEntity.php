@@ -30,14 +30,19 @@ class AdminEntity implements UserInterface
      */
     private $username;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=false)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=false)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     */
+    private $roles;
 
     //do not add this on our db. will be encrypted later for the $password use.
     private $plainPassword;
@@ -123,6 +128,14 @@ class AdminEntity implements UserInterface
         $this->plainPassword = $plainPassword;
         //needed to set password to null for the doctrine listeners to update the password before inserting
         $this->password = null;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 
 

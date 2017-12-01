@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Security;
@@ -44,24 +45,14 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
      * refresh the user session and give us the username and etc.
      */
 
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-    /**
-     * @var EntityManager
-     */
-    private $em;
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private $formFactory, $em, $router, $passwordEncoder;
 
-    public function __construct(FormFactoryInterface $formFactory, EntityManager $em, RouterInterface $router)
+    public function __construct(FormFactoryInterface $formFactory, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder)
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->router = $router;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function getCredentials(Request $request)
@@ -105,10 +96,12 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
         /*
          * For now, let's just return a default password as I haven't included the password field in the entity yet.
          */
-        if($password == 'project'){
+
+        if($this->passwordEncoder->isPasswordValid($user, $password)){
             /*
              * If it returns true,it calls onAuthenticationSuccess method.
              */
+
             return true;
         }
 

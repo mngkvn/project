@@ -44,6 +44,17 @@ LISTENERS AND AUTHENTICATORS NEEDS TO BE REGISTERED AS A SERVICE / ADDED TO SECU
 
 Adding a formfactoryinterface dependency and recreating a form in authenticator and tie it up on the client form for validation?????
 
+Register pathService on __constructs as a dependency
+
+Manage roles and restrictions for updates etc for admins.
+
+Add a new table for default admin roles and assign it / make a join like on category
+
+Make Platform a select dropdown list like category that contains amazon, ebay, walmart also it is not required.
+
+Add another field for other platform available. Not also required.
+
+Temporarily changed getRoles return value to ['ROLE_ADMIN']. Roles is expecting array, changed to nullable
 
 List of files needed to be fixed for Reroutes or Not found redirections :
     RequestListController - If category is not found. -not found

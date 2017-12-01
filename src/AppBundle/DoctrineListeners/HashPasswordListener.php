@@ -33,8 +33,11 @@ class HashPasswordListener implements EventSubscriber
         $this->passwordEncoder = $passwordEncoder;
     }
 
+
     public function prePersist(LifecycleEventArgs $arguments){
         $entity = $arguments->getEntity();
+
+
         if(!$entity instanceof AdminEntity){
             return;
         }
@@ -44,6 +47,8 @@ class HashPasswordListener implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $arguments){
         $entity = $arguments->getEntity();
+
+
         if(!$entity instanceof AdminEntity){
             return;
         }
@@ -56,8 +61,13 @@ class HashPasswordListener implements EventSubscriber
     /**
      * @param User $entity
      */
-    private function encodePassword(User $entity)
+    private function encodePassword(AdminEntity $entity)
     {
+        //If password is blank while admin is updating profile, don't save the blank password.
+        if(!$entity->getPassword()){
+            return;
+        }
+
         $encodePassword = $this->passwordEncoder->encodePassword($entity, $entity->getPlainPassword());
         $entity->setPassword($encodePassword);
     }

@@ -29,7 +29,6 @@ class RequestEntity
      */
     private $id;
     /**
-     * @Assert\NotBlank(message="Product quantity is required.")
      * @Assert\Type("integer")
      * @Assert\Range(
      *     min="1",
@@ -38,7 +37,7 @@ class RequestEntity
      *     maxMessage="Quantity cannot exceed 10,000.",
      *     invalidMessage="Please put a realistic quantity."
      * )
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $quantity;
     /**
@@ -49,18 +48,17 @@ class RequestEntity
      *     max="100",
      *     maxMessage="Your name is too long."
      * )
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=false)
      */
     private $name;
     /**
      * @Assert\NotBlank(message="Your email is required.")
      * @Assert\Email(message="Please provide a valid email address.")
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=false)
      */
     private $email;
     /**
-     * @Assert\NotBlank(message="Your contact number is required.")
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      */
     private $contactNumber;
     /**
@@ -71,7 +69,7 @@ class RequestEntity
      *     minMessage="Describe your request more clearly.",
      *     maxMessage="Summarize your request"
      * )
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text",nullable=false)
      */
     private $message;
     /**
@@ -231,7 +229,7 @@ class RequestEntity
     /**
      * @param mixed $isActive
      */
-    public function setIsActive($isActive = 1)
+    public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
     }
@@ -271,7 +269,7 @@ class RequestEntity
     /**
      * @return mixed
      */
-    public function getisActive()
+    public function getIsActive()
     {
         return $this->isActive;
     }

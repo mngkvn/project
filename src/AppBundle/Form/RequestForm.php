@@ -31,8 +31,7 @@ class RequestForm extends AbstractType
         $builder
             ->add('name',TextType::class,['label'=>'*Name'])
             ->add('email',EmailType::class,['label'=>'*Email'])
-            ->add('contactNumber',TextType::class,['label'=>'*Contact Number'])
-            ->add('message',TextareaType::class,['label'=>'*Message'])
+            ->add('contactNumber',TextType::class,['label'=>'Contact Number'])
             ->add('category',EntityType::class,[
                 'class' => CategoryEntity::class,
                 //Check admin
@@ -41,16 +40,17 @@ class RequestForm extends AbstractType
                 'choice_label' => function($value){
                 //getCategory from the entity and match if b2b marketing for proper Capitalization.
                     if($value->getCategory() === "b2b-marketing"){
-                        return "B2B Marketing";
+                        return "Business to Business Marketing";
                     }
                     return ucwords(str_replace('-',' ',$value));
                 },
                 //if editing and no entity chosen for category, will trigger error
                 'empty_data' => " "
             ])
-            ->add('quantity',IntegerType::class,['label'=>'*Quantity'])
+            ->add('quantity',IntegerType::class,['label'=>'Quantity'])
             ->add('company',TextType::class,['label'=>'Company'])
-            ->add('platform',TextType::class,['label'=>'Platform']);
+            ->add('platform',TextType::class,['label'=>'Platform'])
+            ->add('message',TextareaType::class,['label'=>'*Message']);
 
         //check if admin is logged in before adding this.
         $builder->add('isActive',ChoiceType::class,[
