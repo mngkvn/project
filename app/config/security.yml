@@ -23,7 +23,7 @@ security:
               authenticators:
                 - app.admin.admin_authenticator
             logout:
-              path: /bv-security/admin/logout
+              path: /bv/admin/logout
 
             # activate different ways to authenticate
 
@@ -35,3 +35,6 @@ security:
             #form_login: ~
     encoders:
       AppBundle\Entity\AdminEntity: bcrypt
+
+#    access_control:
+#      - { path: ^/(photo|video|b2b-marketing|package-design|product-design|marketing-sales)/, roles: ROLE_USER }

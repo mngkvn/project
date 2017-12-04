@@ -53,6 +53,7 @@ Add a new table for default admin roles and assign it / make a join like on cate
 Make Platform a select dropdown list like category that contains amazon, ebay, walmart also it is not required.
 
 Add another field for other platform available. Not also required.
+OTHER PLATFORM IS VALIDATED AS STRING BUT STORED AS AN ARRAY.
 
 Temporarily changed getRoles return value to ['ROLE_ADMIN']. Roles is expecting array, changed to nullable
 

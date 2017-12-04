@@ -21,21 +21,26 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\User\User;
 
 
 class RequestForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
-            ->add('name',TextType::class,['label'=>'*Name'])
-            ->add('email',EmailType::class,['label'=>'*Email'])
+            ->add('name',TextType::class,[
+                'label'=>'*Name',
+                'attr'=>[
+                    'maxlength' => 100
+                ]
+            ])
+            ->add('email',EmailType::class,['label'=>'*Email Address'])
             ->add('contactNumber',TextType::class,['label'=>'Contact Number'])
             ->add('category',EntityType::class,[
                 'class' => CategoryEntity::class,
                 //Check admin
-                'placeholder' => true ? "Choose an option" : false,
+                'placeholder' =>"Choose an option",
                 'label'=>'*Category',
                 'choice_label' => function($value){
                 //getCategory from the entity and match if b2b marketing for proper Capitalization.
@@ -49,15 +54,21 @@ class RequestForm extends AbstractType
             ])
             ->add('quantity',IntegerType::class,['label'=>'Quantity'])
             ->add('company',TextType::class,['label'=>'Company'])
-            ->add('platform',TextType::class,['label'=>'Platform'])
+            ->add('platform',ChoiceType::class,[
+                'label' => 'Supported Platforms',
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => [
+                    'ebay' => 'ebay',
+                    'amazon' => 'amazon',
+                    'walmart' => 'walmart'
+                ],
+                'choice_label' => function($value){
+                    return ucwords($value);
+                }
+            ])
+            ->add('otherPlatform',TextType::class,['label'=>"Other Platforms (please specify)"])
             ->add('message',TextareaType::class,['label'=>'*Message']);
-
-        //check if admin is logged in before adding this.
-        $builder->add('isActive',ChoiceType::class,[
-            'label'=>'Status',
-            'choices' => ["Active" => true, "Closed" => false]
-        ]);
-        
     }
 
     public function configureOptions(OptionsResolver $resolver)

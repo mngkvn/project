@@ -17,7 +17,15 @@
                 <th scope="row"><a href="{{ path(requestLink,{'id':request.id}) }}">{{ request.id }}</a></th>
                 <td>{{ request.name }}</td>
                 <td>{{ request.company ?: '-' }}</td>
-                <td>{{ request.platform ?: '-' }}</td>
+                <td>
+                    {% if request.platform[0] is not null %}
+                    {% for platform in request.platform %}
+                        {{ platform|capitalize }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
                 <td><a class="btn btn-primary" href="{{ path(editLink,{'id':request.id}) }}">Edit</a></td>
             </tr>
         {% endfor %}

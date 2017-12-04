@@ -34,7 +34,15 @@
                 </tr>
                 <tr>
                     <th>Platform</th>
-                    <td>{{ request.platform ?: '-'}}</td>
+                    <td>
+                        {% if request.platform[0] is not null %}
+                            {% for platform in request.platform %}
+                                {{ platform|capitalize }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <th>Date Posted</th>

@@ -14,6 +14,7 @@ use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\User;
 
 class RequestFormController extends Controller
 {
@@ -27,7 +28,7 @@ class RequestFormController extends Controller
      * @Route("product-design/form", name = "product-design-form")
      */
     public function renderForm(Request $request){
-        $newRoute = $this->get("app.path_service");
+        $newRoute = $this->get("app.path_service",$this->getUser());
         $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
 
@@ -60,6 +61,7 @@ class RequestFormController extends Controller
      * @Route("product-design/{id}/edit", name = "product-design-edit")
      */
     public function renderEditForm(Request $request, RequestEntity $id){
+        dump($id);
         $newRoute = $this->get("app.path_service");
         $form = $this->createForm(RequestForm::class,$id);
         $form->handleRequest($request);

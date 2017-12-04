@@ -24,13 +24,13 @@ class AdminFixture extends Controller implements FixtureInterface
             $adminObject = new AdminEntity();
 
             $username = $fake->userName;
-//            $role = "ADMIN";
+            $role = ['ROLE_ADMIN'];
             $adminObject->setPlainPassword("project");
 
             $email = $fake->companyEmail;
             $adminObject->setUsername($username);
             $adminObject->setPassword($adminObject->getPlainPassword());
-//            $adminObject->setRoles($role);
+            $adminObject->setRoles($role);
             $adminObject->setEmail($email);
 
             $manager->persist($adminObject);

@@ -22,12 +22,27 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class RequestEntity
 {
+
+    public function __construct()
+    {
+        $this->postedAt = new DateTime();
+        $this->isActive = 1;
+        $this->platform = null;
+        $this->quantity = null;
+        $this->otherPlatform = null;
+        $this->closedBy = null;
+        $this->movedBy = null;
+        $this->company = null;
+        $this->contactNumber = null;
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @Assert\Type("integer")
      * @Assert\Range(
@@ -40,6 +55,7 @@ class RequestEntity
      * @ORM\Column(type="integer",nullable=true)
      */
     private $quantity;
+
     /**
      * @Assert\NotBlank(message="Your name is required.")
      * @Assert\Type("string")
@@ -51,41 +67,44 @@ class RequestEntity
      * @ORM\Column(type="string",nullable=false)
      */
     private $name;
+
     /**
      * @Assert\NotBlank(message="Your email is required.")
      * @Assert\Email(message="Please provide a valid email address.")
      * @ORM\Column(type="string",nullable=false)
      */
     private $email;
+
     /**
      * @ORM\Column(type="string",nullable=true)
      */
     private $contactNumber;
+
     /**
      * @Assert\NotBlank(message="Please describe or summarize your request.")
      * @Assert\Length(
      *     min = 15,
      *     max = 5000,
      *     minMessage="Describe your request more clearly.",
-     *     maxMessage="Summarize your request"
+     *     maxMessage="Please summarize your request."
      * )
      * @ORM\Column(type="text",nullable=false)
      */
     private $message;
+
     /**
      * @Assert\NotBlank(message="Please select a category.")
      * @ORM\ManyToOne(targetEntity="CategoryEntity")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
     /**
      * @ORM\Column(type="datetime")
      */
     private $postedAt;
+
     /**
-     * @Assert\Length(
-     *     max = "100"
-     * )
      * @ORM\Column(type="string",nullable=true)
      */
     private $company;
@@ -96,12 +115,61 @@ class RequestEntity
     private $isActive;
 
     /**
-     * @Assert\Length(
-     *     max = "100"
-     * )
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="json_array",nullable=true)
      */
     private $platform;
+
+    /**
+     * @Assert\Length(
+     *     max = 100,
+     *     maxMessage="Platform max character exceeded. Delete some platform."
+     * )
+     * @ORM\Column(type="json_array",nullable=true)
+     */
+    private $otherPlatform;
+
+
+    /**
+     * @ORM\Column(type="json_array",nullable=true)
+     */
+    private $movedBy;
+
+    /**
+     * @ORM\Column(type="json_array",nullable=true)
+     */
+    private $closedBy;
+
+    /**
+     * @return mixed
+     */
+    public function getMovedBy()
+    {
+        return $this->movedBy;
+    }
+
+    /**
+     * @param mixed $movedBy
+     */
+    public function setMovedBy($movedBy)
+    {
+        $this->movedBy = $movedBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClosedBy()
+    {
+        return $this->closedBy;
+    }
+
+    /**
+     * @param mixed $closedBy
+     */
+    public function setClosedBy($closedBy)
+    {
+        $this->closedBy = $closedBy;
+    }
 
     /**
      * @return mixed
@@ -117,13 +185,6 @@ class RequestEntity
     public function setPlatform($platform)
     {
         $this->platform = $platform;
-    }
-
-    public function __construct()
-    {
-        $this->postedAt = new DateTime();
-        $this->isActive = 1;
-        $this->platform = null;
     }
 
     /**
@@ -272,6 +333,23 @@ class RequestEntity
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOtherPlatform()
+    {
+        return $this->otherPlatform;
+    }
+
+    /**
+     * @param mixed $otherPlatform
+     */
+    public function setOtherPlatform($otherPlatform)
+    {
+
+        $this->otherPlatform = $otherPlatform;
     }
 
 

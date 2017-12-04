@@ -40,9 +40,9 @@ class AdminEntity implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="json_array")
      */
-    private $roles;
+    private $roles = [];
 
     //do not add this on our db. will be encrypted later for the $password use.
     private $plainPassword;
@@ -54,7 +54,12 @@ class AdminEntity implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        $roles = $this->roles;
+        if(!in_array('ROLE_ADMIN',$roles)){
+            $roles[] = 'ROLE_ADMIN';
+        }
+
+        return $roles;
     }
 
     public function getPassword()

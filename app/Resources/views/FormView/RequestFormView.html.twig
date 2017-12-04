@@ -3,18 +3,116 @@
 {% block body %}
     <div class="container">
     {{ form_start(form) }}
-        {% for field in form %}
-            {% if(field.vars.name != '_token') %}
-                <div class="form-group row {{ field.vars.valid ? '' : 'has-danger' }}">
-                    {{ form_label(field,null,{'attr':{'class':'col-form-label col-2'}}) }}
-                    {{ form_widget(field,{'attr':{'class':'form-control'}}) }}
-                    <div class="form-control-feedback">
-                        {{ field.vars.valid ? '' : field.vars.errors.0.message }}
+        {#FIRST ROW #}
+        <div class="form-row">
+            {#NAME DIV#}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, form.name.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                {% if(form.name.vars.valid) %}
+                    <small id="{{ form.name.vars.name }}HelpBlock" class="form-text text-muted">Your name is required.</small>
+                {% else %}
+                    <div class="invalid-feedback">{{ form.name.vars.errors.0.message }}</div>
+                {% endif %}
+            </div>
+            {#COMPANY DIV#}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.company) }}
+                {{ form_widget(form.company,{'attr':{'class':'form-control'}}) }}
+            </div>
+
+        </div>
+        {#END FIRST ROW#}
+
+        {#SECOND ROW #}
+        <div class="form-row">
+            {#EMAIL DIV#}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, form.email.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                {% if(form.email.vars.valid) %}
+                    <small id="{{ form.email.vars.name }}HelpBlock" class="form-text text-muted">Your email address is required.</small>
+                {% else %}
+                    <div class="invalid-feedback">{{ form.email.vars.errors.0.message }}</div>
+                {% endif %}
+            </div>
+            {#CONTACTNUMBER DIV#}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.contactNumber) }}
+                {{ form_widget(form.contactNumber,{'attr':{'class':'form-control'}}) }}
+            </div>
+
+        </div>
+        {#END SECOND ROW#}
+
+        {#THIRD ROW #}
+        <div class="form-row">
+            {#CATEGORY DIV#}
+            <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                {{ form_label(form.category) }}
+                {{ form_widget(form.category, form.category.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                {% if(form.category.vars.valid) %}
+                    <small id="{{ form.category.vars.name }}HelpBlock" class="form-text text-muted">Category is required.</small>
+                {% else %}
+                    <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
+                {% endif %}
+            </div>
+            {#QUANTITY DIV#}
+            <div class="form-group col-sm-1 col-md-1 col-lg-1">
+                <span class="d-sm-none d-md-none d-lg-block">{{ form_label(form.quantity) }}</span>
+                <span class="d-none d-sm-block d-md-block d-lg-none"><label>Qty.</label></span>
+                {{ form_widget(form.quantity,{'attr':{'class':'form-control'}}) }}
+            </div>
+            {#SUPPORTED PLATFORMS#}
+            <div class="form-group col-sm-4 col-md-4 col-lg-4">
+                {{ form_label(form.platform) }}
+                <div class="form-control" style="padding:1.5px 15px;">
+                {% for field in form.platform %}
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            {{ form_widget(field,{'attr':{'class':'form-check-input'}}) }} {{ field.vars.label }}
+                        </label>
                     </div>
+                {% endfor %}
                 </div>
+                <small id="{{ form.platform.vars.name }}HelpBlock" class="form-text text-muted">You can check multiple platforms.</small>
+            </div>
+            {#OTHER PLATFORMS#}
+            <div class="form-group col-sm-4 col-md-4 col-lg-4">
+                {{ form_label(form.otherPlatform) }}
+                {{ form_widget(form.otherPlatform,{'attr':{'class':'form-control'}}) }}
+                <small id="{{ form.otherPlatform.vars.name }}HelpBlock" class="form-text text-muted">
+                    Type in the platform you need. For multiple platforms, separate them by comma. e.g., Company1,Company2
+                </small>
+            </div>
+        </div>
+        {#END THIRD ROW#}
+
+        {#FOURTH ROW#}
+        <div class="form-group">
+            {{ form_label(form.message) }}
+            {{ form_widget(form.message, form.message.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+            {% if(form.message.vars.valid) %}
+                <small id="{{ form.message.vars.name }}HelpBlock" class="form-text text-muted">Message is required. Max 5000 characters.</small>
+            {% else %}
+                <div class="invalid-feedback">{{ form.message.vars.errors.0.message }}</div>
             {% endif %}
-        {% endfor %}
+        </div>
+        {#END FOURTH ROW#}
+
         <input type="submit" class="btn btn-primary" formnovalidate="formnovalidate" value="Submit" />
     {{ form_end(form) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $.noConflict();
+        jQuery(document).ready(function () {
+           jQuery(".is-invalid").on('focus',function () {
+               jQuery(this).removeClass('is-invalid');
+           });
+        });
+    </script>
 {% endblock %}

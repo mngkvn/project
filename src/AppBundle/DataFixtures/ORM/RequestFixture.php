@@ -43,7 +43,7 @@ class RequestFixture extends Controller implements FixtureInterface
             $requestObject->setContactNumber($phoneNumber);
             $requestObject->setCompany($company);
             $requestObject->setMessage($message);
-            $requestObject->setPlatform($platform);
+            $requestObject->setPlatform([$platform]);
             $requestObject->setQuantity($quantity);
             $requestObject->setPostedAt($date);
             $requestObject->setIsActive($isActive);
