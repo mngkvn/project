@@ -51,7 +51,7 @@
             <div class="form-group col-sm-3 col-md-3 col-lg-3">
                 {{ form_label(form.category) }}
                 {{ form_widget(form.category, form.category.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                {% if(form.category.vars.valid) %}
+                {% if form.category.vars.valid %}
                     <small id="{{ form.category.vars.name }}HelpBlock" class="form-text text-muted">Category is required.</small>
                 {% else %}
                     <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
@@ -75,15 +75,19 @@
                     </div>
                 {% endfor %}
                 </div>
-                <small id="{{ form.platform.vars.name }}HelpBlock" class="form-text text-muted">You can check multiple platforms.</small>
+                <small id="{{ form.platform.vars.name }}HelpBlock" class="form-text text-muted">Please check all that apply.</small>
             </div>
             {#OTHER PLATFORMS#}
             <div class="form-group col-sm-4 col-md-4 col-lg-4">
                 {{ form_label(form.otherPlatform) }}
-                {{ form_widget(form.otherPlatform,{'attr':{'class':'form-control'}}) }}
+                {{ form_widget(form.otherPlatform,form.otherPlatform.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                {% if form.otherPlatform.vars.valid %}
                 <small id="{{ form.otherPlatform.vars.name }}HelpBlock" class="form-text text-muted">
-                    Type in the platform you need. For multiple platforms, separate them by comma. e.g., Company1,Company2
+                    Type in the platform you need. For multiple platforms, separate them by comma. e.g., Platform 1, Platform 2
                 </small>
+                {% else %}
+                    <div class="invalid-feedback">{{ form.otherPlatform.vars.errors.0.message }}</div>
+                {% endif %}
             </div>
         </div>
         {#END THIRD ROW#}
@@ -93,7 +97,7 @@
             {{ form_label(form.message) }}
             {{ form_widget(form.message, form.message.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
             {% if(form.message.vars.valid) %}
-                <small id="{{ form.message.vars.name }}HelpBlock" class="form-text text-muted">Message is required. Max 5000 characters.</small>
+                <small id="{{ form.message.vars.name }}HelpBlock" class="form-text text-muted">Message is required.</small>
             {% else %}
                 <div class="invalid-feedback">{{ form.message.vars.errors.0.message }}</div>
             {% endif %}

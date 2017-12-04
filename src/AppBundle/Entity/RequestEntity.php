@@ -64,6 +64,10 @@ class RequestEntity
      *     max="100",
      *     maxMessage="Your name is too long."
      * )
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z\s]*$/",
+     *     message="Please put a valid name"
+     * )
      * @ORM\Column(type="string",nullable=false)
      */
     private $name;
@@ -120,9 +124,10 @@ class RequestEntity
     private $platform;
 
     /**
+     * @Assert\Type("string")
      * @Assert\Length(
      *     max = 100,
-     *     maxMessage="Platform max character exceeded. Delete some platform."
+     *     maxMessage="Other Platform is invalid."
      * )
      * @ORM\Column(type="json_array",nullable=true)
      */
@@ -200,6 +205,7 @@ class RequestEntity
      */
     public function setName($name)
     {
+        $name = trim(preg_replace('/\s+/',' ', $name));
         $this->name = $name;
     }
 
@@ -348,9 +354,44 @@ class RequestEntity
      */
     public function setOtherPlatform($otherPlatform)
     {
+        /*
+         * Created a filter and mapper for setOtherPlatform. It's not required but if a user
+         * will add a platform and the value is a combination of commas and spaces it will
+         * silently fail. If the user tries to input over 10 other platforms, only 10 other platforms
+         * will be added.
+         *
+         * It also needs to be encoded as json as my @assert on other platform has maxlength of 100 and
+         * expects a string.
+         */
+        if($otherPlatform){
+            $toPlatform = explode(",",$otherPlatform);
+            /*
+             * Creating a map to eliminate empty data caused by passing only commas
+             * e.g. :
+             * User passes ,,,,,,,,,,,
+             * our explode will create N number of arrays based off the commas passed.
+             * added trim($value) to remove ,     ,    ,  ,,,, empty multi-spaced elements.
+             *
+             * Current downside is if a user throws in single character platform ex: a,b,c,d,e,f
+             * it's still be inserted to db. Will fix regex in the future.
+             */
 
-        $this->otherPlatform = $otherPlatform;
+            $filterPlatform = array_filter($toPlatform, function($value){
+                if(preg_match_all("/^[A-Za-z\s,]*/",$value)){
+                    return trim($value) !== '';
+                }
+            });
+
+            $mapPlatform = array_map(function($value){
+                return trim($value);
+            },$filterPlatform);
+
+            $reIndexPlatform = array_values($mapPlatform);
+
+            $otherPlatform = count($reIndexPlatform) > 10 ? array_slice($reIndexPlatform,0,10) : $reIndexPlatform;
+        }
+        dump($otherPlatform);
+        //needed to encode this to avoid errors. as the checker expects a string not an array.
+        $this->otherPlatform = json_encode($otherPlatform);
     }
-
-
 }

@@ -33,16 +33,16 @@ class RequestFormController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            try {
-                $formData = $form->getData();
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($formData);
-                $manager->flush();
-                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
-            } catch (ORMException $exception) {
-//                create exception or reroute
-                dump($exception);
-            }
+//            try {
+//                $formData = $form->getData();
+//                $manager = $this->getDoctrine()->getManager();
+//                $manager->persist($formData);
+//                $manager->flush();
+//                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
+//            } catch (ORMException $exception) {
+////                create exception or reroute
+//                dump($exception);
+//            }
         }
 
         return $this->render("FormView/RequestFormView.html.twig",[

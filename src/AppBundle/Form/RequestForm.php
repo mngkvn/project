@@ -67,8 +67,18 @@ class RequestForm extends AbstractType
                     return ucwords($value);
                 }
             ])
-            ->add('otherPlatform',TextType::class,['label'=>"Other Platforms (please specify)"])
-            ->add('message',TextareaType::class,['label'=>'*Message']);
+            ->add('otherPlatform',TextType::class,[
+                'label' => 'Other Platforms (please specify)',
+                'attr' => [
+                    'maxlength' => 100
+                ]
+            ])
+            ->add('message',TextareaType::class,[
+                'label' => '*Message',
+                'attr' => [
+                    "maxlength" => 5000
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
