@@ -9,11 +9,13 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\CategoryEntity;
+use AppBundle\Entity\PlatformEntity;
 use AppBundle\Entity\RequestEntity;
 use Doctrine\ORM\EntityRepository;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -35,38 +37,38 @@ class RequestForm extends AbstractType
                     'maxlength' => 100
                 ]
             ])
-            ->add('email',EmailType::class,['label'=>'*Email Address'])
-            ->add('contactNumber',TextType::class,['label'=>'Contact Number'])
+            ->add('email',EmailType::class,[
+                'label'=>'*Email Address',
+                'attr'=>[
+                    'maxlength' => 100
+                ]
+            ])
+            ->add('contactNumber',TextType::class,[
+                'label'=>'Contact Number',
+                'attr'=>[
+                    'maxlength' => 100
+                ]
+            ])
             ->add('category',EntityType::class,[
                 'class' => CategoryEntity::class,
-                //Check admin
-                'placeholder' =>"Choose an option",
+                'placeholder' => "Select a category",
                 'label'=>'*Category',
                 'choice_label' => function($value){
-                //getCategory from the entity and match if b2b marketing for proper Capitalization.
-                    if($value->getCategory() === "b2b-marketing"){
-                        return "Business to Business Marketing";
-                    }
                     return ucwords(str_replace('-',' ',$value));
                 },
                 //if editing and no entity chosen for category, will trigger error
                 'empty_data' => " "
             ])
             ->add('quantity',IntegerType::class,['label'=>'Quantity'])
-            ->add('company',TextType::class,['label'=>'Company'])
-            ->add('platform',ChoiceType::class,[
-                'label' => 'Supported Platforms',
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => [
-                    'ebay' => 'ebay',
-                    'amazon' => 'amazon',
-                    'walmart' => 'walmart'
-                ],
-                'choice_label' => function($value){
-                    return ucwords($value);
-                }
+            ->add('company',TextType::class,[
+                'label'=>'Company',
+                'attr'=>[
+                    'maxlength' => 100
+                ]
             ])
+            ->add('isAmazon',CheckboxType::class,['label' => 'Amazon'])
+            ->add('isEbay',CheckboxType::class,['label' => 'Ebay'])
+            ->add('isWalmart',CheckboxType::class,['label' => 'Walmart'])
             ->add('otherPlatform',TextType::class,[
                 'label' => 'Other Platforms (please specify)',
                 'attr' => [

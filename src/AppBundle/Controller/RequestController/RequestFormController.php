@@ -22,7 +22,7 @@ class RequestFormController extends Controller
     /**
      * @Route("photo/form", name = "photo-form")
      * @Route("video/form", name = "video-form")
-     * @Route("b2b-marketing/form", name = "b2b-marketing-form")
+     * @Route("business-to-business-marketing/form", name = "business-to-business-marketing-form")
      * @Route("marketing-sales/form", name = "marketing-sales-form")
      * @Route("package-design/form", name = "package-design-form")
      * @Route("product-design/form", name = "product-design-form")
@@ -33,16 +33,16 @@ class RequestFormController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-//            try {
-//                $formData = $form->getData();
-//                $manager = $this->getDoctrine()->getManager();
-//                $manager->persist($formData);
-//                $manager->flush();
-//                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
-//            } catch (ORMException $exception) {
-////                create exception or reroute
-//                dump($exception);
-//            }
+            try {
+                $formData = $form->getData();
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($formData);
+                $manager->flush();
+                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
+            } catch (ORMException $exception) {
+//                create exception or reroute
+                dump($exception);
+            }
         }
 
         return $this->render("FormView/RequestFormView.html.twig",[
@@ -55,7 +55,7 @@ class RequestFormController extends Controller
      * @param RequestEntity $id
      * @Route("photo/{id}/edit", name = "photo-edit")
      * @Route("video/{id}/edit", name = "video-edit")
-     * @Route("b2b-marketing/{id}/edit", name = "b2b-marketing-edit")
+     * @Route("business-to-business-marketing/{id}/edit", name = "business-to-business-marketing-edit")
      * @Route("marketing-sales/{id}/edit", name = "marketing-sales-edit")
      * @Route("package-design/{id}/edit", name = "package-design-edit")
      * @Route("product-design/{id}/edit", name = "product-design-edit")

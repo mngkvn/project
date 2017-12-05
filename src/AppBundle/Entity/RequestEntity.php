@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 use \DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Class RequestEntity
  * @package AppBundle\Entity\RequestEntity
@@ -48,11 +47,11 @@ class RequestEntity
      * @Assert\Range(
      *     min="1",
      *     max="10000",
-     *     minMessage="At least 1 quantity needed.",
+     *     minMessage="At least 1 quantity is needed.",
      *     maxMessage="Quantity cannot exceed 10,000.",
-     *     invalidMessage="Please put a realistic quantity."
+     *     invalidMessage="Quantity is invalid."
      * )
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\Column(type="integer",nullable = true)
      */
     private $quantity;
 
@@ -65,41 +64,49 @@ class RequestEntity
      *     maxMessage="Your name is too long."
      * )
      * @Assert\Regex(
-     *     pattern="/^[A-Za-z\s]*$/",
-     *     message="Please put a valid name"
+     *     pattern="/^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$/",
+     *     message="Please provide a valid name."
      * )
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string",nullable = false)
      */
     private $name;
 
     /**
      * @Assert\NotBlank(message="Your email is required.")
      * @Assert\Email(message="Please provide a valid email address.")
-     * @ORM\Column(type="string",nullable=false)
+     * @ORM\Column(type="string",nullable = false)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/",
+     *     message="Please provide a valid phone number."
+     * )
+     * @ORM\Column(type="string",nullable = true)
      */
     private $contactNumber;
 
     /**
-     * @Assert\NotBlank(message="Please describe or summarize your request.")
+     * @Assert\NotBlank(message="Message is required.")
      * @Assert\Length(
      *     min = 15,
      *     max = 5000,
-     *     minMessage="Describe your request more clearly.",
-     *     maxMessage="Please summarize your request."
+     *     minMessage = "Message is too short.",
+     *     maxMessage = "Please summarize your request."
      * )
-     * @ORM\Column(type="text",nullable=false)
+     * @ORM\Column(type="text",nullable = false)
      */
     private $message;
 
     /**
      * @Assert\NotBlank(message="Please select a category.")
-     * @ORM\ManyToOne(targetEntity="CategoryEntity")
-     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Choice(
+     *     choices = {"photo","video","business-to-business-marketing","package-design","product-design","marketing-sales"},
+     *     message = "Please select a valid category."
+     * )
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CategoryEntity")
+     * @ORM\JoinColumn(name="category_id",referencedColumnName="id", nullable = false)
      */
     private $category;
 
@@ -109,7 +116,18 @@ class RequestEntity
     private $postedAt;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *     min = 2,
+     *     max = 100,
+     *     minMessage="Company name is too short",
+     *     maxMessage="Company name is too long."
+     * )
+     * @Assert\Regex(
+     *     pattern = "/^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+$/",
+     *     message = "Please provide a valid company name."
+     * )
+     * @ORM\Column(type="string",nullable = true)
      */
     private $company;
 
@@ -119,31 +137,88 @@ class RequestEntity
     private $isActive;
 
     /**
-     * @ORM\Column(type="json_array",nullable=true)
-     */
-    private $platform;
-
-    /**
      * @Assert\Type("string")
      * @Assert\Length(
      *     max = 100,
      *     maxMessage="Other Platform is invalid."
      * )
-     * @ORM\Column(type="json_array",nullable=true)
+     * @ORM\Column(type="json_array",nullable = true)
      */
     private $otherPlatform;
 
 
     /**
-     * @ORM\Column(type="json_array",nullable=true)
+     * @ORM\Column(type="json_array",nullable = true)
      */
     private $movedBy;
 
     /**
-     * @ORM\Column(type="json_array",nullable=true)
+     * @ORM\Column(type="json_array",nullable = true)
      */
     private $closedBy;
 
+    /**
+     * @ORM\Column(type="boolean",nullable=true)
+     */
+    private $isAmazon;
+
+    /**
+     * @ORM\Column(type="boolean",nullable=true)
+     */
+    private $isEbay;
+
+    /**
+     * @ORM\Column(type="boolean",nullable=true)
+     */
+    private $isWalmart;
+
+    /**
+     * @return mixed
+     */
+    public function getIsAmazon()
+    {
+        return $this->isAmazon;
+    }
+
+    /**
+     * @param mixed $isAmazon
+     */
+    public function setIsAmazon($isAmazon)
+    {
+        $this->isAmazon = $isAmazon;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsEbay()
+    {
+        return $this->isEbay;
+    }
+
+    /**
+     * @param mixed $isEbay
+     */
+    public function setIsEbay($isEbay)
+    {
+        $this->isEbay = $isEbay;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsWalmart()
+    {
+        return $this->isWalmart;
+    }
+
+    /**
+     * @param mixed $isWalmart
+     */
+    public function setIsWalmart($isWalmart)
+    {
+        $this->isWalmart = $isWalmart;
+    }
     /**
      * @return mixed
      */
@@ -174,22 +249,6 @@ class RequestEntity
     public function setClosedBy($closedBy)
     {
         $this->closedBy = $closedBy;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlatform()
-    {
-        return $this->platform;
-    }
-
-    /**
-     * @param mixed $platform
-     */
-    public function setPlatform($platform)
-    {
-        $this->platform = $platform;
     }
 
     /**
@@ -238,6 +297,11 @@ class RequestEntity
      */
     public function setContactNumber($contactNumber)
     {
+        /*
+         * Silently fail if it passed regex validation even it's invalid.
+         * This field is not required.
+         */
+        $contactNumber= trim(preg_replace('/\s/','-', $contactNumber));
         $this->contactNumber = $contactNumber;
     }
 
@@ -290,6 +354,11 @@ class RequestEntity
      */
     public function setCompany($company)
     {
+        /*
+         * Silently fail if it passed regex validation even it's invalid.
+         * This field is not required.
+         */
+        $company = trim(preg_replace('/\s+/',' ', $company));
         $this->company = $company;
     }
 
@@ -364,33 +433,94 @@ class RequestEntity
          * expects a string.
          */
         if($otherPlatform){
-            $toPlatform = explode(",",$otherPlatform);
             /*
              * Creating a map to eliminate empty data caused by passing only commas
              * e.g. :
              * User passes ,,,,,,,,,,,
              * our explode will create N number of arrays based off the commas passed.
              * added trim($value) to remove ,     ,    ,  ,,,, empty multi-spaced elements.
+             * Also, this removes duplicates from supported platforms and already added ones.
              *
              * Current downside is if a user throws in single character platform ex: a,b,c,d,e,f
-             * it's still be inserted to db. Will fix regex in the future.
+             * it's still be inserted to db. Will fix regex in the future also if user manually typed
+             * supported platforms and didn't check one, it will not be registered.
              */
 
+
+            //List of supportedPlatform so far.
+            $supportedPlatform=["amazon","ebay","walmart"];
+
+            //List of currently checked supported platform.
+            $checkedSupportedPlatform =[];
+
+            if($this->getIsAmazon()){
+                array_push($supportedPlatform,"amazon");
+            }
+
+            if($this->getIsEbay()){
+                array_push($supportedPlatform,"ebay");
+            }
+
+            if($this->getIsWalmart()){
+                array_push($supportedPlatform,"walmart");
+            }
+
+            //Chops the otherPlatform string sent to array
+            $toPlatform = explode(",",$otherPlatform);
+
+            //Filter No Data and those that doesn't match the regex
             $filterPlatform = array_filter($toPlatform, function($value){
-                if(preg_match_all("/^[A-Za-z\s,]*/",$value)){
-                    return trim($value) !== '';
-                }
+                return preg_match("/^[A-Za-z\s,]+$/",$value) && trim($value);
             });
 
+            //Trim and make them lowercase
             $mapPlatform = array_map(function($value){
-                return trim($value);
+                return strtolower(trim($value));
             },$filterPlatform);
 
-            $reIndexPlatform = array_values($mapPlatform);
+            //Remove duplication like "target,target"
+            $removeDuplicatePlatform = array_unique($mapPlatform);
 
+            //To be used by otherPlatform, gets unique platform that isn't in the supported platforms.
+            $uniquePlatform = array_diff($removeDuplicatePlatform,$supportedPlatform);
+
+            //Reindex otherPlatforms
+            $reIndexPlatform = array_values($uniquePlatform);
+
+            //If otherPlatforms are more than 10, then get only 10 else get the whole reIndexPlatform value
             $otherPlatform = count($reIndexPlatform) > 10 ? array_slice($reIndexPlatform,0,10) : $reIndexPlatform;
+
+            /*
+             * This is for when the user didn't check the default supported platforms but wrote it instead on
+             * the otherPlatform. Need to check the checked supported platform and the added otherPlatform and
+             * add the unchecked one on the supported platform.
+             *
+             * get written supported platforms and check their intersection from the provided supported platform.
+             * this will remove written unsupported platforms.
+             */
+
+            //will match ebay,walmart,amazon if written manually on the input and makes them unique and finally fix the index.
+            $checkedSupportedPlatformIntersection = array_values(array_unique(array_intersect($supportedPlatform,$removeDuplicatePlatform)));
+
+            //if there's a match
+            if(count($checkedSupportedPlatformIntersection)){
+                //check and set the supported platform that depends on the intersected array
+                for($counter=0;$counter < count($checkedSupportedPlatformIntersection); $counter++){
+                    switch($checkedSupportedPlatformIntersection[$counter]){
+                        case "amazon" :
+                            $this->setIsAmazon(true);
+                            break;
+                        case "walmart" :
+                            $this->setIsWalmart(true);
+                            break;
+                        case "ebay" :
+                            $this->setIsEbay(true);
+                            break;
+                        default:
+                    }
+                }
+            }
         }
-        dump($otherPlatform);
         //needed to encode this to avoid errors. as the checker expects a string not an array.
         $this->otherPlatform = json_encode($otherPlatform);
     }

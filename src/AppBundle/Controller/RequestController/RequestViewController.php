@@ -19,7 +19,7 @@ class RequestViewController extends Controller
     /**
      * @Route("/photo/{id}",name="photo-view",requirements={"id" : "\d+"})
      * @Route("/video/{id}",name="video-view",requirements={"id" : "\d+"})
-     * @Route("/b2b-marketing/{id}",name="b2b-marketing-view",requirements={"id" : "\d+"})
+     * @Route("/business-to-business-marketing/{id}",name="business-to-business-marketing-view",requirements={"id" : "\d+"})
      * @Route("/marketing-sales/{id}",name="marketing-sales-view",requirements={"id" : "\d+"})
      * @Route("/product-design/{id}",name="product-design-view",requirements={"id" : "\d+"})
      * @Route("/package-design/{id}",name="package-design-view",requirements={"id" : "\d+"})

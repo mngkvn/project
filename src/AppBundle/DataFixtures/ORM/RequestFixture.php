@@ -8,8 +8,8 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\CategoryEntity;
 use AppBundle\Entity\RequestEntity;
+use AppBundle\Entity\CategoryEntity;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,7 +21,7 @@ class RequestFixture extends Controller implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $fake = Faker\Factory::create();
-        for($counter = 0; $counter < 100; $counter++){
+        for($counter = 0; $counter < 10; $counter++){
             $requestObject = new RequestEntity();
 
             $name = $fake->name;
@@ -30,12 +30,14 @@ class RequestFixture extends Controller implements FixtureInterface
             $company = $fake->company;
             $message = $fake->realText($maxNbChars=400);
             $phoneNumber = $fake->e164PhoneNumber;
-            $platform = $fake->randomElement([null,'ebay','amazon','craigslist','google']);
             $quantity = $fake->numberBetween($min=1,$max=20);
             $date = $fake->dateTimeBetween('-12 months', 'now');
+            $isAmazon = $fake->numberBetween($min=0,$max=1);
+            $isEbay = $fake->numberBetween($min=0,$max=1);
+            $isWalmart = $fake->numberBetween($min=0,$max=1);
 
-            $em = $this->getDoctrine()->getRepository(CategoryEntity::class);
-            $categories = $em->findAll();
+            $emCategory = $this->getDoctrine()->getRepository(CategoryEntity::class);
+            $categories = $emCategory->findAll();
             $category = $categories[array_rand($categories)];
 
             $requestObject->setName($name);
@@ -43,7 +45,9 @@ class RequestFixture extends Controller implements FixtureInterface
             $requestObject->setContactNumber($phoneNumber);
             $requestObject->setCompany($company);
             $requestObject->setMessage($message);
-            $requestObject->setPlatform([$platform]);
+            $requestObject->setIsAmazon($isAmazon);
+            $requestObject->setIsEbay($isEbay);
+            $requestObject->setIsWalmart($isWalmart);
             $requestObject->setQuantity($quantity);
             $requestObject->setPostedAt($date);
             $requestObject->setIsActive($isActive);
