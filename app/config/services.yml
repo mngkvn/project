@@ -14,6 +14,10 @@ services:
       name: doctrine.event_subscriber
   app.path_service:
     class: AppBundle\Service\PathService
+  app.json_decode:
+    class: AppBundle\Twig\JsonDecode
+    tags:
+      - { name : twig.extension }
 #    # default configuration for services in *this* file
 #    _defaults:
 #        # automatically injects dependencies in your services

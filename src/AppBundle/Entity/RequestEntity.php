@@ -448,21 +448,21 @@ class RequestEntity
 
 
             //List of supportedPlatform so far.
-            $supportedPlatform=["amazon","ebay","walmart"];
+            $supportedPlatform=['amazon','ebay','walmart'];
 
             //List of currently checked supported platform.
             $checkedSupportedPlatform =[];
 
             if($this->getIsAmazon()){
-                array_push($supportedPlatform,"amazon");
+                array_push($supportedPlatform,'amazon');
             }
 
             if($this->getIsEbay()){
-                array_push($supportedPlatform,"ebay");
+                array_push($supportedPlatform,'ebay');
             }
 
             if($this->getIsWalmart()){
-                array_push($supportedPlatform,"walmart");
+                array_push($supportedPlatform,'walmart');
             }
 
             //Chops the otherPlatform string sent to array
@@ -522,6 +522,7 @@ class RequestEntity
             }
         }
         //needed to encode this to avoid errors. as the checker expects a string not an array.
+        dump($otherPlatform);
         $this->otherPlatform = json_encode($otherPlatform);
     }
 }

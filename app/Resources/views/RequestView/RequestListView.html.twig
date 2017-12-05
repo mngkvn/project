@@ -7,7 +7,8 @@
                 <th>{{ category | upper | replace({"-":" "})}} #</th>
                 <th> Name </th>
                 <th> Company </th>
-                <th> Platform </th>
+                <th> Supported Platforms</th>
+                <th> Other Platforms </th>
                 <th> Edit </th>
             </tr>
         </thead>
@@ -18,9 +19,24 @@
                 <td>{{ request.name }}</td>
                 <td>{{ request.company ?: '-' }}</td>
                 <td>
-                    {% if request.platform[0] is not null %}
-                    {% for platform in request.platform %}
-                        {{ platform|capitalize }}{% if not loop.last %}, {% endif %}
+                    {% if not request.isAmazon and not request.isWalmart and not request.isEbay %}
+                        -
+                        {% else %}
+                            {% if request.isAmazon %}
+                                Amazon {{ request.isEbay ? ',' : request.isWalmart ? ',' : '' }}
+                            {% endif %}
+                            {% if request.isEbay %}
+                                Ebay {{ request.isWalmart ? ',' : '' }}
+                            {% endif %}
+                            {% if request.isWalmart %}
+                                Walmart
+                            {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if request.otherPlatform %}
+                    {% for otherPlatform in request.otherPlatform|json_decode %}
+                        {{ otherPlatform|capitalize }}{% if not loop.last %}, {% endif %}
                     {% endfor %}
                     {% else %}
                         -

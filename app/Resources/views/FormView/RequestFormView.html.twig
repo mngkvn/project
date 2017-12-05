@@ -5,16 +5,34 @@
     {{ form_start(form) }}
         {#FIRST ROW #}
         <div class="form-row">
+
             {#NAME DIV#}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.name) }}
-                {{ form_widget(form.name, form.name.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                {% if form.name.vars.valid %}
-                    <small id="{{ form.name.vars.name }}HelpBlock" class="form-text text-muted">Your name is required.</small>
+                {# If an admin is not logged in render the form.name #}
+                {% if not app.user %}
+                    {{ form_widget(
+                        form.name,
+                        form.name.vars.valid ?
+                        {'attr':{'class':'form-control'}} :
+                        {'attr':{'class':'form-control is-invalid'}}
+                    )
+                    }}
+                    {% if form.name.vars.valid %}
+                        <small id="{{ form.name.vars.name }}HelpBlock" class="form-text text-muted">Your name is required.</small>
+                    {% else %}
+                        <div class="invalid-feedback">{{ form.name.vars.errors.0.message }}</div>
+                    {% endif %}
+                {#if an admin is logged in, set form.name to readonly.#}
                 {% else %}
-                    <div class="invalid-feedback">{{ form.name.vars.errors.0.message }}</div>
+                    {{ form_widget(
+                        form.name,
+                        {'attr':{'class':'form-control','readonly':'readonly'}}
+                    )
+                    }}
                 {% endif %}
             </div>
+
             {#COMPANY DIV#}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.company) }}
