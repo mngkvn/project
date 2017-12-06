@@ -3,10 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
         <ul>
@@ -14,7 +13,7 @@
             <li><a href="{{ path("video-form") }}">Video Form</a></li>
             <li><a href="{{ path("package-design-form") }}">Package Design Form</a></li>
             <li><a href="{{ path("product-design-form") }}">Product Design Form</a></li>
-            <li><a href="{{ path("business-to-business-marketing-form") }}">B2B Marketing Form</a></li>
+            <li><a href="{{ path("business-to-business-marketing-form") }}">Business to Business Marketing Form</a></li>
             <li><a href="{{ path("marketing-sales-form") }}"> Marketing Sales Form</a></li>
         </ul>
         <ul>
@@ -22,7 +21,7 @@
             <li><a href="{{ path("video-list") }}">Video list</a></li>
             <li><a href="{{ path("package-design-list") }}">Package Design list</a></li>
             <li><a href="{{ path("product-design-list") }}">Product Design list</a></li>
-            <li><a href="{{ path("business-to-business-marketing-list") }}">B2B Marketing list</a></li>
+            <li><a href="{{ path("business-to-business-marketing-list") }}">Business to Business Marketing list</a></li>
             <li><a href="{{ path("marketing-sales-list") }}"> Marketing Sales list</a></li>
             {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path("admin-logout") }}">Logout</a></li>
@@ -35,7 +34,6 @@
                 src="https://code.jquery.com/jquery-3.2.1.min.js"
                 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
                 crossorigin="anonymous">
-
         </script>
         {% block javascripts %}{% endblock %}
     </body>

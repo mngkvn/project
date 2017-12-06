@@ -31,18 +31,17 @@ class RequestFormController extends Controller
         $newRoute = $this->get("app.path_service",$this->getUser());
         $form = $this->createForm(RequestForm::class);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()) {
-//            try {
-//                $formData = $form->getData();
-//                $manager = $this->getDoctrine()->getManager();
-//                $manager->persist($formData);
-//                $manager->flush();
-//                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
-//            } catch (ORMException $exception) {
-////                create exception or reroute
-//                dump($exception);
-//            }
+            try {
+                $formData = $form->getData();
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($formData);
+                $manager->flush();
+                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
+            } catch (ORMException $exception) {
+//                create exception or reroute
+                dump($exception);
+            }
         }
 
         return $this->render("FormView/RequestFormView.html.twig",[
@@ -61,7 +60,6 @@ class RequestFormController extends Controller
      * @Route("product-design/{id}/edit", name = "product-design-edit")
      */
     public function renderEditForm(Request $request, RequestEntity $id){
-        dump($id);
         $newRoute = $this->get("app.path_service");
         $form = $this->createForm(RequestForm::class,$id);
         $form->handleRequest($request);
@@ -80,7 +78,8 @@ class RequestFormController extends Controller
 //        }
 
         return $this->render("FormView/RequestFormView.html.twig",[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'requestId' => $id->getId()
         ]);
     }
 }

@@ -26,7 +26,6 @@ class RequestEntity
     {
         $this->postedAt = new DateTime();
         $this->isActive = 1;
-        $this->platform = null;
         $this->quantity = null;
         $this->otherPlatform = null;
         $this->closedBy = null;
@@ -132,6 +131,10 @@ class RequestEntity
     private $company;
 
     /**
+     * @Assert\Type(
+     *     type="bool",
+     *     message="This value is invalid"
+     * )
      * @ORM\Column(type="boolean")
      */
     private $isActive;
@@ -158,19 +161,55 @@ class RequestEntity
     private $closedBy;
 
     /**
+     * @Assert\Type(
+     *     type="bool",
+     *     message="This value is invalid"
+     * )
      * @ORM\Column(type="boolean",nullable=true)
      */
     private $isAmazon;
 
     /**
+     * @Assert\Type(
+     *     type="bool",
+     *     message="This value is invalid"
+     * )
      * @ORM\Column(type="boolean",nullable=true)
      */
     private $isEbay;
 
     /**
+     * @Assert\Type(
+     *     type="bool",
+     *     message="This value is invalid"
+     * )
      * @ORM\Column(type="boolean",nullable=true)
      */
     private $isWalmart;
+
+    /**
+     * @Assert\Choice(
+     *     choices = {"photo","video","business-to-business-marketing","package-design","product-design","marketing-sales"},
+     *     message = "Please select a valid category."
+     * )
+     */
+    private $moveCategory;
+
+    /**
+     * @return mixed
+     */
+    public function getMoveCategory()
+    {
+        return $this->moveCategory;
+    }
+
+    /**
+     * @param mixed $moveCategory
+     */
+    public function setMoveCategory($moveCategory)
+    {
+        $this->moveCategory = $moveCategory;
+    }
 
     /**
      * @return mixed

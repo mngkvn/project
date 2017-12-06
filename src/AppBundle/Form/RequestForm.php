@@ -80,6 +80,23 @@ class RequestForm extends AbstractType
                 'attr' => [
                     "maxlength" => 5000
                 ]
+            ])
+            ->add('moveCategory',EntityType::class,[
+                'class' => CategoryEntity::class,
+                'placeholder' => "Move category to",
+                'label'=>'Edit Category',
+                'choice_label' => function($value){
+                    return ucwords(str_replace('-',' ',$value));
+                },
+                //if editing and no entity chosen for category, will trigger error
+                'empty_data' => " "
+            ])
+            ->add('isActive',ChoiceType::class,[
+                'label' => 'Request Status',
+                'choices' => [
+                    'Open' => true,
+                    'Closed' => false
+                ]
             ]);
     }
 
