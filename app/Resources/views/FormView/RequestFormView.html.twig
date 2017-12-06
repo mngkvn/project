@@ -27,7 +27,7 @@
                 {% else %}
                     {{ form_widget(
                         form.name,
-                        {'attr':{'class':'form-control','readonly':'readonly'}}
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
                     )
                     }}
                 {% endif %}
@@ -36,9 +36,17 @@
             {#COMPANY DIV#}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.company) }}
-                {{ form_widget(form.company, form.company.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                {% if not form.company.vars.valid %}
-                    <div class="invalid-feedback">{{ form.company.vars.errors.0.message }}</div>
+                {% if not app.user %}
+                    {{ form_widget(form.company, form.company.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if not form.company.vars.valid %}
+                        <div class="invalid-feedback">{{ form.company.vars.errors.0.message }}</div>
+                    {% endif %}
+                    {% else %}
+                        {{ form_widget(
+                            form.company,
+                            {'attr':{'class':'form-control','disabled':'disabled'}}
+                        )
+                        }}
                 {% endif %}
             </div>
 
@@ -50,19 +58,35 @@
             {#EMAIL DIV#}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.email) }}
-                {{ form_widget(form.email, form.email.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                {% if form.email.vars.valid %}
-                    <small id="{{ form.email.vars.name }}HelpBlock" class="form-text text-muted">Your email address is required.</small>
+                {% if not app.user %}
+                    {{ form_widget(form.email, form.email.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if form.email.vars.valid %}
+                        <small id="{{ form.email.vars.name }}HelpBlock" class="form-text text-muted">Your email address is required.</small>
+                    {% else %}
+                        <div class="invalid-feedback">{{ form.email.vars.errors.0.message }}</div>
+                    {% endif %}
                 {% else %}
-                    <div class="invalid-feedback">{{ form.email.vars.errors.0.message }}</div>
+                    {{ form_widget(
+                        form.email,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
                 {% endif %}
             </div>
             {#CONTACTNUMBER DIV#}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.contactNumber) }}
-                {{ form_widget(form.contactNumber, form.contactNumber.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                {% if not form.contactNumber.vars.valid %}
-                    <div class="invalid-feedback">{{ form.contactNumber.vars.errors.0.message }}</div>
+                {% if not app.user %}
+                    {{ form_widget(form.contactNumber, form.contactNumber.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if not form.contactNumber.vars.valid %}
+                        <div class="invalid-feedback">{{ form.contactNumber.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.contactNumber,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
                 {% endif %}
             </div>
 
@@ -85,9 +109,17 @@
             <div class="form-group col-sm-1 col-md-1 col-lg-1">
                 <label class="d-block d-sm-none d-md-none d-lg-block">{{ form.quantity.vars.name|capitalize }}</label>
                 <label class="d-none d-sm-block d-md-block d-lg-none">Qty.</label>
-                {{ form_widget(form.quantity, form.quantity.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                {% if not form.quantity.vars.valid %}
-                    <div class="invalid-feedback">{{ form.quantity.vars.errors.0.message }}</div>
+                {% if not app.user %}
+                    {{ form_widget(form.quantity, form.quantity.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if not form.quantity.vars.valid %}
+                        <div class="invalid-feedback">{{ form.quantity.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.quantity,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
                 {% endif %}
             </div>
             {#SUPPORTED PLATFORMS#}
@@ -95,18 +127,48 @@
                 <label>Supported Platforms</label>
                 <div class="form-control" style="padding:1.5px 15px;">
                     <div class="form-check form-check-inline">
+
                         <label class="form-check-label">
-                            {{ form_widget(form.isAmazon, {'attr':{'class':'form-check-input' }}) }} {{ form.isAmazon.vars.label }}
+                            {% if not app.user %}
+                                {{ form_widget(form.isAmazon, {'attr':{'class':'form-check-input' }}) }} {{ form.isAmazon.vars.label }}
+                            {% else %}
+                                {{ form_widget(
+                                    form.isAmazon,
+                                    {'attr':{'disabled':'disabled'}}
+                                )
+                                }}
+                                {{ form.isAmazon.vars.label }}
+                            {% endif %}
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
+
                         <label class="form-check-label">
-                            {{ form_widget(form.isEbay, {'attr':{'class':'form-check-input' }}) }} {{ form.isEbay.vars.label }}
+                            {% if not app.user %}
+                                {{ form_widget(form.isEbay, {'attr':{'class':'form-check-input' }}) }} {{ form.isEbay.vars.label }}
+                            {% else %}
+                                {{ form_widget(
+                                    form.isEbay,
+                                    {'attr':{'disabled':'disabled'}}
+                                )
+                                }}
+                                {{ form.isEbay.vars.label }}
+                            {% endif %}
                         </label>
                     </div>
+
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            {{ form_widget(form.isWalmart, {'attr':{'class':'form-check-input' }}) }} {{ form.isWalmart.vars.label }}
+                            {% if not app.user %}
+                                {{ form_widget(form.isWalmart, {'attr':{'class':'form-check-input' }}) }} {{ form.isWalmart.vars.label }}
+                            {% else %}
+                                {{ form_widget(
+                                    form.isWalmart,
+                                    {'attr':{'disabled':'disabled'}}
+                                )
+                                }}
+                                {{ form.isWalmart.vars.label }}
+                            {% endif %}
                         </label>
                     </div>
                 </div>
