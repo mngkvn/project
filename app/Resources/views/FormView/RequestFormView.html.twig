@@ -31,7 +31,7 @@
     {{ form_start(form) }}
         {#FIRST ROW #}
         {% if app.user %}
-            <legend>Editing {{ form.category.vars.data.category|capitalize }}# {{ requestId }}</legend>
+            <legend>Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }}# {{ requestId }}</legend>
         {% endif %}
         <div class="form-row">
             {#NAME DIV#}
@@ -265,9 +265,9 @@
                         {% endif %}
                     </div>
                     <div class="form-group col-sm-3 col-md-3 col-lg-3">
-                        {{ form_label(form.isActive) }}
-                        {{ form_widget(form.isActive, form.isActive.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                        {% if form.isActive.vars.valid %}
+                        {{ form_label(form.changeIsActive) }}
+                        {{ form_widget(form.changeIsActive, form.changeIsActive.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                        {% if form.changeIsActive.vars.valid %}
                         {% else %}
                             <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
                         {% endif %}
@@ -276,6 +276,6 @@
         {% endif %}
 
         <input type="submit" class="btn btn-primary" formnovalidate="formnovalidate" value="{{ not app.user ? 'Submit' : 'Save' }}" />
-        {{ form_end(form,{'render_rest':false}) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}

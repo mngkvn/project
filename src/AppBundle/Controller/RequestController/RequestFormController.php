@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\RequestController;
 
+use AppBundle\Entity\AdminEntity;
 use AppBundle\Entity\RequestEntity;
 use AppBundle\Form\RequestForm;
 use Doctrine\ORM\ORMException;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class RequestFormController extends Controller
 {
@@ -61,21 +63,53 @@ class RequestFormController extends Controller
      */
     public function renderEditForm(Request $request, RequestEntity $id){
         $newRoute = $this->get("app.path_service");
-        $form = $this->createForm(RequestForm::class,$id);
-        $form->handleRequest($request);
+        $form = $this->createForm(
+            RequestForm::class,
+            $id,
+            [
+                "userId" => $this->getUser()->getId(),
+                "username" => $this->getUser()->getUsername(),
+                "userEmail" => $this->getUser()->getEmail()
+            ]
+        );
+
+        dump($form->getData());
+
+//        $form->handleRequest($request);
+
+//        if($request->isMethod("POST")){
+//            $form->submit($id->getCategory());
+//        }
+//        $oldCategory = $id->getCategory();
+//        $newCategory = $form["moveCategory"]->getData();
+//        $oldStatus = $id->getIsActive();
+//        $newStatus = $form["changeIsActive"]->getData();
 //
-//        if($form->isSubmitted() && $form->isValid()){
-//            try {
+//        $updatedCategory = $oldCategory != $newCategory ? $newCategory ? $newCategory : $oldCategory : $oldCategory;
+//        $updatedStatus = $oldStatus != $newStatus ? $newStatus : $oldStatus;
+
+        //update the entity fields
+
+        if($form->isSubmitted()){
+            dump($form->getData());
+//            return;
+            try {
+//                $id->setCategory($updatedCategory);
+//                $id->setIsActive($updatedStatus);
+//
+//                $form->remove("moveCategory");
+//                $form->remove("changeIsActive");
+//                dump($form->getData());
 //                $formData = $form->getData();
 //                $manager = $this->getDoctrine()->getManager();
 //                $manager->persist($formData);
 //                $manager->flush();
 //                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
-//            } catch (ORMException $exception) {
-////                create exception or reroute
-//                dump($exception);
-//            }
-//        }
+            } catch (ORMException $exception) {
+//                create exception or reroute
+                dump($exception);
+            }
+        }
 
         return $this->render("FormView/RequestFormView.html.twig",[
             'form' => $form->createView(),

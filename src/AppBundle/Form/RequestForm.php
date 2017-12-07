@@ -8,6 +8,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\AdminEntity;
 use AppBundle\Entity\CategoryEntity;
 use AppBundle\Entity\PlatformEntity;
 use AppBundle\Entity\RequestEntity;
@@ -22,6 +23,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\User;
 
@@ -81,30 +84,44 @@ class RequestForm extends AbstractType
                     "maxlength" => 5000
                 ]
             ])
-            ->add('moveCategory',EntityType::class,[
-                'class' => CategoryEntity::class,
-                'placeholder' => "Move category to",
-                'label'=>'Edit Category',
-                'choice_label' => function($value){
-                    return ucwords(str_replace('-',' ',$value));
-                },
-                //if editing and no entity chosen for category, will trigger error
-                'empty_data' => " "
-            ])
-            ->add('isActive',ChoiceType::class,[
-                'label' => 'Request Status',
-                'choices' => [
-                    'Open' => true,
-                    'Closed' => false
-                ]
-            ]);
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options){
+                $form = $event->getForm();
+
+                if($options["userId"]){
+                    $form->add('moveCategory',EntityType::class,[
+                        'class' => CategoryEntity::class,
+                        'placeholder' => "Move category to",
+                        'label'=>'Edit Category',
+                        'choice_label' => function($value){
+                            return ucwords(str_replace('-',' ',$value));
+                        },
+                        //if editing and no entity chosen for category, will trigger error
+                        'empty_data' => " "
+                    ])
+                    ->add('changeIsActive',ChoiceType::class,[
+                        'label' => 'Request Status',
+                        'choices' => [
+                            'Open' => true,
+                            'Closed' => false
+                        ]
+                    ]);
+                }
+            })
+            ->addEventListener(FormEvents::PRE_SUBMIT,function (FormEvent $event){
+                $form->remove("moveCategory");
+                $form->remove("changeIsActive");
+            });
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'label' => false,
-            'data_class' => RequestEntity::class
+            'data_class' => RequestEntity::class,
+            'username' => null,
+            'userEmail' => null,
+            'userId' => null
         ]);
+
     }
 }

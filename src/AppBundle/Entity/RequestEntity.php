@@ -133,7 +133,7 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid"
+     *     message="This value is invalid."
      * )
      * @ORM\Column(type="boolean")
      */
@@ -163,7 +163,7 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid"
+     *     message="This value is invalid."
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -172,7 +172,7 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid"
+     *     message="This value is invalid."
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -181,7 +181,7 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid"
+     *     message="This value is invalid."
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -195,6 +195,29 @@ class RequestEntity
      */
     private $moveCategory;
 
+    /**
+     * @Assert\Type(
+     *     type="bool",
+     *     message="This value is invalid."
+     * )
+     */
+    private $changeIsActive;
+
+    /**
+     * @return mixed
+     */
+    public function getChangeIsActive()
+    {
+        return $this->changeIsActive;
+    }
+
+    /**
+     * @param mixed $changeIsActive
+     */
+    public function setChangeIsActive($changeIsActive)
+    {
+        $this->changeIsActive = $changeIsActive;
+    }
     /**
      * @return mixed
      */
@@ -561,7 +584,6 @@ class RequestEntity
             }
         }
         //needed to encode this to avoid errors. as the checker expects a string not an array.
-        dump($otherPlatform);
         $this->otherPlatform = json_encode($otherPlatform);
     }
 }
