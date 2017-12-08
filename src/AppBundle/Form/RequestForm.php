@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -84,11 +85,19 @@ class RequestForm extends AbstractType
                     "maxlength" => 5000
                 ]
             ])
+            ->add('submit',SubmitType::class,[
+                "label" => $options["userId"] ? "Save" : "Submit",
+                "attr" => [
+                    "formnovalidate" => "formnovalidate",
+                    "class" => "btn btn-primary"
+                ]
+            ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options){
                 $form = $event->getForm();
 
                 if($options["userId"]){
-                    $form->add('moveCategory',EntityType::class,[
+                    $form
+                        ->add('moveCategory',EntityType::class,[
                         'class' => CategoryEntity::class,
                         'placeholder' => "Move category to",
                         'label'=>'Edit Category',
@@ -97,19 +106,20 @@ class RequestForm extends AbstractType
                         },
                         //if editing and no entity chosen for category, will trigger error
                         'empty_data' => " "
-                    ])
-                    ->add('changeIsActive',ChoiceType::class,[
-                        'label' => 'Request Status',
-                        'choices' => [
-                            'Open' => true,
-                            'Closed' => false
-                        ]
-                    ]);
+                         ])
+                        ->add('changeIsActive',ChoiceType::class,[
+                            'label' => 'Request Status',
+                            'choices' => [
+                                'Open' => true,
+                                'Closed' => false
+                            ]
+                        ]);
                 }
             })
             ->addEventListener(FormEvents::PRE_SUBMIT,function (FormEvent $event){
-                $form->remove("moveCategory");
-                $form->remove("changeIsActive");
+//                $form = $event->getForm();
+//                $form->remove("moveCategory");
+//                $form->remove("changeIsActive");
             });
     }
 
@@ -122,6 +132,5 @@ class RequestForm extends AbstractType
             'userEmail' => null,
             'userId' => null
         ]);
-
     }
 }

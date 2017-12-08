@@ -25,7 +25,7 @@ class RequestEntity
     public function __construct()
     {
         $this->postedAt = new DateTime();
-        $this->isActive = 1;
+        $this->isActive = true;
         $this->quantity = null;
         $this->otherPlatform = null;
         $this->closedBy = null;
@@ -55,24 +55,26 @@ class RequestEntity
     private $quantity;
 
     /**
-     * @Assert\NotBlank(message="Your name is required.")
-     * @Assert\Type("string")
+     * @Assert\NotBlank(message="Your name is required.",groups={"newRequest"})
+     * @Assert\Type("string",groups={"newRequest"})
      * @Assert\Length(
      *     min="1",
      *     max="100",
-     *     maxMessage="Your name is too long."
+     *     maxMessage="Your name is too long.",
+     *     groups={"newRequest"}
      * )
      * @Assert\Regex(
      *     pattern="/^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$/",
-     *     message="Please provide a valid name."
+     *     message="Please provide a valid name.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="string",nullable = false)
      */
     private $name;
 
     /**
-     * @Assert\NotBlank(message="Your email is required.")
-     * @Assert\Email(message="Please provide a valid email address.")
+     * @Assert\NotBlank(message="Your email is required.",groups={"newRequest"})
+     * @Assert\Email(message="Please provide a valid email address.",groups={"newRequest"})
      * @ORM\Column(type="string",nullable = false)
      */
     private $email;
@@ -80,29 +82,32 @@ class RequestEntity
     /**
      * @Assert\Regex(
      *     pattern="/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/",
-     *     message="Please provide a valid phone number."
+     *     message="Please provide a valid phone number.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="string",nullable = true)
      */
     private $contactNumber;
 
     /**
-     * @Assert\NotBlank(message="Message is required.")
+     * @Assert\NotBlank(message="Message is required.",groups={"newRequest"})
      * @Assert\Length(
      *     min = 15,
      *     max = 5000,
      *     minMessage = "Message is too short.",
-     *     maxMessage = "Please summarize your request."
+     *     maxMessage = "Please summarize your request.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="text",nullable = false)
      */
     private $message;
 
     /**
-     * @Assert\NotBlank(message="Please select a category.")
+     * @Assert\NotBlank(message="Please select a category.",groups={"newRequest"})
      * @Assert\Choice(
      *     choices = {"photo","video","business-to-business-marketing","package-design","product-design","marketing-sales"},
-     *     message = "Please select a valid category."
+     *     message = "Please select a valid category.",
+     *     groups={"newRequest"}
      * )
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CategoryEntity")
      * @ORM\JoinColumn(name="category_id",referencedColumnName="id", nullable = false)
@@ -115,16 +120,18 @@ class RequestEntity
     private $postedAt;
 
     /**
-     * @Assert\Type("string")
+     * @Assert\Type("string",groups={"newRequest"})
      * @Assert\Length(
      *     min = 2,
      *     max = 100,
      *     minMessage="Company name is too short",
-     *     maxMessage="Company name is too long."
+     *     maxMessage="Company name is too long.",
+     *     groups={"newRequest"}
      * )
      * @Assert\Regex(
      *     pattern = "/^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+$/",
-     *     message = "Please provide a valid company name."
+     *     message = "Please provide a valid company name.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="string",nullable = true)
      */
@@ -133,17 +140,19 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid."
+     *     message="This value is invalid.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="boolean")
      */
     private $isActive;
 
     /**
-     * @Assert\Type("string")
+     * @Assert\Type("string",groups={"newRequest"})
      * @Assert\Length(
      *     max = 100,
-     *     maxMessage="Other Platform is invalid."
+     *     maxMessage="Other Platform is invalid.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="json_array",nullable = true)
      */
@@ -163,7 +172,8 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid."
+     *     message="This value is invalid.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -172,7 +182,8 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid."
+     *     message="This value is invalid.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -181,7 +192,8 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid."
+     *     message="This value is invalid.",
+     *     groups={"newRequest"}
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -190,7 +202,8 @@ class RequestEntity
     /**
      * @Assert\Choice(
      *     choices = {"photo","video","business-to-business-marketing","package-design","product-design","marketing-sales"},
-     *     message = "Please select a valid category."
+     *     message = "Please select a valid category.",
+     *     groups={"editRequest"}
      * )
      */
     private $moveCategory;
@@ -198,7 +211,8 @@ class RequestEntity
     /**
      * @Assert\Type(
      *     type="bool",
-     *     message="This value is invalid."
+     *     message="This value is invalid.",
+     *     groups={"editRequest"}
      * )
      */
     private $changeIsActive;

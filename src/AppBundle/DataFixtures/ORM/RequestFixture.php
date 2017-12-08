@@ -25,16 +25,16 @@ class RequestFixture extends Controller implements FixtureInterface
             $requestObject = new RequestEntity();
 
             $name = $fake->name;
-            $isActive = $fake->numberBetween($min=0,$max=1);
+            $isActive = $fake->boolean($chanceOfGettingTrue = 50);
             $email = $fake->companyEmail;
             $company = $fake->company;
             $message = $fake->realText($maxNbChars=400);
             $phoneNumber = $fake->e164PhoneNumber;
             $quantity = $fake->numberBetween($min=1,$max=20);
             $date = $fake->dateTimeBetween('-12 months', 'now');
-            $isAmazon = $fake->numberBetween($min=0,$max=1);
-            $isEbay = $fake->numberBetween($min=0,$max=1);
-            $isWalmart = $fake->numberBetween($min=0,$max=1);
+            $isAmazon = $fake->boolean($chanceOfGettingTrue = 50);
+            $isEbay = $fake->boolean($chanceOfGettingTrue = 50);
+            $isWalmart = $fake->boolean($chanceOfGettingTrue = 50);
 
             $emCategory = $this->getDoctrine()->getRepository(CategoryEntity::class);
             $categories = $emCategory->findAll();

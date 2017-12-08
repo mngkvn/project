@@ -31,7 +31,9 @@ class RequestFormController extends Controller
      */
     public function renderForm(Request $request){
         $newRoute = $this->get("app.path_service",$this->getUser());
-        $form = $this->createForm(RequestForm::class);
+        $form = $this->createForm(RequestForm::class,null,[
+            "validation_groups" => "newRequest"
+        ]);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             try {
@@ -69,17 +71,17 @@ class RequestFormController extends Controller
             [
                 "userId" => $this->getUser()->getId(),
                 "username" => $this->getUser()->getUsername(),
-                "userEmail" => $this->getUser()->getEmail()
+                "userEmail" => $this->getUser()->getEmail(),
+                "validation_groups" => "editRequest"
             ]
         );
-
-        dump($form->getData());
-
 //        $form->handleRequest($request);
 
-//        if($request->isMethod("POST")){
-//            $form->submit($id->getCategory());
-//        }
+        $form->get('moveCategory')->submit('test');
+        $form->get('changeIsActive')->submit($form["changeIsActive"]->getData());
+
+//        $form->submit($request->request->get($form->));
+//        $form->handleRequest($request);
 //        $oldCategory = $id->getCategory();
 //        $newCategory = $form["moveCategory"]->getData();
 //        $oldStatus = $id->getIsActive();
@@ -89,10 +91,21 @@ class RequestFormController extends Controller
 //        $updatedStatus = $oldStatus != $newStatus ? $newStatus : $oldStatus;
 
         //update the entity fields
-
+        
         if($form->isSubmitted()){
-            dump($form->getData());
+            /*
+             * Manually validate the 2 fields because it causes an error if we try to automatically validate them
+             * because the Category field in the form is automatically validated even though the validation groups
+             * is already implemented.
+             */
 //            return;
+//            $validator = $this->get('validator');
+//            $moveCategoryError = $validator->validateProperty(RequestEntity,'moveCategory');
+//            $changeIsActiveError = $validator->validateProperty(RequestEntity::class,'changeIsActive');
+
+//            if(!count($moveCategoryError) && !count($changeIsActiveError)){
+
+//            }
             try {
 //                $id->setCategory($updatedCategory);
 //                $id->setIsActive($updatedStatus);
