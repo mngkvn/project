@@ -199,54 +199,6 @@ class RequestEntity
      */
     private $isWalmart;
 
-    /**
-     * @Assert\Choice(
-     *     choices = {"photo","video","business-to-business-marketing","package-design","product-design","marketing-sales"},
-     *     message = "Please select a valid category.",
-     *     groups={"editRequest"}
-     * )
-     */
-    private $moveCategory;
-
-    /**
-     * @Assert\Type(
-     *     type="bool",
-     *     message="This value is invalid.",
-     *     groups={"editRequest"}
-     * )
-     */
-    private $changeIsActive;
-
-    /**
-     * @return mixed
-     */
-    public function getChangeIsActive()
-    {
-        return $this->changeIsActive;
-    }
-
-    /**
-     * @param mixed $changeIsActive
-     */
-    public function setChangeIsActive($changeIsActive)
-    {
-        $this->changeIsActive = $changeIsActive;
-    }
-    /**
-     * @return mixed
-     */
-    public function getMoveCategory()
-    {
-        return $this->moveCategory;
-    }
-
-    /**
-     * @param mixed $moveCategory
-     */
-    public function setMoveCategory($moveCategory)
-    {
-        $this->moveCategory = $moveCategory;
-    }
 
     /**
      * @return mixed

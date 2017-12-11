@@ -19,6 +19,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -55,8 +56,8 @@ class RequestForm extends AbstractType
             ])
             ->add('category',EntityType::class,[
                 'class' => CategoryEntity::class,
-                'placeholder' => "Select a category",
-                'label'=>'*Category',
+                'placeholder' => $options["username"] ? false : "Select Category",
+                'label'=> $options["username"] ? '*Move Category' : '*Category',
                 'choice_label' => function($value){
                     return ucwords(str_replace('-',' ',$value));
                 },
@@ -86,7 +87,7 @@ class RequestForm extends AbstractType
                 ]
             ])
             ->add('submit',SubmitType::class,[
-                "label" => $options["userId"] ? "Save" : "Submit",
+                "label" => $options["username"] ? "Save" : "Submit",
                 "attr" => [
                     "formnovalidate" => "formnovalidate",
                     "class" => "btn btn-primary"
@@ -95,31 +96,62 @@ class RequestForm extends AbstractType
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options){
                 $form = $event->getForm();
 
-                if($options["userId"]){
+                if($options["username"]){
                     $form
-                        ->add('moveCategory',EntityType::class,[
-                        'class' => CategoryEntity::class,
-                        'placeholder' => "Move category to",
-                        'label'=>'Edit Category',
-                        'choice_label' => function($value){
-                            return ucwords(str_replace('-',' ',$value));
-                        },
-                        //if editing and no entity chosen for category, will trigger error
-                        'empty_data' => " "
-                         ])
-                        ->add('changeIsActive',ChoiceType::class,[
+                        ->add('isActive',ChoiceType::class,[
                             'label' => 'Request Status',
                             'choices' => [
                                 'Open' => true,
                                 'Closed' => false
                             ]
-                        ]);
+                        ])
+                        ->add('movedBy',HiddenType::class)
+                        ->add('closedBy',HiddenType::class);
                 }
             })
-            ->addEventListener(FormEvents::PRE_SUBMIT,function (FormEvent $event){
-//                $form = $event->getForm();
-//                $form->remove("moveCategory");
-//                $form->remove("changeIsActive");
+            ->addEventListener(FormEvents::PRE_SUBMIT,function(FormEvent $event) use ($options){
+                $form = $event->getForm();
+                $data = $event->getData();
+                $movedBy = [];
+                $closedBy = [];
+
+                if($options["userId"]){
+
+                    //Original categoryId and isActive coming from the database;
+                    $staticCategory = $form->get('category')->getData()->getId();
+                    $staticIsActive = $form->get('isActive')->getData();
+
+                    $adminUsername = $options["username"];
+                    $adminUserId = $options["userId"];
+                    $currentTime = new \DateTime();
+
+                    //If categoryId is not equal to new categoryId
+                    if($staticCategory != $data["category"]){
+                        $movedBy["userId"] = $adminUserId;
+                        $movedBy["username"] = $adminUsername;
+                        $movedBy["date"] = $currentTime;
+                        $movedBy["previous"] = $form->get('category')->getData()->getId();
+                        $movedBy["current"] = $data["category"];
+
+                        // != because previous returns a number and current returns a string
+                        if($movedBy["previous"] != $movedBy["current"]){
+                            $form->get('movedBy')->setData(json_encode($movedBy));
+                        }
+                    }
+
+                    //if status isActive and new status is not Active
+                    if($staticIsActive && !$data["isActive"]){
+                        $closedBy["userId"] = $adminUserId;
+                        $closedBy["username"] = $adminUsername;
+                        $closedBy["date"] = $currentTime;
+
+                        $form->get('closedBy')->setData(json_encode($closedBy));
+                    }
+                }
+                
+            })
+            ->addEventListener(FormEvents::POST_SUBMIT,function(FormEvent $event){
+                dump($event->getForm()->getData(), $event->getData());
             });
     }
 
@@ -129,7 +161,6 @@ class RequestForm extends AbstractType
             'label' => false,
             'data_class' => RequestEntity::class,
             'username' => null,
-            'userEmail' => null,
             'userId' => null
         ]);
     }

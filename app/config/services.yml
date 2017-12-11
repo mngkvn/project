@@ -18,6 +18,10 @@ services:
     class: AppBundle\Twig\JsonDecode
     tags:
       - { name : twig.extension }
+  app.ucwords:
+    class: AppBundle\Twig\UCWords
+    tags:
+      - { name : twig.extension }
 #    # default configuration for services in *this* file
 #    _defaults:
 #        # automatically injects dependencies in your services

@@ -64,6 +64,9 @@ class RequestFormController extends Controller
      * @Route("product-design/{id}/edit", name = "product-design-edit")
      */
     public function renderEditForm(Request $request, RequestEntity $id){
+        /*
+         * if no $id entry found, it will automatically redirect to NotFound
+         */
         $newRoute = $this->get("app.path_service");
         $form = $this->createForm(
             RequestForm::class,
@@ -71,14 +74,14 @@ class RequestFormController extends Controller
             [
                 "userId" => $this->getUser()->getId(),
                 "username" => $this->getUser()->getUsername(),
-                "userEmail" => $this->getUser()->getEmail(),
                 "validation_groups" => "editRequest"
             ]
         );
-//        $form->handleRequest($request);
+        $form->handleRequest($request);
 
-        $form->get('moveCategory')->submit('test');
-        $form->get('changeIsActive')->submit($form["changeIsActive"]->getData());
+//        $form->get('moveCategory')->submit('test');
+//        $form->get('changeIsActive')->submit($form["changeIsActive"]->getData());
+        dump($form->getData());
 
 //        $form->submit($request->request->get($form->));
 //        $form->handleRequest($request);
