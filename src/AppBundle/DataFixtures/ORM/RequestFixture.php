@@ -21,11 +21,11 @@ class RequestFixture extends Controller implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $fake = Faker\Factory::create();
-        for($counter = 0; $counter < 10; $counter++){
+        for($counter = 0; $counter < 100; $counter++){
             $requestObject = new RequestEntity();
 
             $name = $fake->name;
-            $isActive = $fake->boolean($chanceOfGettingTrue = 50);
+            $isActive = $fake->boolean($chanceOfGettingTrue = 100);
             $email = $fake->companyEmail;
             $company = $fake->company;
             $message = $fake->realText($maxNbChars=400);
@@ -35,6 +35,7 @@ class RequestFixture extends Controller implements FixtureInterface
             $isAmazon = $fake->boolean($chanceOfGettingTrue = 50);
             $isEbay = $fake->boolean($chanceOfGettingTrue = 50);
             $isWalmart = $fake->boolean($chanceOfGettingTrue = 50);
+            $otherPlatforms = implode(',',$fake->randomElements($array=["Meijer","Walgreens","Target","BestBuy"]));
 
             $emCategory = $this->getDoctrine()->getRepository(CategoryEntity::class);
             $categories = $emCategory->findAll();
@@ -52,6 +53,7 @@ class RequestFixture extends Controller implements FixtureInterface
             $requestObject->setPostedAt($date);
             $requestObject->setIsActive($isActive);
             $requestObject->setCategory($category);
+            $requestObject->setOtherPlatform($otherPlatforms);
 
             $manager->persist($requestObject);
         }

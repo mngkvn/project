@@ -260,7 +260,7 @@ class RequestEntity
      */
     public function setMovedBy($movedBy)
     {
-        $this->movedBy = $movedBy;
+        $this->movedBy = json_encode($movedBy);
     }
 
     /**
@@ -276,7 +276,7 @@ class RequestEntity
      */
     public function setClosedBy($closedBy)
     {
-        $this->closedBy = $closedBy;
+        $this->closedBy = json_encode($closedBy);
     }
 
     /**

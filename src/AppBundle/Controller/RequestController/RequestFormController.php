@@ -72,55 +72,21 @@ class RequestFormController extends Controller
             RequestForm::class,
             $id,
             [
-                "userId" => $this->getUser()->getId(),
+                "adminId" => $this->getUser()->getId(),
                 "username" => $this->getUser()->getUsername(),
                 "validation_groups" => "editRequest"
             ]
         );
         $form->handleRequest($request);
 
-//        $form->get('moveCategory')->submit('test');
-//        $form->get('changeIsActive')->submit($form["changeIsActive"]->getData());
-        dump($form->getData());
-
-//        $form->submit($request->request->get($form->));
-//        $form->handleRequest($request);
-//        $oldCategory = $id->getCategory();
-//        $newCategory = $form["moveCategory"]->getData();
-//        $oldStatus = $id->getIsActive();
-//        $newStatus = $form["changeIsActive"]->getData();
-//
-//        $updatedCategory = $oldCategory != $newCategory ? $newCategory ? $newCategory : $oldCategory : $oldCategory;
-//        $updatedStatus = $oldStatus != $newStatus ? $newStatus : $oldStatus;
-
-        //update the entity fields
-        
         if($form->isSubmitted()){
-            /*
-             * Manually validate the 2 fields because it causes an error if we try to automatically validate them
-             * because the Category field in the form is automatically validated even though the validation groups
-             * is already implemented.
-             */
-//            return;
-//            $validator = $this->get('validator');
-//            $moveCategoryError = $validator->validateProperty(RequestEntity,'moveCategory');
-//            $changeIsActiveError = $validator->validateProperty(RequestEntity::class,'changeIsActive');
-
-//            if(!count($moveCategoryError) && !count($changeIsActiveError)){
-
-//            }
             try {
-//                $id->setCategory($updatedCategory);
-//                $id->setIsActive($updatedStatus);
-//
-//                $form->remove("moveCategory");
-//                $form->remove("changeIsActive");
-//                dump($form->getData());
-//                $formData = $form->getData();
-//                $manager = $this->getDoctrine()->getManager();
-//                $manager->persist($formData);
-//                $manager->flush();
-//                return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
+                $formData = $form->getData();
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($formData);
+                $manager->flush();
+                //returns to the last edit after saving the data.
+                return $this->redirect($request->headers->get('referer'));
             } catch (ORMException $exception) {
 //                create exception or reroute
                 dump($exception);
@@ -129,7 +95,8 @@ class RequestFormController extends Controller
 
         return $this->render("FormView/RequestFormView.html.twig",[
             'form' => $form->createView(),
-            'requestId' => $id->getId()
+            'requestData' => $id
+
         ]);
     }
 }

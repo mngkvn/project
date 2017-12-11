@@ -95,63 +95,62 @@ class RequestForm extends AbstractType
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options){
                 $form = $event->getForm();
+                $data = $event->getData();
 
                 if($options["username"]){
-                    $form
-                        ->add('isActive',ChoiceType::class,[
-                            'label' => 'Request Status',
-                            'choices' => [
-                                'Open' => true,
-                                'Closed' => false
-                            ]
-                        ])
-                        ->add('movedBy',HiddenType::class)
-                        ->add('closedBy',HiddenType::class);
+                    //if an admin did not close the request yet.
+                    if($data->getIsActive()){
+                        $form
+                            ->add('isActive',ChoiceType::class,[
+                                'label' => 'Request Status',
+                                'choices' => [
+                                    'Open' => true,
+                                    'Closed' => false
+                                ]
+                            ])
+                            ->add('movedBy',HiddenType::class)
+                            ->add('closedBy',HiddenType::class);
+                    }
                 }
             })
             ->addEventListener(FormEvents::PRE_SUBMIT,function(FormEvent $event) use ($options){
                 $form = $event->getForm();
                 $data = $event->getData();
-                $movedBy = [];
-                $closedBy = [];
-
-                if($options["userId"]){
+                if($options["adminId"]){
 
                     //Original categoryId and isActive coming from the database;
                     $staticCategory = $form->get('category')->getData()->getId();
                     $staticIsActive = $form->get('isActive')->getData();
 
                     $adminUsername = $options["username"];
-                    $adminUserId = $options["userId"];
+                    $adminadminId = $options["adminId"];
                     $currentTime = new \DateTime();
 
                     //If categoryId is not equal to new categoryId
                     if($staticCategory != $data["category"]){
-                        $movedBy["userId"] = $adminUserId;
-                        $movedBy["username"] = $adminUsername;
-                        $movedBy["date"] = $currentTime;
-                        $movedBy["previous"] = $form->get('category')->getData()->getId();
-                        $movedBy["current"] = $data["category"];
+                        $data["movedBy"] = [];
+                        $data["movedBy"]["adminId"] = $adminadminId;
+                        $data["movedBy"]["username"] = $adminUsername;
+                        $data["movedBy"]["date"] = $currentTime;
+                        $data["movedBy"]["previous"] = $form->get('category')->getData()->getId();
+                        $data["movedBy"]["current"] = (int)$data["category"];
 
                         // != because previous returns a number and current returns a string
-                        if($movedBy["previous"] != $movedBy["current"]){
-                            $form->get('movedBy')->setData(json_encode($movedBy));
+                        if($data["movedBy"]["previous"] != $data["movedBy"]["current"]){
+                            $event->setData($data);
                         }
                     }
 
                     //if status isActive and new status is not Active
-                    if($staticIsActive && !$data["isActive"]){
-                        $closedBy["userId"] = $adminUserId;
-                        $closedBy["username"] = $adminUsername;
-                        $closedBy["date"] = $currentTime;
-
-                        $form->get('closedBy')->setData(json_encode($closedBy));
-                    }
+                    if($staticIsActive != $data["isActive"]){
+                        $data["closedBy"] = [];
+                        $data["closedBy"]["adminId"] = $adminadminId;
+                        $data["closedBy"]["username"] = $adminUsername;
+                        $data["closedBy"]["date"] = $currentTime;
+                        $event->setData($data);
+                    };
                 }
-                
-            })
-            ->addEventListener(FormEvents::POST_SUBMIT,function(FormEvent $event){
-                dump($event->getForm()->getData(), $event->getData());
+
             });
     }
 
@@ -161,7 +160,7 @@ class RequestForm extends AbstractType
             'label' => false,
             'data_class' => RequestEntity::class,
             'username' => null,
-            'userId' => null
+            'adminId' => null
         ]);
     }
 }

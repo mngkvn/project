@@ -39,7 +39,7 @@
     {{ form_start(form) }}
         {#FIRST ROW #}
         {% if app.user %}
-            <legend>Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }}# {{ requestId }}</legend>
+            <legend class="h4">Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }}# {{ requestData.id }}</legend>
         {% endif %}
         <div class="form-row">
             {#NAME DIV#}
@@ -141,9 +141,14 @@
                     {% else %}
                         <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
                     {% endif %}
-                {% else %}
+                {% elseif app.user and requestData.isActive%}
                      <label class="form-label">*Category</label>
-                     <span class="form-control" style="background-color:#eee">{{ form.category.vars.data.category|replace({'-': ' '})|ucwords }}</span>
+                     <span class="form-control" style="background-color:#eee">
+                         {{ form.category.vars.data.category|replace({'-': ' '})|ucwords }}
+                     </span>
+                {% else %}
+                    {{ form_label(form.category) }}
+                    {{ form_widget(form.category, {attr:{'class':'form-control','disabled':'disabled'}}) }}
                 {% endif %}
             </div>
             {#QUANTITY DIV#}
@@ -258,27 +263,32 @@
         {#END FOURTH ROW#}
 
         {% if app.user %}
-            <hr />
-                {#ADMIN ROW#}
-                <div class="form-row">
-                    <div class="form-group col-sm-3 col-md-3 col-lg-3">
-                        {{ form_label(form.category) }}
-                        {{ form_widget(form.category, form.category.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                        {% if not form.category.vars.valid %}
-                            <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
-                        {% endif %}
+            {% if requestData.isActive %}
+                <hr />
+                    {#ADMIN ROW#}
+                    <div class="form-row">
+                        <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                            {{ form_label(form.category) }}
+                            {{ form_widget(form.category, form.category.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                            {% if not form.category.vars.valid %}
+                                <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                            {{ form_label(form.isActive) }}
+                            {{ form_widget(form.isActive, form.isActive.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                            {% if form.isActive.vars.valid %}
+                            {% else %}
+                                <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="form-group col-sm-3 col-md-3 col-lg-3">
-                        {{ form_label(form.isActive) }}
-                        {{ form_widget(form.isActive, form.isActive.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
-                        {% if form.isActive.vars.valid %}
-                        {% else %}
-                            <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-                {{ form_widget(form.movedBy) }}
-                {{ form_widget(form.closedBy) }}
+                    {{ form_widget(form.movedBy) }}
+                    {{ form_widget(form.closedBy) }}
+                {% else %}
+                    <hr />
+                    <h4>Closed by: {{ requestData.closedBy }}</h4>
+                {% endif %}
         {% endif %}
 
         {{ form_end(form) }}

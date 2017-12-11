@@ -59,6 +59,13 @@ Temporarily changed getRoles return value to ['ROLE_ADMIN']. Roles is expecting 
 
 Add authentication levels
 
+Add Caret when on editing mode for category
+
+Make forms also available for admins
+
+Link admin entity on request entity??
+
+
 List of files needed to be fixed for Reroutes or Not found redirections :
     RequestListController - If category is not found. -not found
     FormController - If an insert / update is unsuccessful and EDIT FORM TOO

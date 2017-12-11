@@ -44,6 +44,46 @@ class AdminEntity implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $firstName;
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $lastName;
     //do not add this on our db. will be encrypted later for the $password use.
     private $plainPassword;
 
