@@ -1,76 +1,311 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        textarea.js-auto-size {
+            box-sizing: border-box;
+            min-height: 60px;
+            overflow-x: hidden; /* for Firefox (issue #5) */
+        }
+
+        .bgDisabled{
+            background-color:#eee;
+        }
+    </style>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/autosize.js') }}"></script>
+    <script>
+        $.noConflict();
+        jQuery(document).ready(function () {
+            /*
+                Initiate js-auto-size for textarea
+            */
+            jQuery('textarea.js-auto-size').textareaAutoSize();
+
+            /*
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <div class="container">
-        <table class="table table-bordered table">
-            <tbody>
-                <tr>
-                    <th>Request Number</th>
-                    <td>{{ request.id }}</td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td>{{ request.name }}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ request.email }}</td>
-                </tr>
-                <tr>
-                    <th>Contact Number</th>
-                    <td>{{ request.contactNumber ?: '-' }}</td>
-                </tr>
-                <tr>
-                    <th>Status</th>
-                    <td>{{ request.isActive ? "Active" : "Closed" }}</td>
-                </tr>
-                <tr>
-                    <th>Company</th>
-                    <td>{{ request.company ?: '-' }}</td>
-                </tr>
-                <tr>
-                    <th>Quantity</th>
-                    <td>{{ request.quantity ?: '-'}}</td>
-                </tr>
-                <tr>
-                    <th>Supported Platforms</th>
-                    <td>
-                        {% if not request.isAmazon and not request.isWalmart and not request.isEbay %}
-                            -
-                        {% else %}
-                            {% if request.isAmazon %}
-                                Amazon {{ request.isEbay ? ',' : request.isWalmart ? ',' : '' }}
+        {{ form_start(form) }}
+        {#
+            - If an admin is logged in proceed to render <legend> element. Anonymous should not see any <legend> element.
+            - Then if the request is active and method type is 'editing', return Editing else Viewing.
+        #}
+        {% if app.user %}
+            <legend class="h4"> {{ requestData.isActive ? "Editing" : "Viewing" }} {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }} # {{ requestData.id }}</legend>
+        {% endif %}
+
+        {#
+            FIRST ROW : NAME AND COMPANY
+        #}
+        <div class="form-row">
+            {# NAME DIV
+               - If an admin is not logged in, render Name field with validator.
+               - If admin is logged in, set the Name field as a disabled input.
+            #}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.name) }}
+                {% if not app.user %}
+                    {{ form_widget(
+                        form.name,
+                        form.name.vars.valid ?
+                        {'attr':{'class':'form-control'}} :
+                        {'attr':{'class':'form-control is-invalid'}}
+                    )
+                    }}
+                    {% if form.name.vars.valid %}
+                        <small id="{{ form.name.vars.name }}HelpBlock" class="form-text text-muted">Your name is required.</small>
+                    {% else %}
+                        <div class="invalid-feedback">{{ form.name.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.name,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
+                {% endif %}
+            </div>
+
+            {# COMPANY DIV
+               - If an admin is not logged in, render Company field with validator.
+               - If admin is logged in, set the Company field as a disabled input.
+            #}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.company) }}
+                {% if not app.user %}
+                    {{ form_widget(form.company, form.company.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if not form.company.vars.valid %}
+                        <div class="invalid-feedback">{{ form.company.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.company,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
+                {% endif %}
+            </div>
+
+        </div>
+        {#
+            END FIRST ROW
+         #}
+
+        {#
+            SECOND ROW : EMAIL AND CONTACT NUMBER
+         #}
+        <div class="form-row">
+            {#
+               - If an admin is not logged in, render Email field with validator.
+               - If admin is logged in, set the Email field as a disabled input.
+            #}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.email) }}
+                {% if not app.user %}
+                    {{ form_widget(form.email, form.email.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if form.email.vars.valid %}
+                        <small id="{{ form.email.vars.name }}HelpBlock" class="form-text text-muted">Your email address is required.</small>
+                    {% else %}
+                        <div class="invalid-feedback">{{ form.email.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.email,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
+                {% endif %}
+            </div>
+            {#CONTACTNUMBER DIV#}
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                {{ form_label(form.contactNumber) }}
+                {% if not app.user %}
+                    {{ form_widget(form.contactNumber, form.contactNumber.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if not form.contactNumber.vars.valid %}
+                        <div class="invalid-feedback">{{ form.contactNumber.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.contactNumber,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
+                {% endif %}
+            </div>
+
+        </div>
+        {#END SECOND ROW#}
+
+        {#THIRD ROW #}
+        <div class="form-row">
+            {#CATEGORY DIV#}
+            <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                {% if not app.user %}
+                    {{ form_label(form.category) }}
+                    {{ form_widget(form.category, form.category.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if form.category.vars.valid %}
+                        <small id="{{ form.category.vars.name }}HelpBlock" class="form-text text-muted">Category is required.</small>
+                    {% else %}
+                        <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% elseif app.user and requestData.isActive%}
+                    <label class="form-label">*Category</label>
+                    <span class="form-control" style="background-color:#eee">
+                         {{ form.category.vars.data.category|replace({'-': ' '})|ucwords }}
+                     </span>
+                {% else %}
+                    {{ form_label(form.category) }}
+                    {{ form_widget(form.category, {attr:{'class':'form-control','disabled':'disabled'}}) }}
+                {% endif %}
+            </div>
+            {#QUANTITY DIV#}
+            <div class="form-group col-sm-1 col-md-1 col-lg-1">
+                <label class="d-block d-sm-none d-md-none d-lg-block">{{ form.quantity.vars.name|capitalize }}</label>
+                <label class="d-none d-sm-block d-md-block d-lg-none">Qty.</label>
+                {% if not app.user %}
+                    {{ form_widget(form.quantity, form.quantity.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if not form.quantity.vars.valid %}
+                        <div class="invalid-feedback">{{ form.quantity.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.quantity,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
+                {% endif %}
+            </div>
+            {#SUPPORTED PLATFORMS#}
+            <div class="form-group col-sm-4 col-md-4 col-lg-4">
+                <label>Supported Platforms</label>
+                <div class="form-control" style="padding:1.5px 15px; {{ app.user ? 'background-color:#eee' : '' }}">
+                    <div class="form-check form-check-inline">
+
+                        <label class="form-check-label">
+                            {% if not app.user %}
+                                {{ form_widget(form.isAmazon, {'attr':{'class':'form-check-input' }}) }} {{ form.isAmazon.vars.label }}
+                            {% else %}
+                                {{ form_widget(
+                                    form.isAmazon,
+                                    {'attr':{'disabled':'disabled'}}
+                                )
+                                }}
+                                {{ form.isAmazon.vars.label }}
                             {% endif %}
-                            {% if request.isEbay %}
-                                Ebay {{ request.isWalmart ? ',' : '' }}
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+
+                        <label class="form-check-label">
+                            {% if not app.user %}
+                                {{ form_widget(form.isEbay, {'attr':{'class':'form-check-input' }}) }} {{ form.isEbay.vars.label }}
+                            {% else %}
+                                {{ form_widget(
+                                    form.isEbay,
+                                    {'attr':{'disabled':'disabled'}}
+                                )
+                                }}
+                                {{ form.isEbay.vars.label }}
                             {% endif %}
-                            {% if request.isWalmart %}
-                                Walmart
+                        </label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                            {% if not app.user %}
+                                {{ form_widget(form.isWalmart, {'attr':{'class':'form-check-input' }}) }} {{ form.isWalmart.vars.label }}
+                            {% else %}
+                                {{ form_widget(
+                                    form.isWalmart,
+                                    {'attr':{'disabled':'disabled'}}
+                                )
+                                }}
+                                {{ form.isWalmart.vars.label }}
                             {% endif %}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {#OTHER PLATFORMS#}
+            <div class="form-group col-sm-4 col-md-4 col-lg-4">
+                {{ form_label(form.otherPlatform) }}
+                {% if not app.user %}
+                    {{ form_widget(form.otherPlatform,form.otherPlatform.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                    {% if form.otherPlatform.vars.valid %}
+                        <small id="{{ form.otherPlatform.vars.name }}HelpBlock" class="form-text text-muted">
+                            Type in the platform you need. For multiple platforms, separate them by comma. e.g., Platform 1, Platform 2
+                        </small>
+                    {% else %}
+                        <div class="invalid-feedback">{{ form.otherPlatform.vars.errors.0.message }}</div>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(
+                        form.otherPlatform,
+                        {'attr':{'class':'form-control','disabled':'disabled'}}
+                    )
+                    }}
+                {% endif %}
+            </div>
+        </div>
+        {#END THIRD ROW#}
+
+        {#FOURTH ROW#}
+        <div class="form-group">
+            {{ form_label(form.message) }}
+            {% if not app.user %}
+                {{ form_widget(form.message, form.message.vars.valid ? {'attr':{'class':'form-control js-auto-size'}} : {'attr':{'class':'form-control js-auto-size is-invalid'}}) }}
+                {% if(form.message.vars.valid) %}
+                    <small id="{{ form.message.vars.name }}HelpBlock" class="form-text text-muted">Message is required.</small>
+                {% else %}
+                    <div class="invalid-feedback">{{ form.message.vars.errors.0.message }}</div>
+                {% endif %}
+            {% else %}
+                {{ form_widget(
+                    form.message,
+                    {'attr':{'class':'form-control js-auto-size','disabled':'disabled'}}
+                )
+                }}
+            {% endif %}
+        </div>
+        {#END FOURTH ROW#}
+
+        {% if app.user %}
+            {% if requestData.isActive  %}
+                <hr />
+                {#ADMIN ROW#}
+                <div class="form-row">
+                    <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                        {{ form_label(form.category) }}
+                        {{ form_widget(form.category, form.category.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                        {% if not form.category.vars.valid %}
+                            <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
                         {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Other Platforms</th>
-                    <td>
-                        {% if request.otherPlatform %}
-                            {% for otherPlatform in request.otherPlatform|json_decode %}
-                                {{ otherPlatform|capitalize }}{% if not loop.last %}, {% endif %}
-                            {% endfor %}
+                    </div>
+                    <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                        {{ form_label(form.isActive) }}
+                        {{ form_widget(form.isActive, form.isActive.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
+                        {% if form.isActive.vars.valid %}
                         {% else %}
-                            -
+                            <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
                         {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Date Posted</th>
-                    <td>{{ request.postedAt|date('m/d/Y') }}</td>
-                </tr>
-                <tr>
-                    <th>Message</th>
-                    <td>{{ request.message }}</td>
-                </tr>
-            </tbody>
-      </table>
+                    </div>
+                </div>
+                {{ form_widget(form.movedBy) }}
+                {{ form_widget(form.closedBy) }}
+            {% else %}
+                <hr />
+                <h4>Closed by: {{ requestData.closedBy.username }}</h4>
+            {% endif %}
+        {% endif %}
+
+        {{ form_end(form) }}
     </div>
 {% endblock %}

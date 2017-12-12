@@ -21,12 +21,21 @@
     <script>
         $.noConflict();
         jQuery(document).ready(function () {
+            /*
+                Remove invalid class if the user focuses on the invalid element.
+            */
             jQuery(".is-invalid").on('focus',function () {
                 jQuery(this).removeClass('is-invalid');
             });
 
+            /*
+                Initiate js-auto-size for textarea
+            */
             jQuery('textarea.js-auto-size').textareaAutoSize();
 
+            /*
+                 Disabled elements will be enabled before submitting the form to the server.
+             */
             jQuery("form").bind("submit",function() {
                 jQuery(this).find("input,textarea,select").addClass('bgDisabled').removeAttr('disabled');
             })
@@ -37,15 +46,24 @@
 {% block body %}
     <div class="container">
     {{ form_start(form) }}
-        {#FIRST ROW #}
+        {#
+            - If an admin is logged in proceed to render <legend> element. Anonymous should not see any <legend> element.
+            
+        #}
         {% if app.user %}
-            <legend class="h4">Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }}# {{ requestData.id }}</legend>
+                <legend class="h4"> Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }} # {{ requestData.id }}</legend>
         {% endif %}
+
+        {#
+            FIRST ROW : NAME AND COMPANY
+        #}
         <div class="form-row">
-            {#NAME DIV#}
+            {# NAME DIV
+               - If an admin is not logged in, render Name field with validator.
+               - If admin is logged in, set the Name field as a disabled input.
+            #}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.name) }}
-                {# If an admin is not logged in render the form.name #}
                 {% if not app.user %}
                     {{ form_widget(
                         form.name,
@@ -59,7 +77,6 @@
                     {% else %}
                         <div class="invalid-feedback">{{ form.name.vars.errors.0.message }}</div>
                     {% endif %}
-                {#if an admin is logged in, set form.name to readonly.#}
                 {% else %}
                     {{ form_widget(
                         form.name,
@@ -69,7 +86,10 @@
                 {% endif %}
             </div>
 
-            {#COMPANY DIV#}
+            {# COMPANY DIV
+               - If an admin is not logged in, render Company field with validator.
+               - If admin is logged in, set the Company field as a disabled input.
+            #}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.company) }}
                 {% if not app.user %}
@@ -87,11 +107,18 @@
             </div>
 
         </div>
-        {#END FIRST ROW#}
+        {#
+            END FIRST ROW
+         #}
 
-        {#SECOND ROW #}
+        {#
+            SECOND ROW : EMAIL AND CONTACT NUMBER
+         #}
         <div class="form-row">
-            {#EMAIL DIV#}
+            {#
+               - If an admin is not logged in, render Email field with validator.
+               - If admin is logged in, set the Email field as a disabled input.
+            #}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.email) }}
                 {% if not app.user %}
@@ -244,8 +271,8 @@
 
         {#FOURTH ROW#}
         <div class="form-group">
+            {{ form_label(form.message) }}
             {% if not app.user %}
-                {{ form_label(form.message) }}
                 {{ form_widget(form.message, form.message.vars.valid ? {'attr':{'class':'form-control js-auto-size'}} : {'attr':{'class':'form-control js-auto-size is-invalid'}}) }}
                 {% if(form.message.vars.valid) %}
                     <small id="{{ form.message.vars.name }}HelpBlock" class="form-text text-muted">Message is required.</small>
@@ -263,7 +290,7 @@
         {#END FOURTH ROW#}
 
         {% if app.user %}
-            {% if requestData.isActive %}
+            {% if requestData.isActive  %}
                 <hr />
                     {#ADMIN ROW#}
                     <div class="form-row">
@@ -285,9 +312,6 @@
                     </div>
                     {{ form_widget(form.movedBy) }}
                     {{ form_widget(form.closedBy) }}
-                {% else %}
-                    <hr />
-                    <h4>Closed by: {{ requestData.closedBy }}</h4>
                 {% endif %}
         {% endif %}
 

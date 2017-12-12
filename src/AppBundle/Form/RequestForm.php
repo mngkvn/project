@@ -86,16 +86,11 @@ class RequestForm extends AbstractType
                     "maxlength" => 5000
                 ]
             ])
-            ->add('submit',SubmitType::class,[
-                "label" => $options["username"] ? "Save" : "Submit",
-                "attr" => [
-                    "formnovalidate" => "formnovalidate",
-                    "class" => "btn btn-primary"
-                ]
-            ])
+
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options){
                 $form = $event->getForm();
                 $data = $event->getData();
+
 
                 if($options["username"]){
                     //if an admin did not close the request yet.
@@ -111,6 +106,17 @@ class RequestForm extends AbstractType
                             ->add('movedBy',HiddenType::class)
                             ->add('closedBy',HiddenType::class);
                     }
+                }
+                //Only add submit if request is not closed yet.
+                if($data->getIsActive()){
+                    $form
+                        ->add('submit',SubmitType::class,[
+                        "label" => $options["username"] ? "Save" : "Submit",
+                        "attr" => [
+                            "formnovalidate" => "formnovalidate",
+                            "class" => "btn btn-primary"
+                        ]
+                    ]);
                 }
             })
             ->addEventListener(FormEvents::PRE_SUBMIT,function(FormEvent $event) use ($options){

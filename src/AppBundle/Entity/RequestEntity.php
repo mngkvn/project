@@ -252,7 +252,11 @@ class RequestEntity
      */
     public function getMovedBy()
     {
-        return $this->movedBy;
+
+        if($this->movedBy){
+            return json_decode($this->movedBy);
+        }
+
     }
 
     /**
@@ -268,7 +272,10 @@ class RequestEntity
      */
     public function getClosedBy()
     {
-        return $this->closedBy;
+        if($this->closedBy){
+            return json_decode($this->closedBy);
+        }
+
     }
 
     /**

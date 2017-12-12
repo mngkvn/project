@@ -26,11 +26,12 @@ class RequestViewController extends Controller
      */
     public function renderRequestView(RequestEntity $id){
         if($id){
-            return $this->render("RequestView/RequestView.html.twig",[
-                "request" => $id
+            return $this->render("FormView/RequestFormView.html.twig",[
+                "requestData" => $id,
+                "requestType" => 'viewing'
             ]);
         }else{
-
+//            Make an exception for no routes
         }
     }
 }
