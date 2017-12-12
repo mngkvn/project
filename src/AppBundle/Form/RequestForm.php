@@ -86,13 +86,13 @@ class RequestForm extends AbstractType
                     "maxlength" => 5000
                 ]
             ])
-
+            //Initialize fields
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options){
                 $form = $event->getForm();
                 $data = $event->getData();
 
 
-                if($options["username"]){
+                if($options["username"] && $options["requestMethod"] === 'editing'){
                     //if an admin did not close the request yet.
                     if($data->getIsActive()){
                         $form
@@ -107,8 +107,9 @@ class RequestForm extends AbstractType
                             ->add('closedBy',HiddenType::class);
                     }
                 }
-                //Only add submit if request is not closed yet.
-                if($data->getIsActive()){
+
+                //If there's no data yet or if request is still active, add the button
+                if(!$data || $data->getIsActive()){
                     $form
                         ->add('submit',SubmitType::class,[
                         "label" => $options["username"] ? "Save" : "Submit",
@@ -122,14 +123,14 @@ class RequestForm extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT,function(FormEvent $event) use ($options){
                 $form = $event->getForm();
                 $data = $event->getData();
-                if($options["adminId"]){
+                if($options["username"] && $options["method"] === 'editing'){
 
                     //Original categoryId and isActive coming from the database;
                     $staticCategory = $form->get('category')->getData()->getId();
                     $staticIsActive = $form->get('isActive')->getData();
 
                     $adminUsername = $options["username"];
-                    $adminadminId = $options["adminId"];
+                    $adminadminId = $options["username"];
                     $currentTime = new \DateTime();
 
                     //If categoryId is not equal to new categoryId
@@ -166,7 +167,8 @@ class RequestForm extends AbstractType
             'label' => false,
             'data_class' => RequestEntity::class,
             'username' => null,
-            'adminId' => null
+            'adminId' => null,
+            'requestMethod' => null
         ]);
     }
 }

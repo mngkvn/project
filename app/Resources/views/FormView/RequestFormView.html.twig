@@ -48,9 +48,8 @@
     {{ form_start(form) }}
         {#
             - If an admin is logged in proceed to render <legend> element. Anonymous should not see any <legend> element.
-            
         #}
-        {% if app.user %}
+        {% if requestMethod == 'editing' %}
                 <legend class="h4"> Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }} # {{ requestData.id }}</legend>
         {% endif %}
 
@@ -64,7 +63,7 @@
             #}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.name) }}
-                {% if not app.user %}
+                {% if requestMethod =='requesting' %}
                     {{ form_widget(
                         form.name,
                         form.name.vars.valid ?
@@ -92,7 +91,7 @@
             #}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.company) }}
-                {% if not app.user %}
+                {% if requestMethod == 'requesting' %}
                     {{ form_widget(form.company, form.company.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
                     {% if not form.company.vars.valid %}
                         <div class="invalid-feedback">{{ form.company.vars.errors.0.message }}</div>
@@ -121,7 +120,7 @@
             #}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.email) }}
-                {% if not app.user %}
+                {% if requestMethod == 'requesting' %}
                     {{ form_widget(form.email, form.email.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
                     {% if form.email.vars.valid %}
                         <small id="{{ form.email.vars.name }}HelpBlock" class="form-text text-muted">Your email address is required.</small>
@@ -139,7 +138,7 @@
             {#CONTACTNUMBER DIV#}
             <div class="form-group col-sm-6 col-md-6 col-lg-6">
                 {{ form_label(form.contactNumber) }}
-                {% if not app.user %}
+                {% if requestMethod == 'requesting' %}
                     {{ form_widget(form.contactNumber, form.contactNumber.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
                     {% if not form.contactNumber.vars.valid %}
                         <div class="invalid-feedback">{{ form.contactNumber.vars.errors.0.message }}</div>
@@ -160,7 +159,7 @@
         <div class="form-row">
             {#CATEGORY DIV#}
             <div class="form-group col-sm-3 col-md-3 col-lg-3">
-                {% if not app.user %}
+                {% if requestMethod == 'requesting' %}
                     {{ form_label(form.category) }}
                     {{ form_widget(form.category, form.category.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
                     {% if form.category.vars.valid %}
@@ -168,11 +167,11 @@
                     {% else %}
                         <div class="invalid-feedback">{{ form.category.vars.errors.0.message }}</div>
                     {% endif %}
-                {% elseif app.user and requestData.isActive%}
+                {% elseif requestMethod == 'editing' and requestData.isActive%}
                      <label class="form-label">*Category</label>
-                     <span class="form-control" style="background-color:#eee">
+                     <div class="form-control" style="background-color:#eee">
                          {{ form.category.vars.data.category|replace({'-': ' '})|ucwords }}
-                     </span>
+                     </div>
                 {% else %}
                     {{ form_label(form.category) }}
                     {{ form_widget(form.category, {attr:{'class':'form-control','disabled':'disabled'}}) }}
@@ -182,7 +181,7 @@
             <div class="form-group col-sm-1 col-md-1 col-lg-1">
                 <label class="d-block d-sm-none d-md-none d-lg-block">{{ form.quantity.vars.name|capitalize }}</label>
                 <label class="d-none d-sm-block d-md-block d-lg-none">Qty.</label>
-                {% if not app.user %}
+                {% if requestMethod == 'requesting' %}
                     {{ form_widget(form.quantity, form.quantity.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
                     {% if not form.quantity.vars.valid %}
                         <div class="invalid-feedback">{{ form.quantity.vars.errors.0.message }}</div>
@@ -198,11 +197,11 @@
             {#SUPPORTED PLATFORMS#}
             <div class="form-group col-sm-4 col-md-4 col-lg-4">
                 <label>Supported Platforms</label>
-                <div class="form-control" style="padding:1.5px 15px; {{ app.user ? 'background-color:#eee' : '' }}">
+                <div class="form-control" style="padding:1.5px 15px; {{ requestMethod == 'editing' ? 'background-color:#eee' : '' }}">
                     <div class="form-check form-check-inline">
 
                         <label class="form-check-label">
-                            {% if not app.user %}
+                            {% if requestMethod == 'requesting' %}
                                 {{ form_widget(form.isAmazon, {'attr':{'class':'form-check-input' }}) }} {{ form.isAmazon.vars.label }}
                             {% else %}
                                 {{ form_widget(
@@ -217,7 +216,7 @@
                     <div class="form-check form-check-inline">
 
                         <label class="form-check-label">
-                            {% if not app.user %}
+                            {% if requestMethod == 'requesting' %}
                                 {{ form_widget(form.isEbay, {'attr':{'class':'form-check-input' }}) }} {{ form.isEbay.vars.label }}
                             {% else %}
                                 {{ form_widget(
@@ -232,7 +231,7 @@
 
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            {% if not app.user %}
+                            {% if requestMethod == 'requesting' %}
                                 {{ form_widget(form.isWalmart, {'attr':{'class':'form-check-input' }}) }} {{ form.isWalmart.vars.label }}
                             {% else %}
                                 {{ form_widget(
@@ -249,7 +248,7 @@
             {#OTHER PLATFORMS#}
             <div class="form-group col-sm-4 col-md-4 col-lg-4">
                 {{ form_label(form.otherPlatform) }}
-                {% if not app.user %}
+                {% if requestMethod == 'requesting' %}
                     {{ form_widget(form.otherPlatform,form.otherPlatform.vars.valid ? {'attr':{'class':'form-control'}} : {'attr':{'class':'form-control is-invalid'}}) }}
                     {% if form.otherPlatform.vars.valid %}
                     <small id="{{ form.otherPlatform.vars.name }}HelpBlock" class="form-text text-muted">
@@ -272,7 +271,7 @@
         {#FOURTH ROW#}
         <div class="form-group">
             {{ form_label(form.message) }}
-            {% if not app.user %}
+            {% if requestMethod == 'requesting' %}
                 {{ form_widget(form.message, form.message.vars.valid ? {'attr':{'class':'form-control js-auto-size'}} : {'attr':{'class':'form-control js-auto-size is-invalid'}}) }}
                 {% if(form.message.vars.valid) %}
                     <small id="{{ form.message.vars.name }}HelpBlock" class="form-text text-muted">Message is required.</small>
@@ -289,7 +288,7 @@
         </div>
         {#END FOURTH ROW#}
 
-        {% if app.user %}
+        {% if requestMethod == 'editing' %}
             {% if requestData.isActive  %}
                 <hr />
                     {#ADMIN ROW#}

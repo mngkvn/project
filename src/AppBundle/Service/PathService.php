@@ -21,7 +21,7 @@ class PathService extends Controller
 
     //this returns the "category" from the url. ex : /photo/form -> "photo"
     public function pathGetCategory($path){
-        preg_match("/[A-Za-z\-0-9]{1,40}/",$path,$matches);
+        preg_match("/[A-Za-z\-0-9]{1,50}/",$path,$matches);
         return $matches[0];
     }
     //this returns the route name not the actual path ex. /photo/form -> photo-request-success.

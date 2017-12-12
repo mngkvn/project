@@ -55,26 +55,26 @@ class RequestEntity
     private $quantity;
 
     /**
-     * @Assert\NotBlank(message="Your name is required.",groups={"newRequest"})
-     * @Assert\Type("string",groups={"newRequest"})
+     * @Assert\NotBlank(message="Your name is required.",groups={"addRequest"})
+     * @Assert\Type("string",groups={"addRequest"})
      * @Assert\Length(
      *     min="1",
      *     max="100",
      *     maxMessage="Your name is too long.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @Assert\Regex(
      *     pattern="/^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$/",
      *     message="Please provide a valid name.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="string",nullable = false)
      */
     private $name;
 
     /**
-     * @Assert\NotBlank(message="Your email is required.",groups={"newRequest"})
-     * @Assert\Email(message="Please provide a valid email address.",groups={"newRequest"})
+     * @Assert\NotBlank(message="Your email is required.",groups={"addRequest"})
+     * @Assert\Email(message="Please provide a valid email address.",groups={"addRequest"})
      * @ORM\Column(type="string",nullable = false)
      */
     private $email;
@@ -83,31 +83,31 @@ class RequestEntity
      * @Assert\Regex(
      *     pattern="/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/",
      *     message="Please provide a valid phone number.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="string",nullable = true)
      */
     private $contactNumber;
 
     /**
-     * @Assert\NotBlank(message="Message is required.",groups={"newRequest"})
+     * @Assert\NotBlank(message="Message is required.",groups={"addRequest"})
      * @Assert\Length(
      *     min = 15,
      *     max = 5000,
      *     minMessage = "Message is too short.",
      *     maxMessage = "Please summarize your request.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="text",nullable = false)
      */
     private $message;
 
     /**
-     * @Assert\NotBlank(message="Please select a category.",groups={"newRequest"})
+     * @Assert\NotBlank(message="Please select a category.",groups={"addRequest"})
      * @Assert\Choice(
      *     choices = {"photo","video","business-to-business-marketing","package-design","product-design","marketing-sales"},
      *     message = "Please select a valid category.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\CategoryEntity")
      * @ORM\JoinColumn(name="category_id",referencedColumnName="id", nullable = false)
@@ -120,18 +120,18 @@ class RequestEntity
     private $postedAt;
 
     /**
-     * @Assert\Type("string",groups={"newRequest"})
+     * @Assert\Type("string",groups={"addRequest"})
      * @Assert\Length(
      *     min = 2,
      *     max = 100,
      *     minMessage="Company name is too short",
      *     maxMessage="Company name is too long.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @Assert\Regex(
      *     pattern = "/^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+$/",
      *     message = "Please provide a valid company name.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="string",nullable = true)
      */
@@ -141,20 +141,20 @@ class RequestEntity
      * @Assert\Type(
      *     type="bool",
      *     message="This value is invalid.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="boolean")
      */
     private $isActive;
 
     /**
-     * @Assert\Type("string",groups={"newRequest"})
+     * @Assert\Type("string",groups={"addRequest"})
      * @Assert\Length(
      *     max = 100,
      *     maxMessage="Other Platform is invalid.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
-     * @ORM\Column(type="json_array",nullable = true)
+     * @ORM\Column(type="text",nullable = true)
      */
     private $otherPlatform;
 
@@ -173,7 +173,7 @@ class RequestEntity
      * @Assert\Type(
      *     type="bool",
      *     message="This value is invalid.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -183,7 +183,7 @@ class RequestEntity
      * @Assert\Type(
      *     type="bool",
      *     message="This value is invalid.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -193,7 +193,7 @@ class RequestEntity
      * @Assert\Type(
      *     type="bool",
      *     message="This value is invalid.",
-     *     groups={"newRequest"}
+     *     groups={"addRequest"}
      * )
      * @ORM\Column(type="boolean",nullable=true)
      */
@@ -489,15 +489,15 @@ class RequestEntity
             $checkedSupportedPlatform =[];
 
             if($this->getIsAmazon()){
-                array_push($supportedPlatform,'amazon');
+                array_push($checkedSupportedPlatform,'amazon');
             }
 
             if($this->getIsEbay()){
-                array_push($supportedPlatform,'ebay');
+                array_push($checkedSupportedPlatform,'ebay');
             }
 
             if($this->getIsWalmart()){
-                array_push($supportedPlatform,'walmart');
+                array_push($checkedSupportedPlatform,'walmart');
             }
 
             //Chops the otherPlatform string sent to array
@@ -557,6 +557,6 @@ class RequestEntity
             }
         }
         //needed to encode this to avoid errors. as the checker expects a string not an array.
-        $this->otherPlatform = json_encode($otherPlatform);
+        $this->otherPlatform = implode(',',$otherPlatform);
     }
 }

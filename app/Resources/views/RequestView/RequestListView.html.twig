@@ -34,8 +34,8 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if request.otherPlatform %}
-                    {% for otherPlatform in request.otherPlatform|json_decode %}
+                    {% if request.otherPlatform|split(',')|length %}
+                    {% for otherPlatform in request.otherPlatform|split(',') %}
                         {{ otherPlatform|capitalize }}{% if not loop.last %}, {% endif %}
                     {% endfor %}
                     {% else %}

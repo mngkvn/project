@@ -11,6 +11,7 @@ namespace AppBundle\Controller\RequestController;
 use AppBundle\Entity\AdminEntity;
 use AppBundle\Entity\RequestEntity;
 use AppBundle\Form\RequestForm;
+use AppBundle\Service\PathService;
 use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,9 +31,10 @@ class RequestFormController extends Controller
      * @Route("product-design/form", name = "product-design-form")
      */
     public function renderForm(Request $request){
-        $newRoute = $this->get("app.path_service",$this->getUser());
+        $newRoute = $this->get("app.path_service");
         $form = $this->createForm(RequestForm::class,null,[
-            "validation_groups" => "newRequest"
+            "validation_groups" => "addRequest",
+            "requestMethod" => 'requesting'
         ]);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -49,7 +51,8 @@ class RequestFormController extends Controller
         }
 
         return $this->render("FormView/RequestFormView.html.twig",[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'requestMethod' => 'requesting'
         ]);
     }
 
@@ -74,28 +77,35 @@ class RequestFormController extends Controller
             [
                 "adminId" => $this->getUser()->getId(),
                 "username" => $this->getUser()->getUsername(),
-                "validation_groups" => "editRequest"
+                "validation_groups" => "editRequest",
+                "requestMethod" => "editing"
             ]
         );
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
             try {
-                $formData = $form->getData();
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($formData);
-                $manager->flush();
-                //returns to the last edit after saving the data.
-                return $this->redirect($request->headers->get('referer'));
+//                $formData = $form->getData();
+//                $manager = $this->getDoctrine()->getManager();
+//                $manager->persist($formData);
+//                $manager->flush();
+//                //viewURL returns ex. photo/921/edit to photo/921;
+
+                $path = new PathService();
+                $newPath = $path->pathSetRequestLink($form->get('category')->getData());
+                $viewURL = $this->generateUrl($newPath,$request->attributes->get('_route_params'));
+                return $this->redirect($viewURL);
             } catch (ORMException $exception) {
 //                create exception or reroute
                 dump($exception);
             }
         }
 
+        //for the otherPlatform input, need to pass a string instead of a json array
         return $this->render("FormView/RequestFormView.html.twig",[
             'form' => $form->createView(),
-            'requestData' => $id
+            'requestData' => $id,
+            'requestMethod' => 'editing'
         ]);
     }
 }

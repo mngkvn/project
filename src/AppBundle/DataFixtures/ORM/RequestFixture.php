@@ -35,7 +35,7 @@ class RequestFixture extends Controller implements FixtureInterface
             $isAmazon = $fake->boolean($chanceOfGettingTrue = 50);
             $isEbay = $fake->boolean($chanceOfGettingTrue = 50);
             $isWalmart = $fake->boolean($chanceOfGettingTrue = 50);
-            $otherPlatforms = implode(',',$fake->randomElements($array=["Meijer","Walgreens","Target","BestBuy"]));
+            $otherPlatforms = implode(',',$fake->randomElements($array=["Meijer","Walgreens","Target","BestBuy"],$count=2));
 
             $emCategory = $this->getDoctrine()->getRepository(CategoryEntity::class);
             $categories = $emCategory->findAll();
