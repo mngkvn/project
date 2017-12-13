@@ -94,12 +94,7 @@ class AdminEntity implements UserInterface
 
     public function getRoles()
     {
-        $roles = $this->roles;
-        if(!in_array('ROLE_ADMIN',$roles)){
-            $roles[] = 'ROLE_ADMIN';
-        }
-
-        return $roles;
+        return ['ROLE_USER'];
     }
 
     public function getPassword()

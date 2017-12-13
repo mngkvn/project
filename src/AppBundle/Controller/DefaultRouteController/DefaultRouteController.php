@@ -12,7 +12,7 @@ namespace AppBundle\Controller\DefaultRouteController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultRoute extends Controller
+class DefaultRouteController extends Controller
 {
     /**
      * @Route("/", name="homepage")

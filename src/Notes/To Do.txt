@@ -65,17 +65,18 @@ Make forms also available for admins
 
 Use Data Transformer and bring back the type json_array for otherPlatforms in the future.
 
-Add flashbags
+Add flashbags for admin inserts
 
 Fix routes using generateUrl
 
 Fix route and only render the data if it's on the right category . ex. /photo/900 shouldn't render /marketing-sales/900
     Add logic to the controller.
 
-Implement is selected as default choice for category as if I close one, it will default to photo as it is the first choice
-and will close.
+FIx the admin login design.
+
+Later: Start on the email with symfony and sparkpost. Fix the successful customer request insert page
 
 List of files needed to be fixed for Reroutes or Not found redirections :
-    RequestListController - If category is not found. -not found
-    FormController - If an insert / update is unsuccessful and EDIT FORM TOO
-    RequestViewController - for unfound id - not found
+    RequestListController - If category is not found. -not found (done)
+    FormController - If an insert / update is unsuccessful and EDIT FORM TOO (done)
+    RequestViewController - for unfound id - not found (done)

@@ -12,6 +12,7 @@ namespace AppBundle\Controller\RequestController;
 use AppBundle\Entity\RequestEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RequestViewController extends Controller
 {
@@ -30,7 +31,7 @@ class RequestViewController extends Controller
                 "requestData" => $id
             ]);
         }else{
-//            Make an exception for no routes
+            throw new NotFoundHttpException("Request not found.");
         }
     }
 }

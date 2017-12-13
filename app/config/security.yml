@@ -36,5 +36,5 @@ security:
     encoders:
       AppBundle\Entity\AdminEntity: bcrypt
 
-#    access_control:
-#      - { path: ^/(photo|video|business-to-business-marketing|package-design|product-design|marketing-sales)/, roles: ROLE_USER }
+    access_control:
+      - { path: ^/(photo|video|business-to-business-marketing|package-design|product-design|marketing-sales)\/.*, roles: ROLE_USER }

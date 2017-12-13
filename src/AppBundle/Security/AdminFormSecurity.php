@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
@@ -115,7 +116,13 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
 
     protected function getLoginUrl()
     {
-        return $this->router->generate('admin-login');
+        /*
+         * Instead redirecting to login, redirect them to not found pages as the system
+         * should access the login link directly. This will avoid clients to know
+         * which route is the admin login and avoid attacks.
+         */
+        throw new NotFoundHttpException('Error message from getLoginUrl() on AdminFormSecurity. Do not redirect to loginForm.');
+//        return $this->router->generate('admin-login');
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)

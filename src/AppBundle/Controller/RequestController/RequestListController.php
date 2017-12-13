@@ -11,6 +11,7 @@ namespace AppBundle\Controller\RequestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RequestListController extends Controller
 {
@@ -55,7 +56,7 @@ class RequestListController extends Controller
                 "category" => $getURLCategory,
             ]);
         }else{
-            $this->redirectToRoute();
+            throw new NotFoundHttpException("Category not found.");
         }
     }
 }

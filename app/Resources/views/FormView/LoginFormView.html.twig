@@ -5,10 +5,22 @@
         {% if error %}
             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
-
         {{ form_start(form) }}
+
         {{ form_widget(form) }}
-        <input type="submit" class="btn btn-primary" formnovalidate="formnovalidate" value="Submit" />
+            {#<div class="container">#}
+                {#<form>#}
+                    {#<div class="form-control">#}
+                        {#{{ form_label(form._username) }}#}
+                        {#{{ form_widget(form._username, {'attr':{'class':'form-control'}} ) }}#}
+                    {#</div>#}
+                    {#<div class="form-control">#}
+                        {#{{ form_label(form._password) }}#}
+                        {#{{ form_widget(form._password, {'attr':{'class':'form-control'}} ) }}#}
+                    {#</div>#}
+                {#</form>#}
+            {#</div>#}
+          <input type="submit" class="btn btn-primary" formnovalidate="formnovalidate" value="Submit" />
         {{ form_end(form) }}
     </div>
 {% endblock %}

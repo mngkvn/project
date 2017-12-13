@@ -50,7 +50,7 @@
             - If an admin is logged in proceed to render <legend> element. Anonymous should not see any <legend> element.
         #}
         {% if requestMethod == 'editing' %}
-                <legend class="h4"> Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|capitalize }} # {{ requestData.id }}</legend>
+                <legend class="h4"> Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|replace({'-':' '})|ucwords }} # {{ requestData.id }}</legend>
         {% endif %}
 
         {#

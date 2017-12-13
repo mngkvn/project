@@ -16,6 +16,8 @@ use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -45,8 +47,7 @@ class RequestFormController extends Controller
                 $manager->flush();
                 return $this->redirectToRoute($newRoute->pathRequestSuccess($request->getPathInfo()));
             } catch (ORMException $exception) {
-//                create exception or reroute
-                dump($exception);
+                throw new ConflictHttpException("Failed to insert request.");
             }
         }
 
@@ -70,7 +71,6 @@ class RequestFormController extends Controller
         /*
          * if no $id entry found, it will automatically redirect to NotFound
          */
-        $newRoute = $this->get("app.path_service");
         $form = $this->createForm(
             RequestForm::class,
             $id,
@@ -83,12 +83,12 @@ class RequestFormController extends Controller
         );
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
             try {
-//                $formData = $form->getData();
-//                $manager = $this->getDoctrine()->getManager();
-//                $manager->persist($formData);
-//                $manager->flush();
+                $formData = $form->getData();
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($formData);
+                $manager->flush();
 //                //viewURL returns ex. photo/921/edit to photo/921;
 
                 $path = new PathService();
@@ -97,7 +97,7 @@ class RequestFormController extends Controller
                 return $this->redirect($viewURL);
             } catch (ORMException $exception) {
 //                create exception or reroute
-                dump($exception);
+                throw new ConflictHttpException("Failed to update the request.");
             }
         }
 
