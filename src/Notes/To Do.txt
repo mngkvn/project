@@ -80,3 +80,7 @@ List of files needed to be fixed for Reroutes or Not found redirections :
     RequestListController - If category is not found. -not found (done)
     FormController - If an insert / update is unsuccessful and EDIT FORM TOO (done)
     RequestViewController - for unfound id - not found (done)
+
+Service = Dependency Injection , Controller = Get Services
+
+Favicon.ico

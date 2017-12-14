@@ -1,0 +1,498 @@
+@charset "UTF-8";
+/* CSS Document */
+/* table of content
+-------------------------------
+- general content
+- typography 
+- header & nav
+- images
+- media
+- footer
+- media queries
+
+
+
+
+-----------------------------------*/ 
+
+/* general content
+---------------------------- */
+
+
+
+.main {padding: 3%; }
+.row {padding:1% 0;}
+.grey { background-color: #FFFFFF}
+
+
+
+
+
+/* typography 
+------------------------------*/
+.personaltext {font-size: .85em }
+
+.videotitle {margin-top: 20%;}
+
+.videotitletwo {margin-top: 10%;}
+
+.flyertext {font-size: .85em }
+
+.contacttext {font-size: 1.5em }
+
+.aboutme {
+	font-family:"Helvetica Neue" "sans-serif";
+	color: #050505;
+	background-color: #FFFFFF;
+	}
+
+
+#mrd1 {text-align: center;
+		margin-top: 100px;}
+
+
+#whatwedo {
+	text-align: right;
+	margin-top: 300px;	   }
+
+
+
+.contact {margin-top: 350px;}
+
+
+header {font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-size: 1em;
+	color: #050505;
+	background-color: #FFFFFF;
+	width:auto;
+	margin-top: 25px;
+    }
+
+
+body {font-family:Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-size: 1.2em;
+	color: #050505;
+	background-color: #FFFFFF;
+	width:auto;
+    }
+
+
+h2 {font-family: Gotham, sans-serif;
+	font-size:3em;
+	margin:0.67em;
+	}
+	
+
+h2.bio {color:#FFF800;}
+p.bio {color:#FF0004;}
+
+/* --- this is for the image text ---*/
+h2 span { 
+   color: black; 
+   font: bold 24px/45px Helvetica, Sans-Serif; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px; 
+}
+
+
+h2 span.spacer {
+   padding: 2px 5px 2px 10px;
+}
+
+
+
+
+
+/* header & nav 
+--------------------------------*/
+
+
+logo {float:left;
+	}
+
+menu {float: right; }
+
+/*--------------------------------------------------------------------------------------------------*/
+/* New Top Navigation Bar CSS Code-----------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------  */
+
+.navbar {
+    overflow: hidden;
+    background-color: #FFFFFF;
+	color: #050505;
+	margin-top: 10px;
+    
+}
+
+.navbar a {
+    float: right;
+    font-size: 11px;
+    color: #050505;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	text-transform: uppercase;
+}
+
+.dropdown {
+    float: right;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 11px;    
+    border: none;
+    outline: none;
+    color: #050505;
+    padding: 5px 16px;
+    background-color: inherit;
+	text-transform: uppercase;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #FFF;
+    font-weight: bold;
+	font-size: 11px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+	
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+	font-size: 9px;
+}
+
+.dropdown-content a:hover {
+    background-color: #FFF;
+	font-weight: bold;
+	
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+	
+}
+
+
+
+
+
+/* verticle nav
+--------------------------------*/
+
+.vertbar {
+	text-align:left;
+    list-style-type: none;
+    margin-top: 10%;
+	margin-left: 1%;
+    padding: 0;
+    width: 100px;
+	font-size: .75em;
+	position: fixed;
+	background-color: #FFFFFF;
+	
+}
+
+.vertbar li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+	color: #050505;
+	
+}
+
+/* Change the link color on hover */
+.vertbar li a:hover {
+    background-color: #FFFFFF;
+    color: #050505;
+	font-weight: bold;
+}
+
+
+
+
+
+/*----------------------------------------*/
+/*--------------------Images-------------*/
+/*----------------------------------------*/
+#morninguy {margin-top: 200px;}
+
+
+/* Parrallax Scrolling CSS Section */
+
+
+
+
+.parallax {
+    /* The image used */
+    background-image:url(../new_images/services/marketing_sales/Top-banner.jpg);
+
+    /* Set a specific height */
+    min-height: 300px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.parallaxp {
+    /* The image used */
+    background-image: url(../new_images/services/photo/Production-Video-Banner.jpg);
+
+    /* Set a specific height */
+    min-height: 750px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.parallaxk {
+    /* The image used */
+    background-image: url(../new_images/services/photo/Production-Photo-Banner.jpg);
+
+    /* Set a specific height */
+    min-height: 250px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.parallaxw {
+	margin-top: 200px;
+    /* The image used */
+    background-image: url(../new_images/services/package/package-banner3.jpg);
+
+    /* Set a specific height */
+    min-height: 250px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+/* 
+-----------------to get avatar to a circle----------------*/
+
+
+
+img {max-width: 100%;}
+.image-link {box-shadow: 5px 8px 10px #252525;}
+
+
+				
+		
+/*B&W*/
+.bw {
+	float:left;
+  -webkit-transition: all 1s ease;
+     -moz-transition: all 1s ease;
+       -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+          transition: all 1s ease;
+}
+ 
+.bw:hover {
+  -webkit-filter: grayscale(100%);
+}
+
+
+/* media 
+------------------------------*/
+
+video {float:right;
+		margin-right: -150px;}
+
+
+
+
+/* Google Map
+-------------------------------------*/
+#google {margin-top: 200px;}
+#map {
+        width: 100%;
+        height: 350px;
+        background-color: grey;
+      }
+
+
+/* footer
+--------------------------------- */
+
+p.location {margin: auto;
+	text-align:center;
+		color: #050505;
+		font-size:.9em }
+
+p.address {margin:auto;
+	text-align:center;
+		color: #050505;
+		font-size:1.4em }
+
+
+p.copyright { text-align:center;
+		color:#050505;
+		font-size: .7em;
+		font-weight: bold}
+		
+nav a {text-decoration:none;
+	color: #FFF; 
+	display: inline-block;
+	background: white}
+
+
+nav a:hover { color: #8C0453; }
+
+ul.social {
+		display: block;
+		list-style: none;
+		text-align: center;
+		margin: -4% 0; }
+		
+		
+		
+		
+ul.social li {
+	font-size: 1em;
+	display: inline;
+	padding: 0 1.2%; }
+	
+	
+	
+	
+ul.social li a { 
+	color: #666; }
+	
+	
+	
+/*-- hover effects */
+
+ul.social li.facebook a:hover { 
+	color: rgb(59, 89, 152); }
+
+
+ul.social li.twitter a:hover { 
+	color: rgb(0, 172, 237); }
+
+ul.social li.instagram a:hover { 
+	color: rgb(81, 127, 237); }
+
+ul.social li.youtube a:hover { 
+	color: rgb(187, 0, 0); }
+
+ul.social li.flickr a:hover { 
+	color: rgb(255, 0, 132); }
+
+ul.social li.linkedin a:hover { 
+	color: rgb(0, 123, 182); }
+
+
+/* media queries 
+---------------------------------*/
+
+/* Clearfix Code */
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+
+
+/*Top Nav Bar Media Queries */
+
+
+@media screen and (max-width:680px) {
+  ul.topnav li:not(:first-child) {display: none;}
+   
+  ul.topnav li.icon {
+    float: right;
+    display: inline-block;
+  }
+
+
+
+  ul.topnav.responsive {position: relative;}
+  ul.topnav.responsive li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  ul.topnav.responsive li {
+    float: none;
+    display: inline;
+  }
+  ul.topnav.responsive li a {
+    display: block;
+    text-align: left;
+  }
+
+.vertbar { font-size: .5pt;  }
+.row {text-align:center;}
+}
+
+
+/* Media Queries
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/*
+Note: The best way to structure the use of media queries is to create the queries
+near the relevant code. For example, if you wanted to change the styles for buttons
+on small devices, paste the mobile query code up in the buttons section and style it
+there.
+*/
+
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet (also point when grid becomes active) */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
+
+
+
+
+

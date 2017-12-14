@@ -1,40 +1,89 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        <ul>
-            <li><a href="{{ path("photo-form") }}">Photo Form</a></li>
-            <li><a href="{{ path("video-form") }}">Video Form</a></li>
-            <li><a href="{{ path("package-design-form") }}">Package Design Form</a></li>
-            <li><a href="{{ path("product-design-form") }}">Product Design Form</a></li>
-            <li><a href="{{ path("business-to-business-marketing-form") }}">Business to Business Marketing Form</a></li>
-            <li><a href="{{ path("marketing-sales-form") }}"> Marketing Sales Form</a></li>
-        </ul>
-        <ul>
-            <li><a href="{{ path("photo-list") }}">Photo list</a></li>
-            <li><a href="{{ path("video-list") }}">Video list</a></li>
-            <li><a href="{{ path("package-design-list") }}">Package Design list</a></li>
-            <li><a href="{{ path("product-design-list") }}">Product Design list</a></li>
-            <li><a href="{{ path("business-to-business-marketing-list") }}">Business to Business Marketing list</a></li>
-            <li><a href="{{ path("marketing-sales-list") }}"> Marketing Sales list</a></li>
-            {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="{{ path("admin-logout") }}">Logout</a></li>
-            {% else %}
-                <li><a href="{{ path("admin-login") }}">Login</a></li>
-            {% endif %}
-        </ul>
-        {% block body %}{% endblock %}
-        <script
-                src="https://code.jquery.com/jquery-3.2.1.min.js"
-                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-                crossorigin="anonymous">
-        </script>
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BV USA LLC</title>
+    <meta name="Specialize in photo, video, box and product design consultation."
+          content="Specialize in photo, video, box and product design consultation.">
+    <meta name="BV USA LLC" content="Wojciech Wojy Mietka and Kevin Otto">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    {% block fonts %}
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    {% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+              crossorigin="anonymous"/>
+        <link rel="stylesheet" href="{{ asset('css/normalize.css') }}"/>
+        {#<link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}"/>#}
+        {#<link rel="stylesheet" href="{{ asset('css/animate.css') }}"/>#}
+        {#<link rel="stylesheet" href="{{ asset('css/skeleton.css') }}"/>#}
+        {#<link rel="stylesheet" href="{{ asset('css/navigationbar.css') }}"/>#}
+        {#<link rel="stylesheet" href="{{ asset('css/slider.css') }}"/>#}
+        {#<link rel="stylesheet" href="{{ asset('css/style.css') }}"/>#}
+    {% endblock %}
+</head>
+<body>
+<div class="container" id="logo">
+    {#<ul>#}
+    {#<li><a href="{{ path("photo-form") }}">Photo Form</a></li>#}
+    {#<li><a href="{{ path("video-form") }}">Video Form</a></li>#}
+    {#<li><a href="{{ path("package-design-form") }}">Package Design Form</a></li>#}
+    {#<li><a href="{{ path("product-design-form") }}">Product Design Form</a></li>#}
+    {#<li><a href="{{ path("business-to-business-marketing-form") }}">Business to Business Marketing Form</a></li>#}
+    {#<li><a href="{{ path("marketing-sales-form") }}"> Marketing Sales Form</a></li>#}
+    {#</ul>#}
+    {#<ul>#}
+    {#<li><a href="{{ path("photo-list") }}">Photo list</a></li>#}
+    {#<li><a href="{{ path("video-list") }}">Video list</a></li>#}
+    {#<li><a href="{{ path("package-design-list") }}">Package Design list</a></li>#}
+    {#<li><a href="{{ path("product-design-list") }}">Product Design list</a></li>#}
+    {#<li><a href="{{ path("business-to-business-marketing-list") }}">Business to Business Marketing list</a></li>#}
+    {#<li><a href="{{ path("marketing-sales-list") }}"> Marketing Sales list</a></li>#}
+    {#{% if is_granted('ROLE_ADMIN') %}#}
+    {#<li><a href="{{ path("admin-logout") }}">Logout</a></li>#}
+    {#{% else %}#}
+    {#<li><a href="{{ path("admin-login") }}">Login</a></li>#}
+    {#{% endif %}#}
+    {#</ul>#}
+    <!-----Left Side------->
+    {% block mainNavigation %}
+
+        <div class="four columns">
+            <a href="{{ path('homepage') }}"><img src="" alt="BV"></a>
+        </div>
+        <!------Right Side----->
+        <nav id="topnav">
+            <div class="navbar eight columns">
+                <div class="dropdown">
+                    <button class="dropbtn" style="padding-top: 10px">Services
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{{ path('business-to-business') }}"><strong>B2B</strong> Marketing &amp; Sales</a>
+                        <a href="{{ path('marketing-sales') }}">Marketing &amp;amp; Sales</a>
+                        <a href="{{ path('photo-and-video') }}">Photo &amp; Video Production</a>
+                        <a href="{{ path('package-design') }}">Package Design</a>
+                        <a href="{{ path('product-design') }}">Product Design</a>
+                    </div>
+
+                    <a href="{{ path('contact') }}">Contact</a>
+                    <a href="{{ path('about') }}">About</a>
+                </div>
+            </div>
+        </nav>
+
+    {% endblock %}
+    {% block body %}{% endblock %}
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+</script>
+<script src="{{ asset('js/gulpfile.js') }}"></script>
+<script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
 </html>
