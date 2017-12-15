@@ -110,19 +110,13 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
          *If password doesn't match, it will redirect the admin back to the default login URL which will be processed
          * by the getLoginUrl method
          */
-        throw new CustomUserMessageAuthenticationException("Invalid Password.");
+        throw new CustomUserMessageAuthenticationException("Invalid Password",["password-mismatch"],1);
     }
     //cannot use onAuthenticationFailure as getLoginUrl method is a requirement.
 
     protected function getLoginUrl()
     {
-        /*
-         * Instead redirecting to login, redirect them to not found pages as the system
-         * should access the login link directly. This will avoid clients to know
-         * which route is the admin login and avoid attacks.
-         */
-        throw new NotFoundHttpException('Error message from getLoginUrl() on AdminFormSecurity. Do not redirect to loginForm.');
-//        return $this->router->generate('admin-login');
+        return $this->router->generate('admin-login');
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
@@ -131,5 +125,21 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
          * Return to homepage if successful login
          */
         return new RedirectResponse($this->router->generate('homepage'));
+    }
+
+    /*
+     * Instead redirecting to login, redirect them to not found pages as the system
+     * should access the login link directly. This will avoid clients to know
+     * which route is the admin login and avoid attacks.
+     */
+    public function start(Request $request, AuthenticationException $authException = null)
+    {
+        if($request->attributes->get('_route') != 'admin-login'){
+            throw new NotFoundHttpException('Error message from getLoginUrl() on AdminFormSecurity. Do not redirect to loginForm.');
+        }
+
+        $url = $this->getLoginUrl();
+
+        return new RedirectResponse($url);
     }
 }

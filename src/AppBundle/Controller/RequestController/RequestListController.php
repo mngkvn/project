@@ -18,7 +18,7 @@ class RequestListController extends Controller
     /**
      * @Route("photo/list", name = "photo-list")
      * @Route("video/list", name = "video-list")
-     * @Route("business-to-business-marketing/list", name = "business-to-business-marketing-list")
+     * @Route("business-to-business/list", name = "business-to-business-list")
      * @Route("marketing-sales/list", name = "marketing-sales-list")
      * @Route("package-design/list", name = "package-design-list")
      * @Route("product-design/list", name = "product-design-list")

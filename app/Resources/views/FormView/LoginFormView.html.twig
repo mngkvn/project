@@ -1,26 +1,55 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .login-form-border{
+            border:1px solid #ccc;
+            padding:20px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/autosize.js') }}"></script>
+    <script>
+        $.noConflict();
+        jQuery(document).ready(function () {
+            jQuery(".is-invalid").on('focus', function () {
+                jQuery(this).removeClass('is-invalid');
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <div class="container">
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
         {{ form_start(form) }}
-
-        {{ form_widget(form) }}
-            {#<div class="container">#}
-                {#<form>#}
-                    {#<div class="form-control">#}
-                        {#{{ form_label(form._username) }}#}
-                        {#{{ form_widget(form._username, {'attr':{'class':'form-control'}} ) }}#}
-                    {#</div>#}
-                    {#<div class="form-control">#}
-                        {#{{ form_label(form._password) }}#}
-                        {#{{ form_widget(form._password, {'attr':{'class':'form-control'}} ) }}#}
-                    {#</div>#}
-                {#</form>#}
-            {#</div>#}
-          <input type="submit" class="btn btn-primary" formnovalidate="formnovalidate" value="Submit" />
+        <h4>BV-USA Login</h4>
+        <div class="col-md-4 login-form-border">
+            <div class="form-group">
+                {{ form_label(form._username) }}
+                {{ form_widget(
+                    form._username,
+                    error and error.code == 0 ? {'attr':{'class':'form-control is-invalid'}} : {'attr':{'class':'form-control'}}
+                ) }}
+                {% if error and error.code == 0 %}
+                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form_label(form._password) }}
+                {{ form_widget(
+                    form._password,
+                    error and error.code == 1 ? {'attr':{'class':'form-control is-invalid'}} : {'attr':{'class':'form-control'}}
+                ) }}
+                {% if error and error.code == 1 %}
+                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" formnovalidate="formnovalidate" value="Submit"/>
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}

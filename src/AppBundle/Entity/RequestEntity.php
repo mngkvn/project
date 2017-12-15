@@ -105,7 +105,7 @@ class RequestEntity
     /**
      * @Assert\NotBlank(message="Please select a category.",groups={"addRequest"})
      * @Assert\Choice(
-     *     choices = {"photo","video","business-to-business-marketing","package-design","product-design","marketing-sales"},
+     *     choices = {"photo","video","business-to-business","package-design","product-design","marketing-sales"},
      *     message = "Please select a valid category.",
      *     groups={"addRequest"}
      * )
