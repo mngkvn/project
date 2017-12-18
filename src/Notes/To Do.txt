@@ -50,9 +50,6 @@ Manage roles and restrictions for updates etc for admins.
 
 Add a new table for default admin roles and assign it / make a join like on category
 
-Make Platform a select dropdown list like category that contains amazon, ebay, walmart also it is not required.
-
-Add another field for other platform available. Not also required.
 OTHER PLATFORM IS VALIDATED AS STRING BUT STORED AS AN ARRAY.
 
 Temporarily changed getRoles return value to ['ROLE_ADMIN']. Roles is expecting array, changed to nullable
@@ -70,14 +67,14 @@ Add flashbags for admin inserts
 Fix route and only render the data if it's on the right category . ex. /photo/900 shouldn't render /marketing-sales/900
     Add logic to the controller.
 
-FIx the admin login design.
+Fix the admin login design.
 
 Later: Start on the email with symfony and sparkpost. Fix the successful customer request insert page
 
 List of files needed to be fixed for Reroutes or Not found redirections :
     RequestListController - If category is not found. -not found (done)
     FormController - If an insert / update is unsuccessful and EDIT FORM TOO (done)
-    RequestViewController - for unfound id - not found (done)
+    RequestViewController - for missing id - not found (done)
 
 Service = Dependency Injection , Controller = Get Services
 

@@ -11,6 +11,9 @@
 
 {% block body %}
     <div class="container" id="requestView">
+        {% for message in app.session.flashbag.get('edit-success') %}
+            {{ message }}
+        {% endfor %}
         <div>
             <p><span>Name: </span> {{ requestData.name }}</p>
             <p><span>Company: </span> {{ requestData.company ?: "N/A" }}</p>

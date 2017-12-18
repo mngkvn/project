@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Faker;
 
-class AdminFixture extends Controller implements FixtureInterface
+class LoginFixture extends Controller implements FixtureInterface
 {
     public function load(ObjectManager $manager){
         /* MANUAL DB ADMINS */

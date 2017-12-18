@@ -5,7 +5,7 @@ parameters:
 
 services:
   app.admin.admin_authenticator:
-    class: AppBundle\Security\AdminFormSecurity
+    class: AppBundle\Security\LoginFormSecurity
     autowire: true
   app.doctrine.hash_password:
     class: AppBundle\DoctrineListeners\HashPasswordListener

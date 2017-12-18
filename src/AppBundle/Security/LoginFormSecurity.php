@@ -9,7 +9,7 @@
 namespace AppBundle\Security;
 
 
-use AppBundle\Form\AdminForm;
+use AppBundle\Form\LoginForm;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 
-class AdminFormSecurity extends AbstractFormLoginAuthenticator
+class LoginFormSecurity extends AbstractFormLoginAuthenticator
 {
 
 
@@ -38,7 +38,7 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
      * Constructor Dependency Injection: FormFactoryInterface,EntityManager,RouterIntefrace.
      *
      * __construct will get the form, entity manager for admin search, route after failed or successful match.
-     * getCredentials will check, implement the AdminForm and will return null or anything.
+     * getCredentials will check, implement the LoginForm and will return null or anything.
      * If getCredentials returned null, I suppose it would be throwing invalidation but if
      * it returned anything, It will jump to the next authentication method which is getUser
      *
@@ -65,9 +65,9 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
             return;
         }
 
-        $adminForm = $this->formFactory->create(AdminForm::class);
-        $adminForm->handleRequest($request);
-        $adminInfo = $adminForm->getData();
+        $LoginForm = $this->formFactory->create(LoginForm::class);
+        $LoginForm->handleRequest($request);
+        $adminInfo = $LoginForm->getData();
 
         $request->getSession()->set(Security::LAST_USERNAME,$adminInfo['_username']);
         //if a non-null value is returned, authentication goes to the next step which is getUser.
@@ -79,6 +79,9 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
         //$credentials is the $adminInfo values from the getCredentials method
         $username = $credentials['_username'];
 
+        if(!$username){
+            return;
+        }
         /*
          * apply the entity manager and get the user by $username; If it will return null, guard authentication would fail.
          * If it's successful, it will call the method checkCredentials
@@ -135,7 +138,7 @@ class AdminFormSecurity extends AbstractFormLoginAuthenticator
     public function start(Request $request, AuthenticationException $authException = null)
     {
         if($request->attributes->get('_route') != 'admin-login'){
-            throw new NotFoundHttpException('Error message from getLoginUrl() on AdminFormSecurity. Do not redirect to loginForm.');
+            throw new NotFoundHttpException('Error message from getLoginUrl() on LoginFormSecurity. Do not redirect to loginForm.');
         }
 
         $url = $this->getLoginUrl();

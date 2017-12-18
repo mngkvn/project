@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityRepository;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -87,7 +88,7 @@ class RequestForm extends AbstractType
                 ]
             ])
             //Initialize fields
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options){
+            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder,$options){
                 $form = $event->getForm();
                 $data = $event->getData();
 
@@ -103,7 +104,9 @@ class RequestForm extends AbstractType
                                     'Closed' => false
                                 ]
                             ])
-                            ->add('movedBy',HiddenType::class)
+                            ->add('movedBy',HiddenType::class,[
+                                'data' => json_encode($options["moversList"])
+                            ])
                             ->add('closedBy',HiddenType::class);
                     }
                 }
@@ -123,14 +126,14 @@ class RequestForm extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT,function(FormEvent $event) use ($options){
                 $form = $event->getForm();
                 $data = $event->getData();
-                if($options["username"] && $options["method"] === 'editing'){
 
+                if($options["username"] && $options["requestMethod"] === 'editing'){
                     //Original categoryId and isActive coming from the database;
                     $staticCategory = $form->get('category')->getData()->getId();
                     $staticIsActive = $form->get('isActive')->getData();
 
                     $adminUsername = $options["username"];
-                    $adminadminId = $options["username"];
+                    $adminadminId = $options["adminId"];
                     $currentTime = new \DateTime();
 
                     //If categoryId is not equal to new categoryId
@@ -157,7 +160,7 @@ class RequestForm extends AbstractType
                         $event->setData($data);
                     };
                 }
-
+                dump($data,$options["moversList"]);
             });
     }
 
@@ -168,7 +171,8 @@ class RequestForm extends AbstractType
             'data_class' => RequestEntity::class,
             'username' => null,
             'adminId' => null,
-            'requestMethod' => null
+            'requestMethod' => null,
+            'moversList' => null
         ]);
     }
 }

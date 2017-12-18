@@ -9,13 +9,13 @@
 namespace AppBundle\Controller\AdminController;
 
 
-use AppBundle\Form\AdminForm;
+use AppBundle\Form\LoginForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 
-class AdminFormController extends Controller
+class LoginFormController extends Controller
 {
     /**
      * @Route("/bv/admin/login", name="admin-login")
@@ -27,7 +27,7 @@ class AdminFormController extends Controller
         $error = $authUtils->getLastAuthenticationError();
         $lastUsername = $authUtils->getLastUsername();
 
-        $form = $this->createForm(AdminForm::class,[
+        $form = $this->createForm(LoginForm::class,[
             '_username' => $lastUsername
         ]);
 
