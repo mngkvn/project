@@ -94,7 +94,7 @@ class AdminEntity implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
     public function getPassword()

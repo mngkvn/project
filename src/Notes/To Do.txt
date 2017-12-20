@@ -65,7 +65,7 @@ Use Data Transformer and bring back the type json_array for otherPlatforms in th
 Add flashbags for admin inserts
 
 Fix route and only render the data if it's on the right category . ex. /photo/900 shouldn't render /marketing-sales/900
-    Add logic to the controller.
+    Add logic to the controller. (done)
 
 Fix the admin login design.
 
@@ -80,3 +80,4 @@ Service = Dependency Injection , Controller = Get Services
 
 Add validators for login form.
 Favicon.ico
+Loading indicator
