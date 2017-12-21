@@ -73,19 +73,71 @@ swiftmailer:
 
 easy_admin:
     site_name: 'BV USA'
+    disabled_actions: ['delete']
     design:
 #        brand_color: '#222222'
         color_scheme: 'light'
     list:
         title: 'List of %%entity_label%%'
-        actions: ['show']
+        actions:
+            - { name: 'new', label: 'Add %%entity_label%%', icon: 'pencil'}
     entities:
         RequestEntity:
             class: AppBundle\Entity\RequestEntity
-            label: 'Requests'
+            label: 'Request'
+            list:
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
+
+            edit:
+                title: 'Editing Request # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - category
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+
+#        Photo:
+#            class: AppBundle\Entity\RequestEntity
+#            label: 'Photo'
+#            list:
+##           At this point in time, we can only associate the filter by exact id number of the category
+#                dql_filter: 'entity.category = 73'
         CategoryEntity:
             class: AppBundle\Entity\CategoryEntity
-            label: 'Categories'
+            label: 'Category'
+            disabled_actions: ['show']
         AdminEntity:
             class: AppBundle\Entity\AdminEntity
-            label: 'Admins'
+            label: 'Admin'
