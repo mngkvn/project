@@ -80,12 +80,13 @@ easy_admin:
     list:
         title: 'List of %%entity_label%%'
         actions:
-            - { name: 'new', label: 'Add %%entity_label%%', icon: 'pencil'}
+            - { name: 'new', label: 'Add %%entity_label%%', icon: 'pencil' }
     entities:
         RequestEntity:
             class: AppBundle\Entity\RequestEntity
             label: 'Request'
             list:
+                dql_filter: 'entity.isActive = 1'
                 actions:
                     - {name: 'show'}
                 fields:
@@ -97,6 +98,76 @@ easy_admin:
                     - { property: category }
                     - { property: postedAt, format: 'M d Y' }
             form:
+                title: 'Adding %%entity_label%%'
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
+            new:
+                form_options: {validation_groups: ["addRequest"]}
+            edit:
+                title: 'Editing %%entity_label%% # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - category
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive
+
+#Photo : 1, Video: 2, Business to Business : 3, Package Design: 4, Marketing Sales : 5, Product Design : 6
+
+        Photo:
+            class: AppBundle\Entity\RequestEntity
+            label: 'Photo'
+            disabled_actions: ['new']
+            list:
+                title: 'List of %%entity_label%% Request'
+                dql_filter: 'entity.category = 1 AND entity.isActive = 1'
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                title: 'Adding %%entity_label%% Request'
                 fields:
                     - name
                     - email
@@ -114,7 +185,7 @@ easy_admin:
                     - message
 
             edit:
-                title: 'Editing Request # %%entity_id%%'
+                title: 'Editing %%entity_label%% # %%entity_id%%'
                 fields:
                     - {property: name, type_options:{disabled: true}}
                     - {property: email, type_options:{disabled: true}}
@@ -127,17 +198,409 @@ easy_admin:
                     - {property: isWalmart, type_options:{disabled: true}}
                     - {property: otherPlatform, type_options:{disabled: true}}
                     - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive
+        Video:
+            class: AppBundle\Entity\RequestEntity
+            label: 'Video'
+            disabled_actions: ['new']
+            list:
+                title: 'List of %%entity_label%% Request'
+                dql_filter: 'entity.category = 2 AND entity.isActive = 1'
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category, value: 2}
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                title: 'Adding %%entity_label%% Request'
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
 
-#        Photo:
-#            class: AppBundle\Entity\RequestEntity
-#            label: 'Photo'
-#            list:
-##           At this point in time, we can only associate the filter by exact id number of the category
-#                dql_filter: 'entity.category = 73'
-        CategoryEntity:
-            class: AppBundle\Entity\CategoryEntity
-            label: 'Category'
-            disabled_actions: ['show']
-        AdminEntity:
-            class: AppBundle\Entity\AdminEntity
-            label: 'Admin'
+            edit:
+                title: 'Editing %%entity_label%% # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - category
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive
+        BusinessToBusiness:
+            class: AppBundle\Entity\RequestEntity
+            label: 'Business to Business'
+            disabled_actions: ['new']
+            list:
+                title: 'List of %%entity_label%% Request'
+                dql_filter: 'entity.category = 3 AND entity.isActive = 1'
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                title: 'Adding %%entity_label%% Request'
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
+
+            edit:
+                title: 'Editing %%entity_label%% # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - category
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive
+        PackageDesign:
+            class: AppBundle\Entity\RequestEntity
+            label: 'Package Design'
+            disabled_actions: ['new']
+            list:
+                title: 'List of %%entity_label%% Request'
+                dql_filter: 'entity.category = 4 AND entity.isActive = 1'
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                title: 'Adding %%entity_label%% Request'
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
+
+            edit:
+                title: 'Editing %%entity_label%% # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - category
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive
+        MarketingSales:
+            class: AppBundle\Entity\RequestEntity
+            label: 'Marketing Sales'
+            disabled_actions: ['new']
+            list:
+                title: 'List of %%entity_label%% Request'
+                dql_filter: 'entity.category = 5 AND entity.isActive = 1'
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                title: 'Adding %%entity_label%% Request'
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
+
+            edit:
+                title: 'Editing %%entity_label%% # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - category
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive
+        ProductDesign:
+            class: AppBundle\Entity\RequestEntity
+            label: 'Product Design'
+            disabled_actions: ['new']
+            list:
+                title: 'List of %%entity_label%% Request'
+                dql_filter: 'entity.category = 6 AND entity.isActive = 1'
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                title: 'Adding %%entity_label%% Request'
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
+
+            edit:
+                title: 'Editing %%entity_label%% # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - category
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive
+        ClosedRequest:
+            class: AppBundle\Entity\RequestEntity
+            label: 'Closed Request'
+            disabled_actions: ['new']
+            list:
+                title: 'List of %%entity_label%% Request'
+                dql_filter: 'entity.isActive = 0'
+                actions:
+                    - {name: 'show'}
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+            form:
+                title: 'Adding %%entity_label%% Request'
+                fields:
+                    - name
+                    - email
+                    - contactNumber
+                    - company
+                    - category
+                    - quantity
+                    - {property: isAmazon, label: Amazon}
+                    - {property: isEbay, label: Ebay}
+                    - {property: isWalmart, label: Walmart}
+                    -
+                        property: otherPlatform
+                        type: text
+                        help: Multiple platforms should be separated by comma. e.g. Platform X, Platform Y
+                    - message
+
+            edit:
+                title: 'Editing %%entity_label%% # %%entity_id%%'
+                fields:
+                    - {property: name, type_options:{disabled: true}}
+                    - {property: email, type_options:{disabled: true}}
+                    - {property: contactNumber, type_options:{disabled: true}}
+                    - {property: company, type_options:{disabled: true}}
+                    - {property: category, type_options:{disabled: true}}
+                    - {property: quantity, type_options:{disabled: true}}
+                    - {property: isAmazon, type_options:{disabled: true}}
+                    - {property: isEbay, type_options:{disabled: true}}
+                    - {property: isWalmart, type_options:{disabled: true}}
+                    - {property: otherPlatform, type_options:{disabled: true}}
+                    - {property: message, type_options:{disabled: true}}
+                    - {property: isActive, label:'Active'}
+            show:
+                fields:
+                    - id
+                    - name
+                    - { property: email, type: email}
+                    - { property: contactNumber, sortable: false}
+                    - { property: message, sortable: false}
+                    - company
+                    - { property: category }
+                    - { property: postedAt, format: 'M d Y' }
+                    - { property: isAmazon, label: 'Amazon' }
+                    - { property: isEbay, label: 'Ebay' }
+                    - { property: isWalmart, label: 'Walmart' }
+                    - otherPlatform
+                    - isActive

@@ -18,7 +18,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 class LoginFormController extends Controller
 {
     /**
-     * @Route("/bv/admin/login", name="admin-login")
+     * @Route("/bvusa-login", name="admin-login")
      */
     public function adminLogin(){
 
@@ -38,7 +38,7 @@ class LoginFormController extends Controller
     }
 
     /**
-     * @Route("/bv/admin/logout", name="admin-logout")
+     * @Route("/bvusa-logout", name="admin-logout")
      */
     public function adminLogout(){
         //adminLogout will not do anything. The logout method is handled by security.yml.

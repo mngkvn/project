@@ -22,6 +22,12 @@ services:
     class: AppBundle\Twig\UCWords
     tags:
       - { name : twig.extension }
+  app.doctrine.request_update:
+    class: AppBundle\DoctrineListeners\RequestUpdateListener
+    autowire: true
+    autoconfigure: true
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate }
 #    # default configuration for services in *this* file
 #    _defaults:
 #        # automatically injects dependencies in your services

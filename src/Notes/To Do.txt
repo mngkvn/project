@@ -79,5 +79,6 @@ List of files needed to be fixed for Reroutes or Not found redirections :
 Service = Dependency Injection , Controller = Get Services
 
 Add validators for login form.
+
 Favicon.ico
 Loading indicator

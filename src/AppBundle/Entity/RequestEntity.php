@@ -165,10 +165,15 @@ class RequestEntity
     private $movedBy;
 
     /**
-     * @ORM\Column(type="json_array",nullable = true)
+     * @ORM\Column(type="json_array",nullable= true)
      */
     private $closedBy;
 
+
+    /**
+     * @ORM\Column(type="json_array", nullable= true)
+     */
+    private $openedBy;
     /**
      * @Assert\Type(
      *     type="bool",
@@ -452,6 +457,23 @@ class RequestEntity
     {
         return $this->otherPlatform;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOpenedBy()
+    {
+        return $this->openedBy;
+    }
+
+    /**
+     * @param mixed $openedBy
+     */
+    public function setOpenedBy($openedBy)
+    {
+        $this->openedBy = $openedBy;
+    }
+
 
     /**
      * @param mixed $otherPlatform
