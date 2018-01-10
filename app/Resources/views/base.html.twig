@@ -25,22 +25,8 @@
     {% endblock %}
 </head>
 <body>
-<div class="container" id="logo">
-    <ul>
-    <li><a href="{{ path("photo-form") }}">Photo Form</a></li>
-    <li><a href="{{ path("video-form") }}">Video Form</a></li>
-    <li><a href="{{ path("package-design-form") }}">Package Design Form</a></li>
-    <li><a href="{{ path("product-design-form") }}">Product Design Form</a></li>
-    <li><a href="{{ path("business-to-business-form") }}">Business to Business Marketing Form</a></li>
-    <li><a href="{{ path("marketing-sales-form") }}"> Marketing Sales Form</a></li>
-    </ul>
-    <ul>
-    {% if app.user %}
-    <li><a href="{{ path("admin-logout") }}">Logout</a></li>
-    {% else %}
-    <li><a href="{{ path("admin-login") }}">Login</a></li>
-    {% endif %}
-    </ul>
+<h1> BV USA Website</h1>
+{#<div class="container" id="logo">#}
     <!-----Left Side------->
     {#{% block mainNavigation %}#}
 
@@ -66,10 +52,9 @@
                 {#<a href="{{ path('about') }}">About</a>#}
             {#</div>#}
         {#</nav>#}
-
     {#{% endblock %}#}
     {% block body %}{% endblock %}
-</div>
+{#</div>#}
 <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

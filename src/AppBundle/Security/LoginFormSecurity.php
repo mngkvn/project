@@ -127,7 +127,7 @@ class LoginFormSecurity extends AbstractFormLoginAuthenticator
         /*
          * Return to homepage if successful login
          */
-        return new RedirectResponse($this->router->generate('bvusa-admin'));
+        return new RedirectResponse($this->router->generate('easyadmin'));
     }
 
     /*

@@ -23,7 +23,7 @@ security:
               authenticators:
                 - app.admin.admin_authenticator
             logout:
-              path: /bv/admin/logout
+              path: /bvusa-logout
 
             # activate different ways to authenticate
 
