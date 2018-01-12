@@ -12,7 +12,6 @@ use AppBundle\Entity\RequestEntity;
 
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\User\User;
 
 class RequestUpdateListener
 {

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/slider.css') }}"/>
+{% endblock %}
+{% block body %}
+    <header>
+        <div class="w3-content w3-section" style="max-width: 2000px">
+            <img class="mySlides w3-animate-fading" src="{{ asset('images/index/top_slider/people_Banner.jpg') }}" alt="people banner"
+                 style="width:100%">
+            <img class="mySlides w3-animate-fading" src="{{ asset('images/index/top_slider/light_big-banner.jpg') }}" alt="light banner"
+                 style="width:100%">
+            <img class="mySlides w3-animate-fading" src="{{ asset('images/index/top_slider/BVusa_Banner1.jpg') }}" alt="bvUSA banner"
+                 style="width:100%">
+        </div>
+        <div class="retailer"><img src="{{ asset('images/index/top_slider/retailer-banner.png') }}" alt="our affiliates"></div>
+    </header>
+{% endblock %}

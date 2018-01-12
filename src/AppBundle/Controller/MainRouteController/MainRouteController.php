@@ -18,7 +18,7 @@ class MainRouteController extends Controller
      * @Route("/", name="homepage")
      */
     public function renderHomepage(){
-        return $this->render("base.html.twig");
+        return $this->render("MainView/HomePageView.html.twig");
     }
 
     /**

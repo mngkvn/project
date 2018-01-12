@@ -1,66 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
     <title> BV USA {% block title %} LLC {% endblock %}</title>
-    <meta name="Specialize in photo, video, box and product design consultation."
-          content="Specialize in photo, video, box and product design consultation.">
-    <meta name="BV USA LLC" content="Wojciech Wojy Mietka and Kevin Otto">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="author" content="Wojciech Wojy Mietka and Kevin Otto">
+    <meta name="description"
+          content="BV USA LLC is an American company that at its core is tride and true to the very belief that this country was founded on. Hard work, perseverance, and the pursuit of liberty made us what we are today. A strong core of 50 members that together, they are foundation of this companies beliefs and virtue.">
+    <meta name="keywords" content="">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    {% block fonts %}
-        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-    {% endblock %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-          crossorigin="anonymous"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"#}
+          {#integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"#}
+          {#crossorigin="anonymous"/>#}
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}"/>
+    {#<link rel="stylesheet" href="{{ asset('css/slider.css') }}"/>#}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/navigationbar.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('fonts/fonts-awesome/css/font-awesome.min.css') }}" />
     {% block stylesheets %}
-        {#<link rel="stylesheet" href="{{ asset('css/normalize.css') }}"/>#}
-        {#<link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}"/>#}
-        {#<link rel="stylesheet" href="{{ asset('css/animate.css') }}"/>#}
-        {#<link rel="stylesheet" href="{{ asset('css/skeleton.css') }}"/>#}
-        {#<link rel="stylesheet" href="{{ asset('css/navigationbar.css') }}"/>#}
-        {#<link rel="stylesheet" href="{{ asset('css/slider.css') }}"/>#}
-        {#<link rel="stylesheet" href="{{ asset('css/style.css') }}"/>#}
     {% endblock %}
 </head>
 <body>
-<h1> BV USA Website</h1>
-{#<div class="container" id="logo">#}
+<header>
     <!-----Left Side------->
-    {#{% block mainNavigation %}#}
+    <div class="container" id="logo">
+        <div class="four columns">
+            <a href="{{ path('homepage') }}"><img src="{{ asset('Personal-web-LOGO.png') }}" alt="home logo"></a>
+        </div>
+        <!------Right Side----->
+        <div class="container">
+            <div class="navbar eight columns">
+                <a href="{{ path('contact') }}">Contact</a>
+                <a href="{{ path('about') }}">About</a>
+                <div class="dropdown" id="topnav">
+                    <button class="dropbtn" style="padding-top: 10px">Services
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{{ path('business-to-business') }}"><strong>B2B</strong> Marketing &amp; Sales</a>
+                        <a href="{{ path('marketing-sales') }}">Marketing &amp; Sales</a>
+                        <a href="{{ path('photo-and-video') }}">Photo &amp; Video Production</a>
+                        <a href="{{ path('package-design') }}">Package Design</a>
+                        <a href="{{ path('product-design') }}">Product Design</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-        {#<div class="four columns">#}
-            {#<a href="{{ path('homepage') }}"><img src="" alt="BV"></a>#}
-        {#</div>#}
-        {#<!------Right Side----->#}
-        {#<nav>#}
-            {#<div class="navbar eight columns">#}
-                {#<div class="dropdown" id="topnav">#}
-                    {#<button class="dropbtn" style="padding-top: 10px">Services#}
-                        {#<i class="fa fa-caret-down"></i>#}
-                    {#</button>#}
-                    {#<div class="dropdown-content">#}
-                        {#<a href="{{ path('business-to-business') }}"><strong>B2B</strong> Marketing &amp; Sales</a>#}
-                        {#<a href="{{ path('marketing-sales') }}">Marketing &amp; Sales</a>#}
-                        {#<a href="{{ path('photo-and-video') }}">Photo &amp; Video Production</a>#}
-                        {#<a href="{{ path('package-design') }}">Package Design</a>#}
-                        {#<a href="{{ path('product-design') }}">Product Design</a>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<a href="{{ path('contact') }}">Contact</a>#}
-                {#<a href="{{ path('about') }}">About</a>#}
-            {#</div>#}
-        {#</nav>#}
-    {#{% endblock %}#}
-    {% block body %}{% endblock %}
-{#</div>#}
-<script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous">
-</script>
+
+{% block body %}{% endblock %}
+
+<footer style="margin-top: 100px;">
+
+    <div class="container">
+        <div class="row twelve columns">
+            <p class="address" style="font-size: 15px"><a href="{{ path('homepage') }}"><img
+                            src="{{ asset('Personal-web-LOGO.png') }}"
+                            width="55px"></a>-<strong>Serving
+                    Your Business on a Personal Level</strong></p>
+
+            <p class="location" style=" font-size: 12px"><strong>LOCATION:</strong>1680 Carmen Dr, Elk Grove Village, IL
+                60007<a href="tel:1-847-235-6318" style="text-decoration: none;">1-847-235-6318</a></p>
+
+            <p class="copyright" style="font-size: 10px"> &copy; All RIGHTS RESERVED. BVUSA 2018.</p>
+        </div>
+
+
+        <div class="container">
+            <div class="row twelve column">
+
+                <!----------Socials----->
+                <ul class="social">
+                    <li class="facebook"><a href="https://www.facebook.com/BV-International-1046075235460960"><i
+                                    class="fa fa-facebook-square fa-lg"> </i></a></li>
+
+                    <li class="facebook"><a href="http://www.bvsecurity.com/"><i class="fa fa-shield fa-lg"> </i></a>
+                    </li>
+
+                    <li class="youtube"><a href="https://www.youtube.com/channel/UCocgySFzF_jlJziZGLSXlAA"><i
+                                    class="fa fa-youtube-square fa-lg"> </i></a></li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+<script type="text/javascript">
+
+    // Initialize popup as usual
+    $('.image-link').magnificPopup({
+        type: 'image',
+        mainClass: 'mfp-with-zoom', // this class is for CSS animation below
+
+        zoom: {
+            enabled: true, // By default it's false, so don't forget to enable it
+
+            duration: 300, // duration of the effect, in milliseconds
+            easing: 'ease-in-out', // CSS transition easing function
+
+            // The "opener" function should return the element from which popup will be zoomed in
+            // and to which popup will be scaled down
+            // By defailt it looks for an image tag:
+            opener: function (openerElement) {
+                // openerElement is the element on which popup was initialized, in this case its <a> tag
+                // you don't need to add "opener" option if this code matches your needs, it's defailt one.
+                return openerElement.is('img') ? openerElement : openerElement.find('img');
+            }
+        }
+
+    });
+
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) {
+            myIndex = 1
+        }
+        x[myIndex - 1].style.display = "block";
+        setTimeout(carousel, 9000);
+    }
+
+</script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

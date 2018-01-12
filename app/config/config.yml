@@ -130,7 +130,7 @@ easy_admin:
                     - {property: isWalmart, type_options:{disabled: true}}
                     - {property: otherPlatform, type_options:{disabled: true}}
                     - {property: message, type_options:{disabled: true}}
-                    - {property: isActive, label:'Active'}
+                    - {property: isActive, label: 'Active'}
             show:
                 fields:
                     - id
