@@ -41,7 +41,7 @@
 .contacttext {font-size: 1.5em }
 
 .aboutme {
-	font-family:"Helvetica Neue" "sans-serif";
+	font-family:"Helvetica","Sans-Serif";
 	color: #050505;
 	background-color: #FFFFFF;
 	}
@@ -422,9 +422,9 @@ there.
 	.contact {font-size: 1em;}
 	#google {font-size: 5em;}
 	.dropdown-content {font-size: .8em;}
-	
-	#aboutmemarketing{font-size: .6em;
-						}
+
+	/*#aboutmemarketing{font-size: .6em;*/
+						/*}*/
 	#whatwedo{font-size: .9em;
 				margin-bottom: -25px;
 				text-align: center;}

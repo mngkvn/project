@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <style>
         textarea.js-auto-size {
             box-sizing: border-box;
@@ -46,13 +47,6 @@
 {% block body %}
     <div class="container">
     {{ form_start(form) }}
-        {#
-            - If an admin is logged in proceed to render <legend> element. Anonymous should not see any <legend> element.
-        #}
-        {% if requestMethod == 'editing' %}
-                <legend class="h4"> Editing {{ app.request.attributes.get('_route')|replace({'-edit':''})|replace({'-':' '})|ucwords }} # {{ requestData.id }}</legend>
-        {% endif %}
-
         {#
             FIRST ROW : NAME AND COMPANY
         #}

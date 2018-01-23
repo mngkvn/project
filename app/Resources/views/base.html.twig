@@ -9,17 +9,19 @@
     <meta name="keywords" content="">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"#}
-          {#integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"#}
-          {#crossorigin="anonymous"/>#}
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/skeleton.css') }}"/>
-    {#<link rel="stylesheet" href="{{ asset('css/slider.css') }}"/>#}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/navigationbar.css') }}"/>
     <link rel="stylesheet" href="{{ asset('fonts/fonts-awesome/css/font-awesome.min.css') }}" />
+    <style>
+        #mainNavigation button{
+            font:inherit;
+            font-size: 11px;
+        }
+    </style>
     {% block stylesheets %}
     {% endblock %}
 </head>
@@ -32,7 +34,7 @@
         </div>
         <!------Right Side----->
         <div class="container">
-            <div class="navbar eight columns">
+            <div class="navbar eight columns" id="mainNavigation">
                 <a href="{{ path('contact') }}">Contact</a>
                 <a href="{{ path('about') }}">About</a>
                 <div class="dropdown" id="topnav">
@@ -61,11 +63,11 @@
         <div class="row twelve columns">
             <p class="address" style="font-size: 15px"><a href="{{ path('homepage') }}"><img
                             src="{{ asset('Personal-web-LOGO.png') }}"
-                            width="55px"></a>-<strong>Serving
+                            width="55px"></a><strong>Serving
                     Your Business on a Personal Level</strong></p>
 
             <p class="location" style=" font-size: 12px"><strong>LOCATION:</strong>1680 Carmen Dr, Elk Grove Village, IL
-                60007<a href="tel:1-847-235-6318" style="text-decoration: none;">1-847-235-6318</a></p>
+                60007 | <strong>Phone:</strong> 1-847-235-6318</p>
 
             <p class="copyright" style="font-size: 10px"> &copy; All RIGHTS RESERVED. BVUSA 2018.</p>
         </div>
@@ -96,49 +98,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
-<script type="text/javascript">
-
-    // Initialize popup as usual
-    $('.image-link').magnificPopup({
-        type: 'image',
-        mainClass: 'mfp-with-zoom', // this class is for CSS animation below
-
-        zoom: {
-            enabled: true, // By default it's false, so don't forget to enable it
-
-            duration: 300, // duration of the effect, in milliseconds
-            easing: 'ease-in-out', // CSS transition easing function
-
-            // The "opener" function should return the element from which popup will be zoomed in
-            // and to which popup will be scaled down
-            // By defailt it looks for an image tag:
-            opener: function (openerElement) {
-                // openerElement is the element on which popup was initialized, in this case its <a> tag
-                // you don't need to add "opener" option if this code matches your needs, it's defailt one.
-                return openerElement.is('img') ? openerElement : openerElement.find('img');
-            }
-        }
-
-    });
-
-    var myIndex = 0;
-    carousel();
-
-    function carousel() {
-        var i;
-        var x = document.getElementsByClassName("mySlides");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-        myIndex++;
-        if (myIndex > x.length) {
-            myIndex = 1
-        }
-        x[myIndex - 1].style.display = "block";
-        setTimeout(carousel, 9000);
-    }
-
-</script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

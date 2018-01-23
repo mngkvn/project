@@ -25,12 +25,7 @@ class RequestFormController extends Controller
 {
 
     /**
-     * @Route("photo/form", name = "photo-form")
-     * @Route("video/form", name = "video-form")
-     * @Route("business-to-business/form", name = "business-to-business-form")
-     * @Route("marketing-sales/form", name = "marketing-sales-form")
-     * @Route("package-design/form", name = "package-design-form")
-     * @Route("product-design/form", name = "product-design-form")
+     * @Route("/contact", name = "contact")
      */
     public function renderRequestForm(Request $request)
     {

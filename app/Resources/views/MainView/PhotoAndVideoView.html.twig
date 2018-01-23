@@ -1,5 +1,62 @@
 {% extends 'base.html.twig' %}
 {% block title %} | Photo and Video {% endblock %}
 {% block body %}
-    <h1>Photo and Video Production</h1>
+
+
+    <div class="parallaxp" id="photoTOPbanner"></div>
+
+
+
+
+
+
+
+
+    <!---------Photo Production------------->
+
+    <div class="container" style="margin-top: 200px;text-align:center">
+        <div class="row">
+            <div class="four columns animated bounce" id="camera"> <img src="{{ asset("images/services/photo/camera.png") }}" alt="camera"> </div>
+            <div class="abutme eight columns">
+                <h3 style="margin-top: 100px">Photo Production</h3>
+                <p style="font-size:1.25em"><strong>BV USA LLC</strong>is an American company that at its core is tride and true to the very belief that this country was founded on. Hard work, perseverance, and the pursuit of liberty made us what we are today. A strong core of 50 members that together, they are foundation of this companies beliefs and virtue.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!---------360 Production------------->
+
+    <div class="container" id="aboutme" style="margin-top: 200px; margin-bottom: 200px;">
+        <div class="row">
+            <div class="four columns"> <img src="{{ asset("images/services/photo/Security-Cam_For-Robert.gif") }}" alt="rotating gif"> </div>
+            <div class="abutme six columns">
+                <h3 style="margin-top: 100px">Full 360 Photo Production</h3>
+                <p style="font-size: 1.25em;"><strong>BV USA LLC</strong> is now able to create full 360 non backgound .gif files for any product. A very crucial and important step forward for any company looking to upgrade and distribute their products with larger scale retailers. </p>
+            </div>
+            <div class="two columns" style="margin-top: 100px;" id="photobench"> <img src="{{ asset("images/services/photo/PhotoBench.png") }}" alt="photo bench"> </div>
+        </div>
+    </div>
+
+
+
+    <div class="parallaxk" id="photolabparallax"></div>
+
+
+    <!----------------Video Prduction Section--------------->
+
+
+    <div class="container" id="whatwedo">
+        <div class="row">
+            <div class="abutme eight columns" id="whatwedovideo">
+                <h2>Video Production</h2>
+                <p style="font-size:1.25em;"><strong>BV USA LLC</strong> is here to be your guiding hand with video production. We can offer lasting knowledge, and act as lead development role for any future video project your company may need assistance with. </p>
+
+            </div>
+            <div class="four columns" id="videocamera" style="margin-bottom: 300px"> <img src="{{ asset("images/services/photo/video_camera.png") }}" alt="video camera"> </div>
+        </div>
+    </div>
+
 {% endblock %}
