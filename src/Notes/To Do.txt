@@ -82,5 +82,6 @@ Add validators for login form.
 
 META KEYWORDS
 
+REMOVE ADMIN CHECK ON REQUEST FORM AS IT IS HANDLED BY EASY ADMIN NOW.
 Favicon.ico
 Loading indicator

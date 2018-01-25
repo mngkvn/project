@@ -118,7 +118,7 @@ class RequestForm extends AbstractType
                         "label" => $options["username"] ? "Save" : "Submit",
                         "attr" => [
                             "formnovalidate" => "formnovalidate",
-                            "class" => "btn btn-primary"
+                            "class" => "btn btn-primary btn-submit",
                         ]
                     ]);
                 }
