@@ -55,8 +55,15 @@
                 <p style="font-size:1.25em;"><strong>BV USA LLC</strong> is here to be your guiding hand with video production. We can offer lasting knowledge, and act as lead development role for any future video project your company may need assistance with. </p>
 
             </div>
-            <div class="four columns" id="videocamera" style="margin-bottom: 300px"> <img src="{{ asset("images/services/photo/video_camera.png") }}" alt="video camera"> </div>
+            <div class="four columns" id="videocamera" style="margin-bottom: 100px"> <img src="{{ asset("images/services/photo/video_camera.png") }}" alt="video camera"> </div>
         </div>
     </div>
+
+    {% if not form.vars.valid %}
+        <script>
+            window.location.hash = 'contact-form';
+        </script>
+    {% endif %}
+    {{ include('FormView/RequestFormView.html.twig') }}
 
 {% endblock %}

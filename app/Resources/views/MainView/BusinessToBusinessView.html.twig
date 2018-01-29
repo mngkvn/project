@@ -2,7 +2,6 @@
 
 {% block title %} | Business to Business {% endblock %}
 {% block body %}
-    <main>
         <div class="container">
             <div class="row"> <img src="{{ asset('images/services/marketing_sales/B2Bvideo.gif') }}" alt="Marketing Video" style="width: 100%;height:100%;"> </div></div>
 
@@ -83,8 +82,15 @@
 
                 <div class="abutme six columns">
                     <h2>What to Expect</h2>
-                    <p style="font-size:1.25em;">BV USA LLC will work with you from the first point of contact to seeing your business soundly successful <strong> – our goal is 100% satisfaction.</strong> Whether you need assistance with photo and video production, product and packaging development, or promoting an existing product into a more successful one, we’re sure to provide a level of service and results that you’ll be happy with, all at a competitive price. If you have any questions about our services or what we can help with, please contact us at the email link below. </p>
+                    <p style="font-size:1.25em;">BV USA LLC will work with you from the first point of contact to seeing your business soundly successful <strong> – our goal is 100% satisfaction.</strong> Whether you need assistance with photo and video production, product and packaging development, or promoting an existing product into a more successful one, we’re sure to provide a level of service and results that you’ll be happy with, all at a competitive price.</p>
 
                 </div><div class="two columns"></div></div></div>
-    </main>
+
+        {% if not form.vars.valid %}
+            <script>
+                window.location.hash = 'contact-form';
+            </script>
+        {% endif %}
+        {{ include('FormView/RequestFormView.html.twig') }}
+
 {% endblock %}

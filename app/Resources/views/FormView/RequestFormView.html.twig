@@ -1,77 +1,9 @@
-{% extends 'base.html.twig' %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset("css/twbs.css") }}"/>
-    <style>
-        textarea.js-auto-size {
-            box-sizing: border-box;
-            min-height: 60px;
-            overflow-x: hidden; /* for Firefox (issue #5) */
-        }
-
-        .bgDisabled {
-            background-color: #eee;
-        }
-
-        .bootstrap form{
-            padding:25px;
-            border:1px solid #eee;
-        }
-
-        .bootstrap .btn-submit{
-            display:block;
-            width:100%;
-            font-weight:600;
-            font-size: 15px !important;
-        }
-
-        .bootstrap input,select,textarea{
-            font-size:14px !important;
-        }
-    </style>
-{% endblock %}
-
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/autosize.js') }}"></script>
-    <script>
-        $.noConflict();
-        jQuery(document).ready(function () {
-            /*
-                Remove invalid class if the user focuses on the invalid element.
-            */
-            jQuery(".is-invalid").on('focus', function () {
-                jQuery(this).removeClass('is-invalid');
-            });
-
-            /*
-                Initiate js-auto-size for textarea
-            */
-            jQuery('textarea.js-auto-size').textareaAutoSize();
-
-            /*
-                 Disabled elements will be enabled before submitting the form to the server.
-             */
-            jQuery("form").bind("submit", function () {
-                jQuery(this).find("input,textarea,select").addClass('bgDisabled').removeAttr('disabled');
-            })
-        });
-    </script>
-{% endblock %}
-
-{% block body %}
-
-    <div class="bootstrap">
+ <div class="bootstrap">
         <div class="bootstrapHTML">
             <div class="bootstrapBody">
 
                 <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h1 style="font-size:30px">Contact Us Form</h1>
-                        </div>
-                    </div>
+                    <h1 style="margin-top:150px;text-align:center" id="contact-form">If you have any questions or requests, please fill in the form below.</h1>
                     {{ form_start(form) }}
                     {#
                         FIRST ROW : NAME AND COMPANY
@@ -340,4 +272,3 @@
             </div>
         </div>
     </div>
-{% endblock %}

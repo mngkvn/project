@@ -35,4 +35,11 @@
             </div>
         </div>
     </div>
+
+    {% if not form.vars.valid %}
+        <script>
+            window.location.hash = 'contact-form';
+        </script>
+    {% endif %}
+    {{ include('FormView/RequestFormView.html.twig') }}
 {% endblock %}

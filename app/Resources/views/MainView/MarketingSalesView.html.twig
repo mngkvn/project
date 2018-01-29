@@ -55,6 +55,13 @@
         </div>
     </div>
 
+    {% if not form.vars.valid %}
+        <script>
+            window.location.hash = 'contact-form';
+        </script>
+    {% endif %}
+    {{ include('FormView/RequestFormView.html.twig') }}
+
     <div style="margin-bottom: 200px;">
         <div class="twelve columns">
             <img src="{{ asset("images/services/marketing/skyline.png") }}">

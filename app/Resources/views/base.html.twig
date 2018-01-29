@@ -16,10 +16,36 @@
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/navigationbar.css') }}"/>
     <link rel="stylesheet" href="{{ asset('fonts/fonts-awesome/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset("css/twbs.css") }}"/>
     <style>
         #mainNavigation button{
             font:inherit;
             font-size: 11px;
+        }
+        .bootstrap form{
+            padding:25px;
+            border:1px solid #eee;
+        }
+
+        .bootstrap .btn-submit{
+            display:block;
+            width:100%;
+            font-weight:600;
+            font-size: 15px !important;
+        }
+
+        .bootstrap input,select,textarea{
+            font-size:14px !important;
+        }
+
+        .bootstrap textarea.js-auto-size {
+            box-sizing: border-box;
+            min-height: 60px;
+            overflow-x: hidden; /* for Firefox (issue #5) */
+        }
+
+        .bootstrap .bgDisabled {
+            background-color: #eee;
         }
     </style>
     {% block stylesheets %}
@@ -98,6 +124,30 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="{{ asset('js/jquery.magnific-popup.js') }}"></script>
+<script src="{{ asset('js/autosize.js') }}"></script>
+<script>
+    $.noConflict();
+    jQuery(document).ready(function () {
+        /*
+            Remove invalid class if the user focuses on the invalid element.
+        */
+        jQuery(".is-invalid").on('focus', function () {
+            jQuery(this).removeClass('is-invalid');
+        });
+
+        /*
+            Initiate js-auto-size for textarea
+        */
+        jQuery('textarea.js-auto-size').textareaAutoSize();
+
+        /*
+             Disabled elements will be enabled before submitting the form to the server.
+         */
+        jQuery("form").bind("submit", function () {
+            jQuery(this).find("input,textarea,select").addClass('bgDisabled').removeAttr('disabled');
+        })
+    });
+</script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

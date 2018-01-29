@@ -24,10 +24,10 @@ class PathService extends Controller
         preg_match("/[A-Za-z\-0-9]{1,50}/",$path,$matches);
         return $matches[0];
     }
-    //this returns the route name not the actual path ex. /photo/form -> photo-request-success.
+    //this returns the route name not the actual path ex. /photo/form -> photo-request-sent.
      public function pathRequestSuccess($path){
          $category = $this->pathGetCategory($path);
-         return $category.'-request-success';
+         return $category.'-request-sent';
      }
      //this will set the "name of request link" for the list view ex: /photo/list -> photo-view
     public function pathSetRequestLink($path){
