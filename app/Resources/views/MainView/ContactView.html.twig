@@ -2,11 +2,78 @@
 {% block stylesheets %}
 
 {% endblock %}
+
+{% block javascripts %}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKJePr0mMsXXago50IssY3aZ4Yw-Yx4aU&callback=initMap">
+    </script>
+    <script>
+        function initMap() {
+            var uluru = {lat: 42.002493, lng: -87.937044};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: uluru
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
+    </script>
+{% endblock %}
 {% block title %} | Contact {% endblock %}
 {% block body %}
-    <div class="animated fadeInDown" id="photobanner">
+    <div id="photobanner">
         <div class="twelve columns">
             <img src="{{ asset("images/services/photo/Production-Photo-Banner.jpg") }}" alt="photo room photo">
         </div>
     </div>
+    <div class="container">
+        <div class="bootstrap" id="contact-container">
+            <div id="contact-location">
+                <h1>BV Google Map Location</h1>
+                <div class="row">
+                    <div class="col-sm-8 col-md-8 col-lg-8" id="map-container">
+                        <div id="map">
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <h1 id="address-header">Illinois Location</h1>
+                        <address>
+                            <br />
+                            1680 Carmen Dr,
+                            <br />
+                            Elk Grove Village,
+                            <br />
+                            IL 60007
+                            <br />
+                            Tel:1-847-235-6318
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="affiliates" style="margin-top: 200px">
+            <div class="row">
+                <div class="abutme twelve columns" style="text-align: center">
+                    <h3>Our Other Affiliates</h3>
+                    <p style="font-size: 1.25em;"><strong>BV USA LLC</strong> works with numerous entities and partnerships and continues to be a growing and branching business model.</p>
+                    <p style="font-size: 1.3em;">
+                        <i class="fa fa-envelope" aria-hidden="true"></i><a style="text-decoration:none; color: #A29D8C;" href="mailto:Sales@bvsecurity.net?Subject=Hello%20BV" target="_top">OUR GENERAL EMAIL</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-th-list" aria-hidden="true"></i>  <a style="text-decoration:none; color: #A29D8C;"href="https://www.facebook.com/BV-International-646075235460960/">BV INTERNATIONAL</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-grav" aria-hidden="true"></i>    <a style="text-decoration:none; color: #A29D8C;"href="http://www.bvsecurity.com/">BV SECURITY</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-star" aria-hidden="true"></i>  <a style="text-decoration:none; color: #A29D8C;"href="http://www.ibera.info/">IBERA</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

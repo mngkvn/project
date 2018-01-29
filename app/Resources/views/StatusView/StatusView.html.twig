@@ -2,10 +2,10 @@
 
 {% block body %}
     <script>
-        window.location.hash.replace('#','');
-        window.location.hash = '';
+        history.pushState("", document.title, window.location.pathname
+            + window.location.search);
     </script>
     <div class="container">
-       <h3 style="text-align:center; margin-top:100px">We received your {{ category }} request and we will contact you as soon as possible.</h3>
+       <h3 class="status">We received your {{ category }} request and we will contact you as soon as possible.</h3>
     </div>
 {% endblock %}

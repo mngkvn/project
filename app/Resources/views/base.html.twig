@@ -22,6 +22,11 @@
             font:inherit;
             font-size: 11px;
         }
+
+        .status{
+            text-align: center;
+            margin-top:100px;
+        }
         .bootstrap form{
             padding:25px;
             border:1px solid #eee;
@@ -46,6 +51,55 @@
 
         .bootstrap .bgDisabled {
             background-color: #eee;
+        }
+
+        button[type='submit']{
+            background-color:#08873f !important;
+        }
+
+        button[type='submit']:hover,
+        button[type='submit']:active
+        {
+            background-color:#077736 !important;
+        }
+
+        #login-container{
+            font-size:14px;
+            position:relative;
+            left:25%
+        }
+        #login-container button{
+            font-size:18px
+        }
+
+
+        #contact-container{
+            position:relative;
+            top:100px;
+        }
+
+        #map-container{
+            border-right:1px solid #ddd
+        }
+
+        #contact-container h1{
+            font-size:3em;
+        }
+
+        address{
+            font-size: 1.5em;
+        }
+
+        #login-header{
+            font-size:3em;
+            margin-top:100px;
+        }
+        #login-form{
+            margin:0;padding:0
+        }
+
+        #login-form form{
+            padding-right:38px;
         }
     </style>
     {% block stylesheets %}

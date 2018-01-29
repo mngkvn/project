@@ -15,8 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class StatusController extends Controller
 {
     /**
-     * @Route("photo-request-sent", name="photo-request-sent")
-     * @Route("video-request-sent", name="video-request-sent")
+     * @Route("photo-and-video-request-sent", name="photo-and-video-request-sent")
      * @Route("business-to-business-request-sent", name="business-to-business-request-sent")
      * @Route("marketing-sales-request-sent", name="marketing-sales-request-sent")
      * @Route("package-design-request-sent", name="package-design-request-sent")
